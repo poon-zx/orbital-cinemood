@@ -1,61 +1,28 @@
 import React, {useState} from 'react';
-import axios from 'axios';
 import logo from '../images/logo.png';
+import '../App.css';
+import { Auth } from '@supabase/auth-ui-react'
+import { createClient } from '@supabase/supabase-js'
+import {ThemeSupa,} from '@supabase/auth-ui-shared'
+import { Container } from "@mui/material";
 
-export const Login = (props) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+const supabase = createClient(
+  'https://ccecaffoxnxnahwfcpcy.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjZWNhZmZveG54bmFod2ZjcGN5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODQ1NjY1MTAsImV4cCI6MjAwMDE0MjUxMH0.-W7IPp668Pp4uT5ZwzAawRU7fJYj20_6MXGOm06VDgA'
+)
+const App = () => (
+  <Container maxWidth="xs" sx={{ height: "100vh", justifyContent: "center" }}>
+    <img src={logo} alt="Logo" height="80"/>
+    <Auth
+      supabaseClient={supabase}
+      className='App'
+      appearance={{ 
+        theme: "dark" ,
+      button:{background:'red'}}}
+      providers={[]}
+    />
+  </Container>
+)
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post('http://localhost:3000/api/login', {
-        email,
-        password,
-      });
-  
-      // Handle successful login response
-      console.log(response.data);
-    } catch (error) {
-      // Handle login error
-      console.error(error);
-    }
-  };
-
-  return (
-    <div className="form-container"> 
-        <img src={logo} alt="Logo" height="80"/>
-        <h2>Login</h2>
-        <form className="login-form" onSubmit={handleSubmit}>
-            <label>Email:</label>
-            <input
-                type="email"
-                value={email}
-                onChange={handleEmailChange}
-                placeholder="Enter Email"
-                required/>
-
-            <label>Password:</label>
-            <input
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-                placeholder="Enter Password"
-                required/>
-            <button type="submit">Login</button>
-        </form>
-        <button className="link-btn" onClick={() => props.onFormSwitch('register')}> Don't have an account? Register here.</button>
-    </div>
-  );
-};
-
-export default Login;
+export default App;
