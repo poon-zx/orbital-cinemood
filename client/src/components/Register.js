@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import logo from '../images/logo.png';
 
-const Register = () => {
+const Register = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -23,29 +24,28 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Register</button>
-      </form>
+    <div className="form-container"> 
+        <img src={logo} alt="Logo" height="80"/>
+        <h2>Register</h2>
+        <form className="register-form" onSubmit={handleSubmit}>
+            <label>Email:</label>
+            <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder= "Enter Email"
+                required/>
+
+            <label>Password:</label>
+            <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder= "Enter Password"
+                required/>
+            <button type="submit">Register</button>
+        </form>
+        <button className="link-btn" onClick={() => props.onFormSwitch('login')}> Already have an account? Login here.</button>
     </div>
   );
 };

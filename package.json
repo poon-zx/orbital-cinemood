@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "bootstrap": "^5.2.3",
     "mongoose": "^7.1.1",
     "react-router-dom": "^6.11.1"
   }
