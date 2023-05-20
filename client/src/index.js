@@ -2,7 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAtOJOsuZD9GYImdN-WN8t1AW1YphdW1WQ",
+  authDomain: "cinemood-ddcb5.firebaseapp.com",
+  projectId: "cinemood-ddcb5",
+  storageBucket: "cinemood-ddcb5.appspot.com",
+  messagingSenderId: "832612297119",
+  appId: "1:832612297119:web:194c9eb9b56892414e35aa",
+  measurementId: "G-DPJ8GEEYNS"
+};
+
+const app = initializeApp(firebaseConfig);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -11,7 +23,4 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
