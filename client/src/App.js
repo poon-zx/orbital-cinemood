@@ -1,28 +1,26 @@
-import React, {useState} from 'react';
-import logo from './images/logo.png';
+import React, {useState, useEffect} from 'react';
 import './App.css';
-import { Auth } from '@supabase/auth-ui-react'
-import { createClient } from '@supabase/supabase-js'
-import {ThemeSupa,} from '@supabase/auth-ui-shared'
-import { Container } from "@mui/material";
+import Login from './components/Login.js';
+import Register from './components/Register.js';
+import { CssBaseline } from "@mui/material";
+import { supabase } from "./components/Login.js";
+  
+  export default function App() {
+    const [session, setSession] = useState(null);
+  
+    useEffect(() => {
+      const subscription = supabase.auth.onAuthStateChange((_event, session) => {
+        setSession(session);
+      });
+      return () => subscription.data.subscription.unsubscribe();
+    }, []);
+  
+    return (
+      <div className="App">
+        <CssBaseline />
+        {session ? <Register /> : <Login />}
+      </div>
+    );
+  }
+  
 
-
-const supabase = createClient(
-  'https://ccecaffoxnxnahwfcpcy.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjZWNhZmZveG54bmFod2ZjcGN5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODQ1NjY1MTAsImV4cCI6MjAwMDE0MjUxMH0.-W7IPp668Pp4uT5ZwzAawRU7fJYj20_6MXGOm06VDgA'
-)
-const App = () => (
-  <Container maxWidth="xs" sx={{ height: "100vh", justifyContent: "center" }}>
-    <img src={logo} alt="Logo" height="80"/>
-    <Auth
-      supabaseClient={supabase}
-      className='App'
-      appearance={{ 
-        theme: "dark" ,
-      button:{background:'red'}}}
-      providers={[]}
-    />
-  </Container>
-)
-
-export default App;

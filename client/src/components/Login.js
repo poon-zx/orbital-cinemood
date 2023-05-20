@@ -7,22 +7,20 @@ import {ThemeSupa,} from '@supabase/auth-ui-shared'
 import { Container } from "@mui/material";
 
 
-const supabase = createClient(
+export const supabase = createClient(
   'https://ccecaffoxnxnahwfcpcy.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjZWNhZmZveG54bmFod2ZjcGN5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODQ1NjY1MTAsImV4cCI6MjAwMDE0MjUxMH0.-W7IPp668Pp4uT5ZwzAawRU7fJYj20_6MXGOm06VDgA'
 )
-const App = () => (
+const Login = () => (
   <Container maxWidth="xs" sx={{ height: "100vh", justifyContent: "center" }}>
     <img src={logo} alt="Logo" height="80"/>
     <Auth
       supabaseClient={supabase}
       className='App'
-      appearance={{ 
-        theme: "dark" ,
-      button:{background:'red'}}}
+      appearance={{ theme: ThemeSupa }}
       providers={[]}
     />
   </Container>
 )
 
-export default App;
+export default Login;
