@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import Login from './components/Login.js';
-import Register from './components/Register.js';
+import Homepage from './components/Homepage/Homepage.js';
 import { CssBaseline } from "@mui/material";
 import { supabase } from "./components/Login.js";
   
@@ -18,7 +18,7 @@ import { supabase } from "./components/Login.js";
     return (
       <div className="App">
         <CssBaseline />
-        {session ? <Register /> : <Login />}
+        {session ? <Homepage /> : <Login />}
       </div>
     );
   }
