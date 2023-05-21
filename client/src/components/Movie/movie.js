@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react"
 import "./movie.css"
+import defaultImg from "../../images/default-avatar.png"
 import { useParams } from "react-router-dom"
 import {
     Card,
@@ -81,17 +82,33 @@ const Movie = () => {
             </div>
             <div className="movie__heading">Reviews</div>
             <Card className="movie__review">
-            {currentMovieReview ? currentMovieReview.results.map(review => 
-                <div className="movie__card">
-                    <CardImg className="movie_reviewAvatar" src={`https://image.tmdb.org/t/p/original${review ? review.author_details.avatar_path : ""}`} />
+            {currentMovieReview &&
+                currentMovieReview.results.map((review) => (
+                <div className="movie__card" key={review.id}>
+                    <CardImg
+                    className="movie_reviewAvatar"
+                    src={review.author_details.avatar_path ? (review.author_details.avatar_path.startsWith("/https:") ? review.author_details.avatar_path.substring(1) : 
+                        
+                        `https://image.tmdb.org/t/p/original${
+                        review.author_details.avatar_path}`) : defaultImg}
+                    />
                     <div className="movie__review_left">
-                        <CardSubtitle tag="h6" className="movie__reviewAuthor">{review.author}</CardSubtitle>
-                        <CardSubtitle tag="h6" className="movie__reviewRating">{review.author_details.rating ? review.author_details.rating + "/10" : ""}</CardSubtitle>
-                        <CardText className="movie__reviewContent">{review.content}</CardText>
-                        <CardText className="movie__reviewDate">{review.updated_at}</CardText>
+                    <CardSubtitle tag="h6" className="movie__reviewAuthor">
+                        {review.author}
+                    </CardSubtitle>
+                    {review.author_details.rating && (
+                        <CardSubtitle tag="h6" className="movie__reviewRating">
+                        {review.author_details.rating}/10
+                        </CardSubtitle>
+                    )}
+                    <CardText className="movie__reviewContent">{review.content}</CardText>
+                    <CardText className="movie__reviewDate">{review.updated_at}</CardText>
                     </div>
                 </div>
-                    ) : ""}
+                ))}
+            {currentMovieReview && currentMovieReview.results.length === 0 && (
+                <div className="movie__card">No reviews available.</div>
+            )}
             </Card>
         </div>
     )

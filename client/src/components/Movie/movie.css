@@ -145,42 +145,61 @@
     width: 85%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
     margin-bottom: 4rem;
-    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.4);
-    padding: 20px;
-}
-
-.movie__card {
-    width: 70vw;
-    margin: auto;
-    margin-bottom: 5px;
-    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+    padding: 20px;
+  }
+  
+  .movie__card {
     display: flex;
-}
-
-.movie_reviewAvatar {
-    border-radius: 90px;
-    width: 90px;
-    height: 90px;
-    margin: 2px;
-    position: relative;
-}
-
-h6 {
-    font-size: larger;
-    font-weight: 700;
+    margin-bottom: 10px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  
+  .movie_reviewAvatar {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
     margin-right: 10px;
   }
-
-.movie__reviewDate {
-    font-size: 0.8rem;
-    color: gray;
-    margin-left: 10px;
-}
-
-.movie__reviewContent, .movie__reviewDate {
+  
+  .movie__review_left {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .movie__reviewAuthor {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 2px;
     text-align: left;
-}
+  }
+  
+  .movie__reviewRating {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    color: #888;
+    text-align: left;
+  }
+  
+  .movie__reviewContent {
+    margin-bottom: 2px;
+    text-align: left;
+  }
+  
+  .movie__reviewDate {
+    font-size: 0.9rem;
+    color: #888;
+    text-align: left;
+  }
+
+  .emptyProfilePic {
+    width: 70px;
+    height: 70px;
+    border: 2px dashed #ccc;
+    border-radius: 50%;
+  }
+  
