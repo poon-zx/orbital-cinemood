@@ -164,12 +164,11 @@
 
 .movie_reviewAvatar {
     border-radius: 90px;
-    width: 60px;
-    height: 60px;
+    width: 90px;
+    height: 90px;
     margin: 2px;
     position: relative;
 }
-
 
 h6 {
     font-size: larger;
@@ -178,8 +177,11 @@ h6 {
   }
 
 .movie__reviewDate {
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: gray;
+    margin-left: 10px;
+}
+
+.movie__reviewContent, .movie__reviewDate {
     text-align: left;
 }
