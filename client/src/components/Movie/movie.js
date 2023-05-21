@@ -1,13 +1,23 @@
 import React, {useEffect, useState} from "react"
 import "./movie.css"
 import { useParams } from "react-router-dom"
+import {
+    Card,
+    CardSubtitle,
+    CardText,
+    CardTitle,
+    CardBody,
+    CardImg,
+  } from "reactstrap";
 
 const Movie = () => {
     const [currentMovieDetail, setMovie] = useState()
+    const [currentMovieReview, setMovieReview] = useState()
     const { id } = useParams()
 
     useEffect(() => {
         getData()
+        getReviewData()
         window.scrollTo(0,0)
     }, [])
 
@@ -15,6 +25,12 @@ const Movie = () => {
         fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US`)
         .then(res => res.json())
         .then(data => setMovie(data))
+    }
+
+    const getReviewData = () => {
+        fetch(`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US`)
+        .then(res => res.json())
+        .then(data => setMovieReview(data))
     }
 
     return (
@@ -62,27 +78,21 @@ const Movie = () => {
                 {
                     currentMovieDetail && currentMovieDetail.homepage && <a href={currentMovieDetail.homepage} target="_blank" style={{textDecoration: "none"}}><p><span className="movie__homeButton movie__Button">Homepage <i className="newTab fas fa-external-link-alt"></i></span></p></a>
                 }
-                {
-                    currentMovieDetail && currentMovieDetail.imdb_id && <a href={"https://www.imdb.com/title/" + currentMovieDetail.imdb_id} target="_blank" style={{textDecoration: "none"}}><p><span className="movie__imdbButton movie__Button">IMDb<i className="newTab fas fa-external-link-alt"></i></span></p></a>
-                }
             </div>
-            <div className="movie__heading">Production companies</div>
-            <div className="movie__production">
-                {
-                    currentMovieDetail && currentMovieDetail.production_companies && currentMovieDetail.production_companies.map(company => (
-                        <>
-                            {
-                                company.logo_path 
-                                && 
-                                <span className="productionCompanyImage">
-                                    <img className="movie__productionComapany" src={"https://image.tmdb.org/t/p/original" + company.logo_path} />
-                                    <span>{company.name}</span>
-                                </span>
-                            }
-                        </>
-                    ))
-                }
-            </div>
+            <div className="movie__heading">Reviews</div>
+            <Card className="movie__review">
+            {currentMovieReview ? currentMovieReview.results.map(review => 
+                <div className="movie__card">
+                    <CardImg className="movie_reviewAvatar" src={`https://image.tmdb.org/t/p/original${review ? review.author_details.avatar_path : ""}`} />
+                    <div className="movie__review_left">
+                        <CardSubtitle tag="h6" className="movie__reviewAuthor">{review.author}</CardSubtitle>
+                        <CardSubtitle tag="h6" className="movie__reviewRating">{review.author_details.rating ? review.author_details.rating + "/10" : ""}</CardSubtitle>
+                        <CardText className="movie__reviewContent">{review.content}</CardText>
+                        <CardText className="movie__reviewDate">{review.updated_at}</CardText>
+                    </div>
+                </div>
+                    ) : ""}
+            </Card>
         </div>
     )
 }
