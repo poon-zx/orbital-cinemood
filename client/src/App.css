@@ -4,7 +4,8 @@
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(30deg, #FFFFFF, #FDC6B0 30%, #FFEA9E);
+  background-image: url(./images/backg.png);
+  background-size: cover;
 }
 
 .form-container, .login-form, .register-form {
