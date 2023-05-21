@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import Header from '../Header/header.js';
+import Header from '../Header/header.tsx';
 import Home from '../Home/home.js';
 import MovieList from '../MovieList/movieList.js';
 import Movie from '../Movie/movie.js';
