@@ -4,10 +4,11 @@
     display: flex;
     flex-direction:column;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .movie__intro {
-    width: 80%;
+    width: 90%;
 }
 
 .movie__backdrop {
@@ -19,10 +20,12 @@
 
 .movie__detail {
     align-items: center;
-    width: 75%;
+    width: 80%;
     display: flex;
     position: relative;
-    bottom: 225px;
+    margin-top: 10px;
+    overflow: auto;
+    padding-bottom: 70px;
 }
 
 .movie__detailLeft {
@@ -36,7 +39,7 @@
 }
 
 .movie__detailRight {
-    color: white;
+    color: black;
     display: flex;
     flex-direction: column;
     height: 450px;
@@ -44,7 +47,7 @@
 }
 
 .movie__detailRightTop > div{
-    text-shadow: 0px 0px 5px #000000;
+    text-shadow: 0px 0px 5px #fff;
     margin-bottom: .5rem;
 }
 
@@ -88,10 +91,10 @@
 
 .movie__links {
     position: relative;
-    bottom: 120px;
     display: flex;
     justify-content: space-between;
     width: 75%;
+    margin-top:70px;
 }
 
 .movie__heading {
@@ -100,7 +103,6 @@
 
 .movie__Button {
     display: flex;
-    justify-content: center;
     align-items: center;
     padding: 0.8rem 2rem;
     border-radius: 20px;
@@ -111,12 +113,8 @@
 }
 
 .movie__homeButton {
-    background-color:rgb(255, 0, 0);
+    background-color:rgb(0, 145, 255);
     
-}
-
-.movie__imdbButton {
-    background-color:#f3ce13;
 }
 
 .newTab {
@@ -142,4 +140,48 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.movie__review {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+}
+
+.movie__card {
+    width: 70vw;
+    margin: auto;
+    margin-bottom: 5px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+}
+
+.movie_reviewAvatar {
+    border-radius: 90px;
+    width: 90px;
+    height: 90px;
+    margin: 2px;
+    position: relative;
+}
+
+h6 {
+    font-size: larger;
+    font-weight: 700;
+    margin-right: 10px;
+  }
+
+.movie__reviewDate {
+    font-size: 0.8rem;
+    color: gray;
+    margin-left: 10px;
+}
+
+.movie__reviewContent, .movie__reviewDate {
+    text-align: left;
 }
