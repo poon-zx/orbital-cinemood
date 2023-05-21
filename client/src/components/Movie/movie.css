@@ -196,10 +196,4 @@
     text-align: left;
   }
 
-  .emptyProfilePic {
-    width: 70px;
-    height: 70px;
-    border: 2px dashed #ccc;
-    border-radius: 50%;
-  }
   
