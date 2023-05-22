@@ -17,5 +17,8 @@
     "firebase": "^9.22.0",
     "mongoose": "^7.1.1",
     "react-router-dom": "^6.11.1"
+  },
+  "engines": {
+    "node": "v20.1.0", (you can check the version by typing "node -v" in your cmd prompt)
   }
 }
