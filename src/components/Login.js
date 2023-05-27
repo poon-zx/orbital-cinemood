@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import logo from '../images/logo.png';
+import logo from '../images/logo.svg';
 import img from '../images/img.png';
 import '../App.css';
 import './style.css';
@@ -87,7 +87,7 @@ const Login = () => (
         boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
     }}
     >
-    <img src={logo} alt="Logo" height="80"/>
+    <img src={logo} alt="Logo" height="100"/>
     <Auth
     supabaseClient={supabase}
     className='App'
