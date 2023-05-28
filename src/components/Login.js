@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import logo from '../images/logo.png';
 import img from '../images/img.png';
 import '../App.css';
@@ -7,6 +7,11 @@ import { Auth } from '@supabase/auth-ui-react'
 import { createClient } from '@supabase/supabase-js'
 import {ThemeSupa,} from '@supabase/auth-ui-shared'
 import { Box, Container } from "@mui/material";
+import { Routes, Route } from "react-router-dom";
+import Reset from './ResetPw/Reset.js';
+import Homepage from './Homepage/Homepage.js';
+import { useNavigate } from "react-router-dom";
+
 
 
 export const supabase = createClient(
@@ -70,7 +75,10 @@ const customTheme = {
     },       
 }
 
-const Login = () => (
+const Login = () => {
+
+
+    return(
     <Container
     maxWidth="xs"
     display="flex"
@@ -88,7 +96,9 @@ const Login = () => (
     }}
     >
     <img src={logo} alt="Logo" height="80"/>
-    <Auth
+    <Routes>
+      <Route path="/reset" element={<Reset />} />
+    <Route path="/" element = {<Auth
     supabaseClient={supabase}
     className='App'
     appearance={{ theme: customTheme,
@@ -96,12 +106,10 @@ const Login = () => (
         className: {
             button: 'custom-button',
         },
-    }}
-    
-    providers={[]}
-    />
+    }} providers={[]} ></Auth>} />
+    </Routes>
     </Box>
   </Container>
-)
+)}
 
 export default Login;

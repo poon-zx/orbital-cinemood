@@ -6,8 +6,8 @@ import { supabase } from '../Login.js';
 
 const pages = [
     { label: 'Popular', path: '/movies/popular' },
-    { label: 'Top Rated', path: '/movies/top_rated' },
-    { label: 'Upcoming', path: '/movies/upcoming' },
+    { label: 'Top Rated', path: 'movies/top_rated' },
+    { label: 'Upcoming', path: 'movies/upcoming' },
 ];
   
 

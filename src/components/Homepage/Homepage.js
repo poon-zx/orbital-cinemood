@@ -7,7 +7,6 @@ import Movie from '../Movie/movie.js';
 function Homepage() {
   return (
     <div className="Homepage">
-        <Router>
           <Header />
             <Routes>
                 <Route index element={<Home />}></Route>
@@ -15,9 +14,9 @@ function Homepage() {
                 <Route path="movies/:type" element={<MovieList />}></Route>
                 <Route path="/*" element={<h1>Error Page</h1>}></Route>
             </Routes>
-        </Router>
     </div>
   );
+  
 }
 
 export default Homepage;
