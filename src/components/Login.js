@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
-import logo from '../images/logo.png';
-import img from '../images/img.png';
+import React from 'react';
+import logo from '../images/logo.svg';
 import '../App.css';
 import './style.css';
-import { Auth } from '@supabase/auth-ui-react'
-import { createClient } from '@supabase/supabase-js'
-import {ThemeSupa,} from '@supabase/auth-ui-shared'
+import { Auth } from '@supabase/auth-ui-react';
+import { createClient } from '@supabase/supabase-js';
+import { useNavigate } from "react-router-dom";
 import { Box, Container } from "@mui/material";
 
 
@@ -70,38 +69,48 @@ const customTheme = {
     },       
 }
 
-const Login = () => (
-    <Container
-    maxWidth="xs"
-    display="flex"
-    justifyContent="sssscenter"
-    alignItems="center"
-    minHeight="100vh"
-    >
-    <Box
-    sx={{
-        border: '2px solid #ffffff',
-        borderRadius: '15px',
-        padding: '18px', 
-        backgroundColor: 'white',
-        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
-    }}
-    >
-    <img src={logo} alt="Logo" height="80"/>
-    <Auth
-    supabaseClient={supabase}
-    className='App'
-    appearance={{ theme: customTheme,
-        extend: true,
-        className: {
-            button: 'custom-button',
-        },
-    }}
+function Login() {
+    const navigate = useNavigate();
+  
+    supabase.auth.onAuthStateChange(async (event) => {
+      if (event === "SIGNED_IN") {
+        navigate("/Home");
+      }
+    });
     
-    providers={[]}
-    />
-    </Box>
-  </Container>
-)
+    return (
+        <Container
+        maxWidth="xs"
+        display="flex"
+        justifyContent="sssscenter"
+        alignItems="center"
+        minHeight="100vh"
+        >
+        <Box
+        sx={{
+            border: '2px solid #ffffff',
+            borderRadius: '15px',
+            padding: '18px', 
+            backgroundColor: 'white',
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+        }}
+        >
+        <img src={logo} alt="Logo" height="100"/>
+        <Auth
+        supabaseClient={supabase}
+        className='App'
+        appearance={{ theme: customTheme,
+            extend: true,
+            className: {
+                button: 'custom-button',
+            },
+        }}
+        
+        providers={[]}
+        />
+        </Box>
+        </Container>
+    );
+}
 
 export default Login;
