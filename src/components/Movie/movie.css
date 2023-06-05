@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
 .movie {
     width: 100%;
@@ -56,7 +57,7 @@
 .movie__name {
     font-weight: 600;
     font-size: 3rem;
-    font-family: 'Be Vietnam Pro', sans-serif;
+    font-family: 'Playfair Display', serif;
 }
 
 .movie__tagline {
@@ -98,7 +99,7 @@
     display: flex;
     position: relative;
     align-items: center;
-    font-family: 'Be Vietnam Pro', sans-serif;
+    font-family: 'Playfair Display', serif;
 }
 
 .synopsisContent {
@@ -117,12 +118,23 @@
     margin-top:0px;
 }
 
-.movie__heading {
+.movie__heading1 {
     font-size: 1.8rem;
     font-weight: 800;
-    font-family: 'Be Vietnam Pro', sans-serif;
+    font-family: 'Playfair Display', serif;
     margin-top: 22px;
     margin-bottom: 10px;
+}
+
+.movie__heading2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    font-family: 'Playfair Display', serif;
+    margin-top: 22px;
+    margin-bottom: 18px;
+    background-color: #EBCBC1;
+    width: 85%;
+    border-radius: 15px;
 }
 
 .movie__Button {
@@ -142,7 +154,7 @@
     font-family: 'Be Vietnam Pro', sans-serif;
     color: black;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    width: 90px;
+    width: 115px;
 }
 
 .movie__homeButton:hover {
@@ -180,10 +192,6 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 4rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
-    padding: 20px;
-    background-color: #f1d2bf;
   }
   
   .movie__card {
