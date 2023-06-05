@@ -41,3 +41,11 @@ button {
     color: black;
     text-decoration: underline;
 }
+
+.content-container {
+    width: 100%;
+    top: 0px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
