@@ -7,13 +7,15 @@ const MovieList = () => {
     
     const [movieList, setMovieList] = useState([])
     const {type} = useParams()
-
+    
     useEffect(() => {
         getData()
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
         getData()
+        // eslint-disable-next-line
     }, [type])
 
     const getData = () => {

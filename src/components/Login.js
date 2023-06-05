@@ -7,7 +7,6 @@ import { createClient } from '@supabase/supabase-js';
 import { useNavigate } from "react-router-dom";
 import { Box, Container } from "@mui/material";
 
-
 export const supabase = createClient(
   'https://ccecaffoxnxnahwfcpcy.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjZWNhZmZveG54bmFod2ZjcGN5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODQ1NjY1MTAsImV4cCI6MjAwMDE0MjUxMH0.-W7IPp668Pp4uT5ZwzAawRU7fJYj20_6MXGOm06VDgA'
@@ -79,37 +78,39 @@ function Login() {
     });
     
     return (
-        <Container
-        maxWidth="xs"
-        display="flex"
-        justifyContent="sssscenter"
-        alignItems="center"
-        minHeight="100vh"
-        >
-        <Box
-        sx={{
-            border: '2px solid #ffffff',
-            borderRadius: '15px',
-            padding: '18px', 
-            backgroundColor: 'white',
-            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
-        }}
-        >
-        <img src={logo} alt="Logo" height="100"/>
-        <Auth
-        supabaseClient={supabase}
-        className='App'
-        appearance={{ theme: customTheme,
-            extend: true,
-            className: {
-                button: 'custom-button',
-            },
-        }}
-        
-        providers={[]}
-        />
-        </Box>
-        </Container>
+        <div className="Login">
+            <Container
+            maxWidth="xs"
+            display="flex"
+            justifyContent="sssscenter"
+            alignItems="center"
+            minHeight="100vh"
+            >
+            <Box
+            sx={{
+                border: '2px solid #ffffff',
+                borderRadius: '15px',
+                padding: '18px', 
+                backgroundColor: 'white',
+                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+            }}
+            >
+            <img src={logo} alt="Logo" height="100"/>
+            <Auth
+            supabaseClient={supabase}
+            className='App'
+            appearance={{ theme: customTheme,
+                extend: true,
+                className: {
+                    button: 'custom-button',
+                },
+            }}
+            
+            providers={[]}
+            />
+            </Box>
+            </Container>
+        </div>
     );
 }
 
