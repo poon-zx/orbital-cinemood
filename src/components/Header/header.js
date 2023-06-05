@@ -43,7 +43,7 @@ function ResponsiveAppBar() {
     return (
         <AppBar 
             position="sticky" 
-            sx={{ bgcolor: '#C06C84' }}
+            sx={{ bgcolor: '#EBCBC1' }}
         >
             <Toolbar>
                 <Container maxWidth="xl">
@@ -74,9 +74,9 @@ function ResponsiveAppBar() {
                                     <Button
                                         key={page.label}
                                         onClick={handleCloseNavMenu}
-                                        sx={{ my: 2, color: 'white', display: 'block' }}
+                                        sx={{ my: 2, color: 'black', display: 'block' }}
                                     >
-                                        <Link to={page.path} style={{ textDecoration: 'none', color: 'white' }}>
+                                        <Link to={page.path} style={{ textDecoration: 'none', color: 'black' }}>
                                             {page.label}
                                         </Link>
                                     </Button>
