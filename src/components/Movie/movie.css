@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap');
+
 .movie {
     width: 100%;
     position: relative;
@@ -47,13 +49,24 @@
 }
 
 .movie__detailRightTop > div{
-    text-shadow: 0px 0px 5px #fff;
+    text-shadow: 0px 0px 0px #fff;
     margin-bottom: .5rem;
 }
 
 .movie__name {
     font-weight: 600;
     font-size: 3rem;
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.movie__tagline {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 1.2rem;
+}
+
+.movie__rating, .movie__runtime, .movie__genres, .movie__releaseDate{
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 0.9rem;  
 }
 
 .movie__voteCount {
@@ -66,9 +79,10 @@
 
 .movie__genre {
     padding: .5rem;
-    border: 2px solid white;
+    border: 2px solid #EDB289;
     border-radius: 20px;
     margin-right: 1rem;
+    background-color: #F1C6A8;
 }
 
 
@@ -80,11 +94,17 @@
 .synopsisText {
     font-size: 1.5rem;
     margin-bottom: 1.25rem;
-    font-weight: 600;
+    font-weight: 800;
     display: flex;
     position: relative;
     align-items: center;
+    font-family: 'Be Vietnam Pro', sans-serif;
 }
+
+.synopsisContent {
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
 .synopsisText > div:last-of-type {
     margin-left: auto;
 }
@@ -94,11 +114,15 @@
     display: flex;
     justify-content: space-between;
     width: 75%;
-    margin-top:70px;
+    margin-top:0px;
 }
 
 .movie__heading {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
+    font-weight: 800;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    margin-top: 22px;
+    margin-bottom: 10px;
 }
 
 .movie__Button {
@@ -113,7 +137,17 @@
 }
 
 .movie__homeButton {
-    background-color:rgb(0, 0, 0);
+    background-color:#F1C6A8;
+    text-align: center;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    color: black;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    width: 90px;
+}
+
+.movie__homeButton:hover {
+    background-color:#EDB289;
+    transform: translateY(-1px);
 }
 
 .newTab {
@@ -142,19 +176,20 @@
 }
 
 .movie__review {
-    width: 85%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     margin-bottom: 4rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 20px;
+    background-color: #f1d2bf;
   }
   
   .movie__card {
     display: flex;
     margin-bottom: 10px;
-    background-color: #f5f5f5;
+    background-color: #F6F1EA;
     border-radius: 10px;
     padding: 10px;
   }

@@ -69,7 +69,7 @@ const Movie = () => {
                     </div>
                     <div className="movie__detailRightBottom">
                         <div className="synopsisText">Synopsis</div>
-                        <div>{currentMovieDetail ? currentMovieDetail.overview : ""}</div>
+                        <div className="synopsisContent">{currentMovieDetail ? currentMovieDetail.overview : ""}</div>
                     </div>
                     
                 </div>
