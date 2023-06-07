@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
     };
     getUser();
     const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event == "PASSWORD_RECOVERY") {
+      if (event === "PASSWORD_RECOVERY") {
         setAuth(false);
       } else if (event === "SIGNED_IN") {
         setUser(session.user);

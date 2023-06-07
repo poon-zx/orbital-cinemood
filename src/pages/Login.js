@@ -67,8 +67,8 @@ function Login() {
     const navigate = useNavigate();
   
     supabase.auth.onAuthStateChange(async (event) => {
-      if (event === "SIGNED_IN") {
-        navigate("/Home");
+    if (event === "SIGNED_IN") {
+        navigate("/home");
       }
     });
     
