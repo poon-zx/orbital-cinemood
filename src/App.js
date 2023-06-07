@@ -13,8 +13,8 @@ import NotFound from './pages/NotFound';
   export default function App() {
     const location = useLocation();
   
-    const showHeader = location.pathname !== "/" && location.pathname !== "/login"
-        && location.pathname !== "/reset" && location.pathname !== "/reset#";
+    const showHeader = location.pathname === "/home" || location.pathname.match(/^\/movie\//)
+        || location.pathname.match(/^\/movies\//);
   
     return (
         <div className="App">
