@@ -6,11 +6,12 @@ import Header from './components/Header/header.js';
 import MovieList from './components/MovieList/movieList.js';
 import Movie from './components/Movie/movie.js';
 import { Routes, Route, useLocation } from "react-router-dom";
+import ProtectedRoute from './components/ProtectedRoute'; // import ProtectedRoute
 
   export default function App() {
     const location = useLocation();
   
-    const showHeader = location.pathname !== "/";
+    const showHeader = location.pathname !== "/" && location.pathname !== "/login";
   
     return (
         <div className="App">
@@ -19,9 +20,21 @@ import { Routes, Route, useLocation } from "react-router-dom";
                 <Routes>
                     <Route path="/Login" element={<Login />} />
                     <Route path="/" element={<Login />} />
-                    <Route path="/Home" element={<Home />} />
-                    <Route path="movie/:id" element={<Movie />} />
-                    <Route path="movies/:type" element={<MovieList />} />
+                    <Route path="/Home" element={
+                        <ProtectedRoute>
+                            <Home />
+                        </ProtectedRoute>
+                    } />
+                <Route path="movie/:id" element={
+                    <ProtectedRoute>
+                    <Movie />
+                    </ProtectedRoute>
+                } />
+                <Route path="movies/:type" element={
+                    <ProtectedRoute>
+                    <MovieList />
+                    </ProtectedRoute>
+                } />
                 </Routes>
             </div>
         </div>
