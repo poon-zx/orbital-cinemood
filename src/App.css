@@ -4,8 +4,7 @@
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  background-image: url(./images/backg.png);
-  background-size: cover;
+  background-color: #F6E0CD;
 }
 
 .form-container, .login-form, .register-form {
@@ -41,9 +40,11 @@ button {
     color: black;
     text-decoration: underline;
 }
-  
-  .content-container {
+
+.content-container {
+    width: 100%;
+    top: 0px;
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-  }
+}

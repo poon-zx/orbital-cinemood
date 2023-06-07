@@ -7,13 +7,15 @@ const MovieList = () => {
     
     const [movieList, setMovieList] = useState([])
     const {type} = useParams()
-
+    
     useEffect(() => {
         getData()
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
         getData()
+        // eslint-disable-next-line
     }, [type])
 
     const getData = () => {
@@ -24,7 +26,17 @@ const MovieList = () => {
 
     return (
         <div className="movie__list">
-            <h2 className="list__title">{(type ? type : "POPULAR").toUpperCase()}</h2>
+            <h2 className="list__title">
+                {(() => { 
+                    if (type === "top_rated") {
+                        return "Top Rated";
+                    } else if (type === "upcoming") {
+                        return "Upcoming";
+                    } else {
+                        return "Popular";
+                    }
+                })()}
+            </h2>
             <div className="list__cards">
                 {
                     movieList.map(movie => (

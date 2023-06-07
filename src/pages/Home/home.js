@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react"
 import "./home.css"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import { Link } from "react-router-dom";
-import MovieList from "../MovieList/movieList.js";
-
+import MovieList from "../../components/MovieList/movieList.js";
+import "../../App.css"
 const Home = () => {
-
+    // eslint-disable-next-line
     const [ popularMovies, setPopularMovies ] = useState([])
 
     useEffect(() => {
@@ -16,20 +15,18 @@ const Home = () => {
     }, [])
 
     return (
-        <>
-            <div className="poster">
-                <Carousel
-                    showThumbs={false}
-                    autoPlay={true}
-                    transitionTime={3}
-                    infiniteLoop={true}
-                    showStatus={false}
-                >
-                    
-                </Carousel>
-                <MovieList />
-            </div>
-        </>
+        <div className="poster">
+            <Carousel
+                showThumbs={false}
+                autoPlay={true}
+                transitionTime={3}
+                infiniteLoop={true}
+                showStatus={false}
+            >
+                
+            </Carousel>
+            <MovieList />
+        </div>
     )
 }
 

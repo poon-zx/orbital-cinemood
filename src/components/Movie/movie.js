@@ -69,18 +69,19 @@ const Movie = () => {
                     </div>
                     <div className="movie__detailRightBottom">
                         <div className="synopsisText">Synopsis</div>
-                        <div>{currentMovieDetail ? currentMovieDetail.overview : ""}</div>
+                        <div 
+                        className="synopsisContent">{currentMovieDetail ? currentMovieDetail.overview : ""}</div>
                     </div>
                     
                 </div>
             </div>
             <div className="movie__links">
-                <div className="movie__heading">Useful Links</div>
+                <div className="movie__heading1">Useful Links</div>
                 {
-                    currentMovieDetail && currentMovieDetail.homepage && <a href={currentMovieDetail.homepage} target="_blank" style={{textDecoration: "none"}}><p><span className="movie__homeButton movie__Button">Homepage <i className="newTab fas fa-external-link-alt"></i></span></p></a>
+                    currentMovieDetail && currentMovieDetail.homepage && <a href={currentMovieDetail.homepage} target="_blank" style={{textDecoration: "none"}}><p><span className="movie__homeButton movie__Button">Movie Page<i className="newTab fas fa-external-link-alt"></i></span></p></a>
                 }
             </div>
-            <div className="movie__heading">Reviews</div>
+            <div className="movie__heading2">Reviews</div>
             <Card className="movie__review">
             {currentMovieReview &&
                 currentMovieReview.results.map((review) => (

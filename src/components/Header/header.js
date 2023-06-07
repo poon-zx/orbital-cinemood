@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Avatar, Button, Tooltip, MenuItem, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import logo from '../../images/logo.png';
-import { supabase } from '../Login.js';
+import { supabase } from '../../supabase.js';
 import { Link, useNavigate } from "react-router-dom";
 
 const pages = [
@@ -43,7 +43,7 @@ function ResponsiveAppBar() {
     return (
         <AppBar 
             position="sticky" 
-            sx={{ bgcolor: '#C06C84' }}
+            sx={{ bgcolor: '#EBCBC1' }}
         >
             <Toolbar>
                 <Container maxWidth="xl">
@@ -74,9 +74,9 @@ function ResponsiveAppBar() {
                                     <Button
                                         key={page.label}
                                         onClick={handleCloseNavMenu}
-                                        sx={{ my: 2, color: 'white', display: 'block' }}
+                                        sx={{ my: 2, color: 'black', display: 'block' }}
                                     >
-                                        <Link to={page.path} style={{ textDecoration: 'none', color: 'white' }}>
+                                        <Link to={page.path} style={{ textDecoration: 'none', color: 'black' }}>
                                             {page.label}
                                         </Link>
                                     </Button>
@@ -86,7 +86,7 @@ function ResponsiveAppBar() {
                         <Box>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                    <Avatar />
                                 </IconButton>
                             </Tooltip>
                         </Box>
