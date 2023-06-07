@@ -1,0 +1,21 @@
+.pagination-container {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center; /* updated from space-between to center */
+    align-items: center;
+}
+
+.pagination-button {
+    padding: 0.25rem 0.75rem;
+    margin: 0.25rem;
+    text-align: center;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.page-number {
+    margin: 0 1rem; /* added space around the page number */
+    font-size: 1.2rem; /* increase size if you want */
+}

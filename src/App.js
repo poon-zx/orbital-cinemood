@@ -9,12 +9,13 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import ProtectedRoute from './components/ProtectedRoute'; 
 import PasswordReset from './pages/UpdatePassword.jsx';
 import NotFound from './pages/NotFound';
+import Search from './pages/Search.js';
 
   export default function App() {
     const location = useLocation();
   
     const showHeader = location.pathname === "/home" || location.pathname.match(/^\/movie\//)
-        || location.pathname.match(/^\/movies\//);
+        || location.pathname.match(/^\/movies\//) || location.pathname === "/search";
   
     return (
         <div className="App">
@@ -28,6 +29,7 @@ import NotFound from './pages/NotFound';
                         <Route path="/home" element={<Home />} />
                         <Route path="movie/:id" element={<Movie />} />
                         <Route path="movies/:type" element={<MovieList />} />
+                        <Route path="/search" element={<Search />} />
                     </Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>

@@ -9,6 +9,7 @@ const pages = [
     { label: 'Popular', path: '/movies/popular' },
     { label: 'Top Rated', path: '/movies/top_rated' },
     { label: 'Upcoming', path: '/movies/upcoming' },
+    { label: 'Search', path: '/search' },
 ];
 
 const settings = ['Profile', 'Logout'];

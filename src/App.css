@@ -2,10 +2,18 @@
   text-align: center;
   display: flex;
   min-height: 100vh;
-  align-items: center;
   justify-content: center;
   background-color: #F6E0CD;
 }
+
+.center-content {
+    text-align: center;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: #F6E0CD;
+  }
 
 .form-container, .login-form, .register-form {
     display: flex;

@@ -73,7 +73,7 @@ function Login() {
     });
     
     return (
-        <div className="Login">
+        <div className="Login center-content">
             <Container
             maxWidth="xs"
             display="flex"
