@@ -67,13 +67,13 @@ function Login() {
     const navigate = useNavigate();
   
     supabase.auth.onAuthStateChange(async (event) => {
-      if (event === "SIGNED_IN") {
-        navigate("/Home");
+    if (event === "SIGNED_IN") {
+        navigate("/home");
       }
     });
     
     return (
-        <div className="Login">
+        <div className="Login center-content">
             <Container
             maxWidth="xs"
             display="flex"
