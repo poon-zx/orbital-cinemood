@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import PasswordReset from './pages/UpdatePassword.jsx';
 import NotFound from './pages/NotFound';
 import Search from './pages/Search.js';
+import PersonalizedSearch from './pages/PersonalizedSearch.jsx';
 
   export default function App() {
     const location = useLocation();
@@ -30,6 +31,7 @@ import Search from './pages/Search.js';
                         <Route path="movie/:id" element={<Movie />} />
                         <Route path="movies/:type" element={<MovieList />} />
                         <Route path="/search" element={<Search />} />
+                        <Route path="PersonalizedSearch" element={<PersonalizedSearch />} />
                     </Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
