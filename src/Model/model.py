@@ -13,11 +13,11 @@ CORS(app)
 model = SentenceTransformer('all-mpnet-base-v2')
 model.max_seq_length = 384
 
-tensors = torch.load('/Users/poonzx/Documents/GitHub/orbital-cinemood/src/Model/tensor(all-mpnet-base-v2).pt')
+tensors = torch.load('./tensor(all-mpnet-base-v2).pt')
 
-dataset = pd.read_csv('/Users/poonzx/Documents/GitHub/orbital-cinemood/src/Model/Movies (1st).csv')
+dataset = pd.read_csv('./Movies (1st).csv')
 
-@app.route("/find_similarity", methods=['POST', 'OPTIONS'])
+@app.route("/find_similarity/", methods=['POST', 'OPTIONS'])
 @cross_origin(options=None)
 
 def find_similarity():
@@ -26,12 +26,12 @@ def find_similarity():
     input = input.replace("[^a-zA-Z#]", " ")
     embeddings1 = model.encode(input, convert_to_tensor=True)
     cosine_scores = util.pytorch_cos_sim(embeddings1, tensors)
-    top_results = torch.topk(cosine_scores, k=10)
+    top_results = torch.topk(cosine_scores, k=20)
     top_indices = top_results[1][0]
     top_scores = top_results[0][0]
 
     results = []
-    for i in range(10):
+    for i in range(20):
         results.append({
             'movie': dataset['Movie Name'][top_indices[i].item()],
             'score': float(top_scores[i].item())

@@ -1,12 +1,11 @@
+import stringSimilarity from 'string-similarity';
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cards from "../components/Card/card.js";
 import "../components/MovieList/movieList.css";
-import Pagination from "../components/Pagination/Pagination.js";
 
 const PersonalizedSearch = () => {
   const [searchText, setSearchText] = useState("");
-  const [page, setPage] = useState(1);
   const [movieList, setMovieList] = useState([]);
   const { type } = useParams();
 
@@ -18,12 +17,11 @@ const PersonalizedSearch = () => {
   useEffect(() => {
     getData();
     // eslint-disable-next-line
-  }, [type, page]);
+  }, [type]);
 
   const getData = async () => {
     try {
       const response = await fetch("http://localhost:8000/find_similarity/", {
-        mode: 'no-cors',
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -33,14 +31,13 @@ const PersonalizedSearch = () => {
       });
   
       if (response.ok) {
-        console.log("yay");
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
           const similarityResults = await response.json();
   
           const moviePromises = similarityResults.results.map((result) =>
             fetch(
-              `https://api.themoviedb.org/3/search/movie?query=${result.movie}&api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US&page=${page}`
+              `https://api.themoviedb.org/3/search/movie?query=${result.movie}&api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US`
             )
           );
   
@@ -55,24 +52,25 @@ const PersonalizedSearch = () => {
             })
           );
   
-          const filteredMovies = movieResults.filter(
-            (result) => result && result.results.length > 0
-          );
+          const filteredMovies = movieResults.map((result, index) => {
+            // Filter the results to only include movies with a similar name to the one in your dataset
+            const matchingMovies = result.results.filter(
+              (movie) => stringSimilarity.compareTwoStrings(movie.title.toLowerCase(), similarityResults.results[index].movie.toLowerCase()) > 0.8
+            );
+            return matchingMovies[0];
+          }).filter(movie => movie);  // Remove any undefined entries
   
-          const finalMovieList = filteredMovies.map((result) => result.results[0]);
-          setMovieList(finalMovieList);
+          setMovieList(filteredMovies);
         } else {
           console.error("Invalid response format. Expected JSON.");
         }
       } else {
-        console.log("nay");
         console.error("Error searching for movies:", response.status);
       }
     } catch (error) {
-      console.log("yayyy");
       console.error("Error searching for movies:", error);
     }
-  };
+  };  
   
 
   const search = () => {
@@ -107,7 +105,6 @@ const PersonalizedSearch = () => {
           ))}
         </div>
       </div>
-      {movieList.length > 0 && <Pagination page={page} setPage={setPage} />}
     </div>
   );
 };
