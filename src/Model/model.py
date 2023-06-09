@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
+from io import StringIO, BytesIO
 
 app = Flask(__name__)
 CORS(app)
@@ -15,17 +16,12 @@ model.max_seq_length = 384
 
 import requests
 
-url_csv = "https://storage.cloud.google.com/cinemood/Overall%20Movie.csv"
+url_csv = "https://storage.googleapis.com/cinemood/Overall%20Movie.csv"
 response_csv = requests.get(url_csv)
+data = StringIO(response_csv.text)
+dataset = pd.read_csv(data)
 
-url_pt = "https://storage.cloud.google.com/cinemood/Overall%20Movies.pt"
-response_pt = requests.get(url_pt)
-
-# If it's a text file
-dataset = response_csv.csv
-
-# If it's a binary file like .pt tensor
-tensors = response_pt.pt
+tensors = torch.load('Overall Movies.pt')
 
 @app.route("/find_similarity/", methods=['POST', 'OPTIONS'])
 @cross_origin(options=None)
