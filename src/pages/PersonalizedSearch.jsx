@@ -100,13 +100,13 @@ const PersonalizedSearch = () => {
 
   return (
     <div className="movie__list">
-      <h2 className="list__title">Search</h2>
+      <h2 className="list__title">Movie Recommender</h2>
       <div className="container">
         <div className="search-container">
           <form onSubmit={(e) => { e.preventDefault(); search() }}>
             <input
               type="text"
-              placeholder="search movie name..."
+              placeholder="I want to watch a ..."
               onChange={trigger}
               className="search-bar"
             />

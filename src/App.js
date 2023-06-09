@@ -27,11 +27,10 @@ import PersonalizedSearch from './pages/PersonalizedSearch.jsx';
                     <Route path="/reset" element={<PasswordReset />} />
                     <Route path="/" element={<Login />} />
                     <Route element={<ProtectedRoute />}>
-                        <Route path="/home" element={<Home />} />
+                        <Route path="/home" element={<PersonalizedSearch />} />
                         <Route path="movie/:id" element={<Movie />} />
                         <Route path="movies/:type" element={<MovieList />} />
                         <Route path="/search" element={<Search />} />
-                        <Route path="PersonalizedSearch" element={<PersonalizedSearch />} />
                     </Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
