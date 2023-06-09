@@ -13,9 +13,9 @@ CORS(app)
 model = SentenceTransformer('all-mpnet-base-v2')
 model.max_seq_length = 384
 
-tensors = torch.load('./tensor(all-mpnet-base-v2).pt')
+tensors = torch.load('./Overall Movies.pt')
 
-dataset = pd.read_csv('./Movies (1st).csv')
+dataset = pd.read_csv('./Overall Movie.csv')
 
 @app.route("/find_similarity/", methods=['POST', 'OPTIONS'])
 @cross_origin(options=None)

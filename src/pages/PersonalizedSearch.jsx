@@ -40,7 +40,6 @@ const PersonalizedSearch = () => {
           const similarityResults = await response.json();
 
           // sort the results by rating in descending order
-          similarityResults.results.sort((a, b) => b.rating - a.rating);
   
           const moviePromises = similarityResults.results.map((result) =>
             fetch(
