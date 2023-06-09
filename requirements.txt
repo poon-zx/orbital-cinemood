@@ -1,5 +1,6 @@
 flask==2.3.2
-sentence-transformers==2.2.2
+sentence-transformers @ https://github.com/UKPLab/sentence-transformers/archive/v2.2.2.tar.gz
+all-mpnet-base-v2 @ https://huggingface.co/sentence-transformers/all-mpnet-base-v2/resolve/main/pytorch_model.bin
 torch==2.0.1
 pandas==2.0.2
 flask-cors==3.0.10
