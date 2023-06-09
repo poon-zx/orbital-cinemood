@@ -13,9 +13,19 @@ CORS(app)
 model = SentenceTransformer('all-mpnet-base-v2')
 model.max_seq_length = 384
 
-tensors = torch.load('./Overall Movies.pt')
+import requests
 
-dataset = pd.read_csv('./Overall Movie.csv')
+url_csv = "https://storage.cloud.google.com/cinemood/Overall%20Movie.csv"
+response_csv = requests.get(url_csv)
+
+url_pt = "https://storage.cloud.google.com/cinemood/Overall%20Movies.pt"
+response_pt = requests.get(url_pt)
+
+# If it's a text file
+dataset = response_csv.csv
+
+# If it's a binary file like .pt tensor
+tensors = response_pt.pt
 
 @app.route("/find_similarity/", methods=['POST', 'OPTIONS'])
 @cross_origin(options=None)
