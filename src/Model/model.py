@@ -35,7 +35,8 @@ def find_similarity():
         results.append({
             'movie': dataset['Movie Name'][top_indices[i].item()],
             'score': float(top_scores[i].item()),
-            'year': dataset['Year of Release'][top_indices[i].item()]
+            'year': dataset['Year of Release'][top_indices[i].item()],
+            'rating': dataset['Movie Rating'][top_indices[i].item()]
         })
 
     return jsonify({'results': results})
