@@ -49,7 +49,7 @@ function ResponsiveAppBar() {
             <Toolbar>
                 <Container maxWidth="xl">
                     <Box display="flex" alignItems="center">
-                        <Link to="/movies/popular" style={{ textDecoration: 'none' }}>
+                        <Link to="/home" style={{ textDecoration: 'none' }}>
                             <Box
                                 component="img"
                                 sx={{ height: 50 }}
