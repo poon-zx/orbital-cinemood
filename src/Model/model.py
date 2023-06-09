@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from sentence_transformers import SentenceTransformer, util
 import torch
-from sklearn.preprocessing import normalize
 import numpy as np
 import pandas as pd
 from flask import Flask, request, jsonify
