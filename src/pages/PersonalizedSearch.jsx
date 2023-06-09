@@ -20,6 +20,10 @@ const PersonalizedSearch = () => {
   }, [type]);
 
   const getData = async () => {
+    if (searchText === "") {
+      // Don't send a request if searchText is empty
+      return;
+    }
     try {
       const response = await fetch("http://localhost:8000/find_similarity/", {
         method: "POST",
@@ -40,6 +44,7 @@ const PersonalizedSearch = () => {
               `https://api.themoviedb.org/3/search/movie?query=${result.movie}&api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US`
             )
           );
+          console.log(similarityResults.results);
   
           const movieResponses = await Promise.all(moviePromises);
           const movieResults = await Promise.all(
@@ -53,14 +58,22 @@ const PersonalizedSearch = () => {
           );
   
           const filteredMovies = movieResults.map((result, index) => {
-            // Filter the results to only include movies with a similar name to the one in your dataset
-            const matchingMovies = result.results.filter(
-              (movie) => stringSimilarity.compareTwoStrings(movie.title.toLowerCase(), similarityResults.results[index].movie.toLowerCase()) > 0.8
+            console.log(result);
+            if (!result) {
+              return null;
+            }
+            // Only consider the first 3 results from TMDB
+            const firstThreeMovies = result.results.slice(0, 3);
+            const matchingMovie = firstThreeMovies.find(
+              (movie) => stringSimilarity.compareTwoStrings(movie.title.toLowerCase(), similarityResults.results[index].movie.toLowerCase()) > 0.9
+                && movie.release_date.slice(0, 4) === similarityResults.results[index].year
             );
-            return matchingMovies[0];
+        
+            return matchingMovie;
           }).filter(movie => movie);  // Remove any undefined entries
   
           setMovieList(filteredMovies);
+          
         } else {
           console.error("Invalid response format. Expected JSON.");
         }
