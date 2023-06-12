@@ -10,7 +10,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-model = SentenceTransformer('all-mpnet-base-v2')
+model = SentenceTransformer('all-MiniLM-L6-v2')
 model.max_seq_length = 384
 
 import requests
