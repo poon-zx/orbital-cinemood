@@ -1,7 +1,6 @@
 flask==2.3.2
 sentence-transformers==2.2.2
--f https://download.pytorch.org/whl/torch_stable.html
-torch==2.0.1+cpu
+torch==2.0.1
 pandas==2.0.2
 flask-cors==3.0.10
 gunicorn==20.1.0
