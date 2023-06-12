@@ -18,7 +18,7 @@ import requests
 url_csv = "https://storage.googleapis.com/cinemood/Overall%20Movie.csv"
 response_csv = requests.get(url_csv)
 data = StringIO(response_csv.text)
-dataset = pd.read_csv(data, usecols = ['Movie Name, Year of Release, Movie Rating'])
+dataset = pd.read_csv(data)
 
 tensors = torch.load('Overall Movies.pt')
 
