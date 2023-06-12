@@ -11,7 +11,7 @@ print(torch.__version__)
 app = Flask(__name__)
 CORS(app)
 
-model = SentenceTransformer('all-mpnet-base-v2')
+model = SentenceTransformer('all-MiniLM-L6-v2')
 model.max_seq_length = 384
 
 import requests
@@ -21,7 +21,7 @@ response_csv = requests.get(url_csv)
 data = StringIO(response_csv.text)
 dataset = pd.read_csv(data)
 
-tensors = torch.load('Overall Movies.pt')
+tensors = torch.load('Overall Movie.pt')
 
 @app.route("/find_similarity/", methods=['POST', 'OPTIONS'])
 @cross_origin(options=None)
