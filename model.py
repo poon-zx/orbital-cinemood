@@ -6,7 +6,6 @@ import pandas as pd
 from io import StringIO
 import os
 import requests
-print(torch.__version__)
 
 app = Flask(__name__)
 CORS(app)
