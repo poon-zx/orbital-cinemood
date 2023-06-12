@@ -1,5 +1,5 @@
 flask==2.3.2
 sentence-transformers==2.2.2
-https://download.pytorch.org/whl/cpu/torch-2.0.1-cp39-none-macosx_11_0_arm64.whl
+https://download.pytorch.org/whl/cpu/torch-2.0.1-cp39-none-macosx_10_9_x86_64.whl
 pandas==2.0.2
 flask-cors==3.0.10
