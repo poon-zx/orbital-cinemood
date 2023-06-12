@@ -31,7 +31,7 @@ def find_similarity():
     input = input.replace("[^a-zA-Z#]", " ")
     embeddings1 = model.encode(input, convert_to_tensor=True)
 
-    batch_size = 1000
+    batch_size = 60
     num_batches = len(tensors) // batch_size
 
     results = []
