@@ -5,6 +5,7 @@ import pandas as pd
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from io import StringIO, BytesIO
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -46,5 +47,13 @@ def find_similarity():
     return jsonify({'results': results})
 
 if __name__ == '__main__':
-    app.run(port=8000)
+    # Check if running on Heroku or locally
+    if 'DYNO' in os.environ:
+        # Running on Heroku
+        port = int(os.environ.get('PORT', 5000))
+    else:
+        # Running locally
+        port = 3000
+    
+    app.run(port=port)
 

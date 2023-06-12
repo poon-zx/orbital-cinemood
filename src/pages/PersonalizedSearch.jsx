@@ -25,7 +25,7 @@ const PersonalizedSearch = () => {
       return;
     }
     try {
-      const response = await fetch("http://localhost:8000/find_similarity/", {
+      const response = await fetch("/find_similarity/", {
         method: "POST",
         headers: {
           Accept: "application/json",
