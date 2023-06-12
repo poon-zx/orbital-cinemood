@@ -31,26 +31,20 @@ def find_similarity():
     input = item['input'].lower()
     input = input.replace("[^a-zA-Z#]", " ")
     embeddings1 = model.encode(input, convert_to_tensor=True)
-
-    batch_size = 1000
-    num_batches = len(tensors) // batch_size
+    cosine_scores = util.pytorch_cos_sim(embeddings1, tensors)
+    top_results = torch.topk(cosine_scores, k=30)
+    top_indices = top_results[1][0]
+    top_scores = top_results[0][0]
 
     results = []
-    for i in range(num_batches):
-        batch_tensors = tensors[i*batch_size: (i+1)*batch_size]
-        cosine_scores = util.pytorch_cos_sim(embeddings1, batch_tensors)
-        top_results = torch.topk(cosine_scores, k=30)
-        top_indices = top_results[1][0]
-        top_scores = top_results[0][0]
-        
-        for i in range(30):
-            results.append({
-                'movie': dataset['Movie Name'][top_indices[i].item()],
-                'score': float(top_scores[i].item()),
-                'year': dataset['Year of Release'][top_indices[i].item()],
-                'rating': dataset['Movie Rating'][top_indices[i].item()]
-            })
-            
+    for i in range(30):
+        results.append({
+            'movie': dataset['Movie Name'][top_indices[i].item()],
+            'score': float(top_scores[i].item()),
+            'year': dataset['Year of Release'][top_indices[i].item()],
+            'rating': dataset['Movie Rating'][top_indices[i].item()]
+        })
+
     return jsonify({'results': results})
 
 if __name__ == '__main__':
