@@ -21,6 +21,7 @@ data = StringIO(response_csv.text)
 dataset = pd.read_csv(data)
 
 tensors = torch.load('Overall Movies.pt')
+tensors = tensors.half()
 
 @app.route("/find_similarity/", methods=['POST', 'OPTIONS'])
 @cross_origin(options=None)
