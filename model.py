@@ -30,14 +30,6 @@ def find_similarity():
     input = item['input'].lower()
     input = input.replace("[^a-zA-Z#]", " ")
     embeddings1 = model.encode(input, convert_to_tensor=True)
-    cosine_scores = util.pytorch_cos_sim(embeddings1, tensors)
-    top_results = torch.topk(cosine_scores, k=30)
-    top_indices = top_results[1][0]
-    top_scores = top_results[0][0]def find_similarity():
-    item = request.get_json()
-    input = item['input'].lower()
-    input = input.replace("[^a-zA-Z#]", " ")
-    embeddings1 = model.encode(input, convert_to_tensor=True)
 
     batch_size = 1000
     num_batches = len(tensors) // batch_size
