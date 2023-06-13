@@ -35,12 +35,12 @@ def find_similarity():
     input = input.replace("[^a-zA-Z#]", " ")
     embeddings1 = model.encode(input, convert_to_tensor=True)
     cosine_scores = util.pytorch_cos_sim(embeddings1, tensors)
-    top_results = torch.topk(cosine_scores, k=30)
+    top_results = torch.topk(cosine_scores, k=20)
     top_indices = top_results[1][0]
     top_scores = top_results[0][0]
 
     results = []
-    for i in range(30):
+    for i in range(20):
         results.append({
             'movie': dataset['Movie Name'][top_indices[i].item()],
             'score': float(top_scores[i].item()),
