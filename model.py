@@ -10,6 +10,10 @@ import requests
 app = Flask(__name__, static_folder='build', static_url_path='/')
 CORS(app)
 
+@app.route('/')
+def serve():
+        return app.send_static_file('index.html')
+
 model = SentenceTransformer('all-MiniLM-L6-v2')
 model.max_seq_length = 384
 
