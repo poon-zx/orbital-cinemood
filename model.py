@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
-from sentence_transformers import SentenceTransformer, util
+from transformers import AutoModel
 import torch
 import pandas as pd
 from io import StringIO
@@ -14,7 +14,7 @@ CORS(app)
 def serve():
         return app.send_static_file('index.html')
 
-model = SentenceTransformer('all-MiniLM-L6-v2')
+model = AutoModel.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
 model.max_seq_length = 384
 
 import requests
