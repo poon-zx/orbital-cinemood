@@ -14,7 +14,7 @@ CORS(app)
 def serve():
         return app.send_static_file('index.html')
 
-model = SentenceTransformer('paraphrase-albert-small-v2')
+model = SentenceTransformer('paraphrase-MiniLM-L3-v2')
 
 import requests
 
