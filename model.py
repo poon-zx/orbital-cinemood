@@ -15,7 +15,6 @@ def serve():
         return app.send_static_file('index.html')
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
-model.max_seq_length = 384
 
 import requests
 
