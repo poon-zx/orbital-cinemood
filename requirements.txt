@@ -1,5 +1,5 @@
 flask==2.3.2
-transformers==4.10.3
+sentence-transformers==2.2.2
 -f https://download.pytorch.org/whl/torch_stable.html
 torch==2.0.1+cpu
 pandas==2.0.2
