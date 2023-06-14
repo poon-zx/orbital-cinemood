@@ -1,18 +1,11 @@
 import stringSimilarity from 'string-similarity';
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import Cards from "../components/Card/card.js";
 import "../components/MovieList/movieList.css";
 
 const PersonalizedSearch = () => {
   const [searchText, setSearchText] = useState("");
   const [movieList, setMovieList] = useState([]);
-  const { type } = useParams();
-
-  useEffect(() => {
-    getData();
-    // eslint-disable-next-line
-  }, [type]);
 
   const getData = async () => {
     // 1. Initiate similarity calculation

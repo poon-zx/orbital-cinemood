@@ -9,17 +9,13 @@ const Search = () => {
     const [searchText, setSearchText] = useState("");
     const [page, setPage] = useState(1);
     const [movieList, setMovieList] = useState([])
-    const {type} = useParams()
-    
-    useEffect(() => {
-        getData()
-        // eslint-disable-next-line
-    }, [])
+
+
 
     useEffect(() => {
         getData()
         // eslint-disable-next-line
-    }, [type, page])
+    }, [page])
 
     const getData = () => {
         fetch(`https://api.themoviedb.org/3/search/movie?query=${searchText}}&api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US&page=${page}`)
