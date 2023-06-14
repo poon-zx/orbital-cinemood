@@ -13,7 +13,7 @@ app = Flask(__name__, static_folder='build', static_url_path='/')
 CORS(app)
 
 # configure Celery
-celery = Celery(app.name, broker=os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'))
+celery = Celery(app.name, broker=os.getenv('REDIS_URL', 'redis://localhost:6379/0'))
 celery.conf.update(app.config)
 
 @app.route('/')
