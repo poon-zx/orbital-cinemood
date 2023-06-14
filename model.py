@@ -6,15 +6,9 @@ import pandas as pd
 from io import StringIO
 import os
 import requests
-from celery import Celery
-import redis
 
 app = Flask(__name__, static_folder='build', static_url_path='/')
 CORS(app)
-
-# configure Celery
-celery = Celery(app.name, broker=os.getenv('REDIS_URL', 'redis://localhost:6379/0'), backend=os.getenv('REDIS_URL', 'redis://localhost:6379/0'))
-celery.conf.update(app.config)
 
 @app.route('/')
 def serve():
@@ -31,8 +25,12 @@ dataset = pd.read_csv(data)
 
 tensors = torch.load('Overall Movie.pt')
 
-@celery.task(bind=True)
-def compute_similarity(self, input):
+@app.route("/find_similarity/", methods=['POST', 'OPTIONS'])
+@cross_origin(options=None)
+
+def find_similarity():
+    item = request.get_json()
+    input = item['input'].lower()
     input = input.replace("[^a-zA-Z#]", " ")
     embeddings1 = model.encode(input, convert_to_tensor=True)
     cosine_scores = util.pytorch_cos_sim(embeddings1, tensors)
@@ -48,22 +46,8 @@ def compute_similarity(self, input):
             'year': dataset['Year of Release'][top_indices[i].item()],
             'rating': dataset['Movie Rating'][top_indices[i].item()]
         })
-    return results
 
-@app.route("/find_similarity/", methods=['POST', 'OPTIONS'])
-@cross_origin(options=None)
-def find_similarity():
-    item = request.get_json()
-    input = item['input'].lower()
-    result = compute_similarity.delay(input)
-    return jsonify({'task_id': str(result.id), 'status': 'Processing'})
-
-@app.route("/results/<task_id>", methods=['GET'])
-def get_results(task_id):
-    task = compute_similarity.AsyncResult(task_id)
-    if task.state == 'SUCCESS':
-        return jsonify({'status': 'SUCCESS', 'results': task.result})
-    return jsonify({'status': task.state})
+    return jsonify({'results': results})
 
 if __name__ == '__main__':
     # Check if running on Heroku or locally
