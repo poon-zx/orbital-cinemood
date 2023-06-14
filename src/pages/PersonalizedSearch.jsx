@@ -12,11 +12,6 @@ const PersonalizedSearch = () => {
   useEffect(() => {
     getData();
     // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    getData();
-    // eslint-disable-next-line
   }, [type]);
 
   const getData = async () => {
