@@ -7,6 +7,7 @@ from io import StringIO
 import os
 import requests
 from celery import Celery
+import redis
 
 app = Flask(__name__, static_folder='build', static_url_path='/')
 CORS(app)
