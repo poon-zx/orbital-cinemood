@@ -7,11 +7,11 @@ from io import StringIO, BytesIO
 import os
 import requests
 
-app = Flask(__name__, static_folder='build/static')
+app = Flask(__name__, static_folder='build')
 CORS(app)
 
 @app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
+@app.route('/static/<path:path>')
 def serve(path):
     if path != "" and os.path.exists("build/static/" + path):
         return send_from_directory('build/static', path)
