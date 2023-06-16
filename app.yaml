@@ -17,6 +17,6 @@ env_variables:
 
 handlers:
 - url: /static
-  static_dir: static/
+  static_dir: build/static
 - url: /.*
   script: auto
