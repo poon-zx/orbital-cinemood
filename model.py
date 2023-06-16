@@ -11,12 +11,12 @@ app = Flask(__name__, static_folder='build')
 CORS(app)
 
 @app.route('/', defaults={'path': ''})
-@app.route('/static/<path:path>')
+@app.route('/<path:path>')
 def serve(path):
-    if path != "" and os.path.exists("build/static/" + path):
-        return send_from_directory('build/static', path)
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return send_from_directory(app.static_folder, path)
     else:
-        return send_from_directory('build/', 'index.html')
+        return send_from_directory(app.static_folder, 'index.html')
 
 
 model = SentenceTransformer('all-mpnet-base-v2')
