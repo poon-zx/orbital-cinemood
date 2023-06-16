@@ -7,17 +7,7 @@ import "../components/MovieList/movieList.css";
 const PersonalizedSearch = () => {
   const [searchText, setSearchText] = useState("");
   const [movieList, setMovieList] = useState([]);
-  const { type } = useParams();
 
-  useEffect(() => {
-    getData();
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    getData();
-    // eslint-disable-next-line
-  }, [type]);
 
   const getData = async () => {
     if (searchText === "") {
@@ -25,7 +15,7 @@ const PersonalizedSearch = () => {
       return;
     }
     try {
-      const response = await fetch("http://localhost:8000/find_similarity/", {
+      const response = await fetch("/find_similarity/", {
         method: "POST",
         headers: {
           Accept: "application/json",
