@@ -1,4 +1,5 @@
 runtime: python39
+instance_class: F4
 entrypoint: gunicorn -b :$PORT model:app
 timeout: 300s
 env: flex
