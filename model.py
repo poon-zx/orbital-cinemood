@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS, cross_origin
 from sentence_transformers import SentenceTransformer, util
 import torch
@@ -10,9 +10,14 @@ import requests
 app = Flask(__name__, static_folder='build', static_url_path='/')
 CORS(app)
 
-@app.route('/')
-def serve():
-        return app.send_static_file('index.html')
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    if path != "" and os.path.exists("build/static/" + path):
+        return send_from_directory('build/static', path)
+    else:
+        return send_from_directory('build/', 'index.html')
+
 
 model = SentenceTransformer('all-mpnet-base-v2')
 
