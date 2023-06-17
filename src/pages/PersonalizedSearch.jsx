@@ -1,13 +1,11 @@
-import stringSimilarity from 'string-similarity';
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import stringSimilarity from "string-similarity";
+import React, { useState } from "react";
 import Cards from "../components/Card/card.js";
 import "../components/MovieList/movieList.css";
 
 const PersonalizedSearch = () => {
   const [searchText, setSearchText] = useState("");
   const [movieList, setMovieList] = useState([]);
-
 
   const getData = async () => {
     if (searchText === "") {
@@ -23,21 +21,21 @@ const PersonalizedSearch = () => {
         },
         body: JSON.stringify({ input: searchText }),
       });
-  
+
       if (response.ok) {
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
           const similarityResults = await response.json();
 
           // sort the results by rating in descending order
-  
+
           const moviePromises = similarityResults.results.map((result) =>
             fetch(
               `https://api.themoviedb.org/3/search/movie?query=${result.movie}&api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US`
             )
           );
           console.log(similarityResults.results);
-  
+
           const movieResponses = await Promise.all(moviePromises);
           const movieResults = await Promise.all(
             movieResponses.map((response) => {
@@ -48,25 +46,31 @@ const PersonalizedSearch = () => {
               }
             })
           );
-  
-          const filteredMovies = movieResults.map((result, index) => {
-            console.log(result);
-            if (!result) {
-              return null;
-            }
-            // Only consider the first 3 results from TMDB
-            const firstThreeMovies = result.results.slice(0, 3);
-            const matchingMovie = firstThreeMovies.find(
-              (movie) => stringSimilarity.compareTwoStrings(movie.title.toLowerCase(), similarityResults.results[index].movie.toLowerCase()) > 0.9
-                && movie.release_date.slice(0, 4) === similarityResults.results[index].year
-                && movie.poster_path
-            );
-        
-            return matchingMovie;
-          }).filter(movie => movie);  // Remove any undefined entries
-  
+
+          const filteredMovies = movieResults
+            .map((result, index) => {
+              console.log(result);
+              if (!result) {
+                return null;
+              }
+              // Only consider the first 3 results from TMDB
+              const firstThreeMovies = result.results.slice(0, 3);
+              const matchingMovie = firstThreeMovies.find(
+                (movie) =>
+                  stringSimilarity.compareTwoStrings(
+                    movie.title.toLowerCase(),
+                    similarityResults.results[index].movie.toLowerCase()
+                  ) > 0.9 &&
+                  movie.release_date.slice(0, 4) ===
+                    similarityResults.results[index].year &&
+                  movie.poster_path
+              );
+
+              return matchingMovie;
+            })
+            .filter((movie) => movie); // Remove any undefined entries
+
           setMovieList(filteredMovies);
-          
         } else {
           console.error("Invalid response format. Expected JSON.");
         }
@@ -76,8 +80,7 @@ const PersonalizedSearch = () => {
     } catch (error) {
       console.error("Error searching for movies:", error);
     }
-  };  
-  
+  };
 
   const search = () => {
     getData();
@@ -92,7 +95,12 @@ const PersonalizedSearch = () => {
       <h2 className="list__title">Movie Recommender</h2>
       <div className="container">
         <div className="search-container">
-          <form onSubmit={(e) => { e.preventDefault(); search() }}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              search();
+            }}
+          >
             <input
               type="text"
               placeholder="I want to watch a ..."
