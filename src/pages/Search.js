@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import Cards from "../components/Card/card.js";
 import "../components/MovieList/movieList.css";
 import Pagination from "../components/Pagination/Pagination.js";

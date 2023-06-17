@@ -44,8 +44,9 @@ const AuthProvider = ({ children }) => {
       value={{
         auth,
         user,
-        updatePassword
-      }}>
+        updatePassword,
+      }}
+    >
       {!loading && children}
     </AuthContext.Provider>
   );

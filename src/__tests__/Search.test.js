@@ -1,13 +1,11 @@
-import React from 'react';
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Search from '../pages/Search';
+import React from "react";
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import Search from "../pages/Search";
 
-jest.mock('../components/Card/card.js', () => {
+jest.mock("../components/Card/card.js", () => {
   return function DummyCards({ movie }) {
-    return (
-      <div>{movie.original_title}</div>
-    );
+    return <div>{movie.original_title}</div>;
   };
 });
 
@@ -23,7 +21,7 @@ test("submits form and calls search function", async () => {
     release_date: "2022",
     vote_average: "7.5",
     overview: "Movie Test Overview",
-    poster_path: "/test.jpg"
+    poster_path: "/test.jpg",
   };
 
   global.fetch = jest.fn(() =>
@@ -35,10 +33,12 @@ test("submits form and calls search function", async () => {
   render(<Search />);
 
   const searchInput = screen.getByPlaceholderText(/search movie name.../i);
-  const searchButton = screen.getByRole('button');
+  const searchButton = screen.getByRole("button");
 
-  fireEvent.change(searchInput, { target: { value: 'Movie Test' } });
+  fireEvent.change(searchInput, { target: { value: "Movie Test" } });
   fireEvent.click(searchButton);
 
-  await waitFor(() => expect(screen.getByText("Movie Test")).toBeInTheDocument());
+  await waitFor(() =>
+    expect(screen.getByText("Movie Test")).toBeInTheDocument()
+  );
 });
