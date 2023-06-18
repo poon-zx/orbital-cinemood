@@ -91,11 +91,13 @@ function MyVerticallyCenteredModal(props) {
                         name="simple-controlled"
                         max = {10}
                         value={value}
+                        size="large"
                         onChange={(event, newValue) => {
                         setValue(newValue);
                         }}
                     /> 
                 </Box>
+                <Button variant="text" className="remove-btn">Remove Rating</Button>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={props.onHide}>
