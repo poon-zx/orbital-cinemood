@@ -17,7 +17,7 @@ const Cards = ({ movie }) => {
       {isLoading ? (
         <div className="cards">
           <SkeletonTheme color="#202020" highlightColor="#444">
-            <Skeleton height={300} duration={2} />
+            <Skeleton height={300} duration={2} data-testid="skeleton-loader" />
           </SkeletonTheme>
         </div>
       ) : (
@@ -31,6 +31,7 @@ const Cards = ({ movie }) => {
               src={`https://image.tmdb.org/t/p/original${
                 movie ? movie.poster_path : ""
               }`}
+              alt={movie ? movie.original_title : ""}
             />
             <div className="cards__overlay">
               <div className="card__title">
