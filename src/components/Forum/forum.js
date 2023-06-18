@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardText, CardTitle } from "reactstrap";
+import { Card, CardText, CardTitle, CardImg } from "reactstrap";
+import { Avatar } from "@mui/material";
 import { supabase } from "../../supabase";
 import "./forum.css";
+import defaultImg from "../../images/default-avatar.png";
 
 const Forum = ({ movieId }) => {
     const [currentMovieReview, setMovieReview] = useState([]);
@@ -36,12 +38,11 @@ const Forum = ({ movieId }) => {
                 {currentMovieReview.length > 0 ? (
                     currentMovieReview.map((review) => (
                         <div className="movie__card" key={review.id}>
+                            <Avatar/>
                             <div className="movie__review_left">
-                                {review.title && (
-                                    <CardTitle tag="h5" className="movie__reviewTitle">
+                                <CardTitle tag="h5" className="movie__reviewTitle">
                                         {review.title}
-                                    </CardTitle>
-                                )}
+                                </CardTitle>
                                 {review.rating && (
                                     <CardText className="movie__reviewRating">
                                         Rating: {review.rating}/10
