@@ -10,7 +10,11 @@ import PasswordReset from "./pages/UpdatePassword.jsx";
 import NotFound from "./pages/NotFound";
 import Search from "./pages/Search.js";
 import PersonalizedSearch from "./pages/PersonalizedSearch.jsx";
+<<<<<<< HEAD
 import "bootstrap/dist/css/bootstrap.min.css";
+=======
+import { SearchProvider } from './context/SearchContext';
+>>>>>>> 262f456c5421fdafe7dede4e3759b863f9f17a8c
 
 export default function App() {
   const location = useLocation();
@@ -23,6 +27,7 @@ export default function App() {
 
   return (
     <div className="App">
+      <SearchProvider>
       <div className="content-container">
         {showHeader && <Header />}
         <Routes>
@@ -38,6 +43,7 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
+      </SearchProvider>
     </div>
   );
 }

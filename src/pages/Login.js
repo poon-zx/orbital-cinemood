@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect } from "react";
 import logo from "../images/logo.svg";
 import "../App.css";
 import "./style.css";
@@ -66,11 +66,18 @@ const customTheme = {
 function Login() {
   const navigate = useNavigate();
 
-  supabase.auth.onAuthStateChange(async (event) => {
-    if (event === "SIGNED_IN") {
-      navigate("/home");
-    }
-  });
+  useEffect(() => {
+    const handleAuthStateChange = async (event) => {
+      if (event === "SIGNED_IN") {
+        navigate("/home");
+      }
+    };
+
+    const subscription = supabase.auth.onAuthStateChange(handleAuthStateChange);
+
+    return () => {
+    };
+  }, [navigate]);
 
   return (
     <div className="Login center-content">
