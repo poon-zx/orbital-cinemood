@@ -187,4 +187,7 @@
     justify-content: center;
 }
 
-  
+.qn {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+}
