@@ -1,0 +1,58 @@
+.forum {
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
+
+.movie__review {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.movie__card {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    background-color: #F6F1EA;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 1000px; 
+    width: 100%; 
+}
+
+.movie_reviewAvatar {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
+}
+
+.movie__review_left {
+    display: flex;
+    flex-direction: column;
+}
+
+.movie__reviewAuthor {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 2px;
+    text-align: left;
+}
+
+.movie__reviewRating {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    color: #888;
+    text-align: left;
+}
+
+.movie__reviewContent {
+    margin-bottom: 2px;
+    text-align: left;
+}
+
+.movie__reviewDate {
+    font-size: 0.9rem;
+    color: #888;
+    text-align: left;
+}

@@ -10,6 +10,7 @@ import PasswordReset from "./pages/UpdatePassword.jsx";
 import NotFound from "./pages/NotFound";
 import Search from "./pages/Search.js";
 import PersonalizedSearch from "./pages/PersonalizedSearch.jsx";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function App() {
   const location = useLocation();
