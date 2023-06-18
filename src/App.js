@@ -10,6 +10,7 @@ import PasswordReset from "./pages/UpdatePassword.jsx";
 import NotFound from "./pages/NotFound";
 import Search from "./pages/Search.js";
 import PersonalizedSearch from "./pages/PersonalizedSearch.jsx";
+import { SearchProvider } from './context/SearchContext';
 
 export default function App() {
   const location = useLocation();
@@ -22,6 +23,7 @@ export default function App() {
 
   return (
     <div className="App">
+      <SearchProvider>
       <div className="content-container">
         {showHeader && <Header />}
         <Routes>
@@ -37,6 +39,7 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
+      </SearchProvider>
     </div>
   );
 }
