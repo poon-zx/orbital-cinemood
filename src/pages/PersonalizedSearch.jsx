@@ -93,6 +93,9 @@ const PersonalizedSearch = () => {
   return (
     <div className="movie__list">
       <h2 className="list__title">Movie Recommender</h2>
+      <p className="list__description"> 
+        Enter below what you want to watch and we'll recommend you some movies! 
+      </p>
       <div className="container">
         <div className="search-container">
           <form
