@@ -12,6 +12,13 @@
     align-self: flex-start;
 }
 
+.list__description {
+    font-size: 1.3rem;
+    margin:  1rem;
+    font-family: 'Playfair Display', serif;
+    align-self: flex-start;
+}
+
 .list__cards {
     display: flex;
     flex-wrap: wrap ;

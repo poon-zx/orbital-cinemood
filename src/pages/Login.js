@@ -72,7 +72,7 @@ function Login() {
         navigate("/home");
       }
     };
-
+    
     const subscription = supabase.auth.onAuthStateChange(handleAuthStateChange);
 
     return () => {
