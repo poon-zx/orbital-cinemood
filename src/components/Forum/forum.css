@@ -1,0 +1,97 @@
+.forum {
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
+
+.movie__review {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.movie__card {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    background-color: #F6F1EA;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 1000px; 
+    width: 100%; 
+}
+
+.movie_reviewAvatar {
+    margin-right: 10px;
+}
+
+.movie__review_left {
+    display: flex;
+    flex-direction: column;
+}
+
+.movie__reviewAuthor {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 2px;
+    text-align: left;
+}
+
+.movie__reviewRating {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    color: #888;
+    text-align: left;
+}
+
+.movie_reviewEmail {
+    font-weight: bold;
+}
+
+.movie__reviewContent {
+    margin-bottom: 2px;
+    text-align: left;
+}
+
+.movie__reviewDate {
+    font-size: 0.9rem;
+    color: #888;
+    text-align: left;
+}
+
+.reply__container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .reply__container .MuiAvatar-root {
+    margin-right: 20px;
+    margin-bottom: 10px;
+    margin-left: 40px;
+  }
+
+  .reply-button {
+    margin-bottom: 20px;
+    width: 20px;
+  }
+
+  .replies-container {
+    margin-top: 10px;
+  }
+
+  .profile__container {
+    display: flex;
+    align-items: center;
+  }
+
+  .reply {
+    margin-bottom: 20px;
+  }
+  
+  .reply__user__content {
+    text-align: left;
+  }
+
+  .reply__user__email {
+    font-weight: bold;
+    text-align: left;
+  }

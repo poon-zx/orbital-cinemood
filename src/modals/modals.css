@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+.review-btn {
+    border-radius: 17px;
+    background-color: #E19C8D;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    width: 160px;
+    margin-bottom: 20px;
+    height: 38px;
+}
+
+.review-btn:hover {
+    background-color: #E6816B;
+    transform: translateY(-1px);
+}
+
+.rate-btn {
+    width: 80px;
+}
+
+.star {
+    size: 200px;
+}
+
+.rate__this {
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.movie__name {
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    font-size: 30px;
+}
