@@ -1,5 +1,4 @@
 runtime: python39
-version: v2
 instance_class: F4_1G
 entrypoint: gunicorn -b :$PORT model:app
 
