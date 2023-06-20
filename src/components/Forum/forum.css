@@ -7,7 +7,20 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
-}
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    flex-grow: 1;
+    flex-basis: 0;
+    width: 1000px;
+  }
+  
+  @media (max-width: 1000px) {
+    .movie__review {
+      width: 100%;
+      max-width: 1000px; 
+    }
+  }
 
 .movie__card {
     display: flex;
@@ -18,6 +31,8 @@
     padding: 10px;
     max-width: 1000px; 
     width: 100%; 
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .movie_reviewAvatar {
@@ -95,3 +110,5 @@
     font-weight: bold;
     text-align: left;
   }
+
+  
