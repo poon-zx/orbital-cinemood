@@ -62,7 +62,8 @@ function MyVerticallyCenteredModal(props) {
                         title: title,
                         content: content,
                         movie_id: props.movieId,
-                        user_id: auth.user.id
+                        user_id: auth.user.id,
+                        user_email: auth.user.email
                     },
                 ]);
 
@@ -80,6 +81,7 @@ function MyVerticallyCenteredModal(props) {
         setContent('');
         setError('');
         props.onHide();
+        window.location.reload();
     };
 
     const handleKeyDown = (event) => {

@@ -22,3 +22,17 @@
 .star {
     size: 200px;
 }
+
+.rate__this {
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.movie__name {
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    font-size: 30px;
+}

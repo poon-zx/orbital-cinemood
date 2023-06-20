@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { supabase } from '../supabase.js';
 import { v4 } from 'uuid';
@@ -12,7 +12,21 @@ function MyVerticallyCenteredModal(props) {
     const [content, setContent] = useState("");
     const [message, setMessage] = useState("");
     const [value, setValue] = useState("");
+    const [currentMovie, setMovie] = useState();
     const auth = useAuth();
+
+    useEffect(() => {
+        getData(props.movieId);
+        window.scrollTo(0, 0);
+    }, []);
+
+    const getData = (id) => {
+        fetch(
+        `https://api.themoviedb.org/3/movie/${id}?api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US`
+        )
+        .then((res) => res.json())
+        .then((data) => setMovie(data));
+    };
 
     const addRating = async () => {
         const { data: existingReviewData, error: existingReviewError } = await supabase
@@ -67,6 +81,8 @@ function MyVerticallyCenteredModal(props) {
                 setMessage("Review added successfully!");
             }
         }
+        props.onHide();
+        window.location.reload();
     };
 
     return (
@@ -77,12 +93,15 @@ function MyVerticallyCenteredModal(props) {
             centered
         >
             <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Rate this
+                <Modal.Title className="ms-auto">
+                    <h4 className="rate__this">Rate this </h4>
+                    <h3 className="movie__name">{currentMovie ? currentMovie.original_title : ""}</h3>
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                <Box
+            <Modal.Body >
+                <Box style={{
+                    display: "flex",
+                    justifyContent: "center"}}
                     sx={{
                         '& > legend': { mt: 2 },
                     }}
@@ -97,7 +116,12 @@ function MyVerticallyCenteredModal(props) {
                         }}
                     /> 
                 </Box>
-                <Button variant="text" className="remove-btn">Remove Rating</Button>
+                <Box style={{
+                    display: "flex",
+                    justifyContent: "center"}}
+                >
+                    <Button variant="text" className="remove-btn">Remove Rating</Button>
+                </Box>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={props.onHide}>

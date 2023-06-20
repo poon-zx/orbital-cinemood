@@ -12,7 +12,7 @@
 .movie__card {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     background-color: #F6F1EA;
     border-radius: 10px;
     padding: 10px;
@@ -21,9 +21,6 @@
 }
 
 .movie_reviewAvatar {
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
     margin-right: 10px;
 }
 
@@ -46,6 +43,10 @@
     text-align: left;
 }
 
+.movie_reviewEmail {
+    font-weight: bold;
+}
+
 .movie__reviewContent {
     margin-bottom: 2px;
     text-align: left;
@@ -56,3 +57,41 @@
     color: #888;
     text-align: left;
 }
+
+.reply__container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .reply__container .MuiAvatar-root {
+    margin-right: 20px;
+    margin-bottom: 10px;
+    margin-left: 40px;
+  }
+
+  .reply-button {
+    margin-bottom: 20px;
+    width: 20px;
+  }
+
+  .replies-container {
+    margin-top: 10px;
+  }
+
+  .profile__container {
+    display: flex;
+    align-items: center;
+  }
+
+  .reply {
+    margin-bottom: 20px;
+  }
+  
+  .reply__user__content {
+    text-align: left;
+  }
+
+  .reply__user__email {
+    font-weight: bold;
+    text-align: left;
+  }
