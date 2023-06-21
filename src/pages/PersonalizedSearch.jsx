@@ -2,6 +2,8 @@ import stringSimilarity from "string-similarity";
 import React, { useState } from "react";
 import Cards from "../components/Card/card.js";
 import "../components/MovieList/movieList.css";
+import SearchIcon from '@mui/icons-material/Search';
+import { IconButton } from "@mui/material";
 
 const PersonalizedSearch = () => {
   const [searchText, setSearchText] = useState("");
@@ -92,9 +94,9 @@ const PersonalizedSearch = () => {
 
   return (
     <div className="movie__list">
-      <h2 className="list__title">Movie Recommender</h2>
+      <h2 className="list__title" style={{ marginTop: "30px" }}>Movie Recommender</h2>
       <div className="container">
-        <div className="search-container">
+        <div className="search-container" style={{ display: "flex", alignItems: "center" }}>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -105,12 +107,15 @@ const PersonalizedSearch = () => {
               type="text"
               placeholder="I want to watch a ..."
               onChange={trigger}
-              className="search-bar"
+              className="search--bar"
             />
-            <button className="search-button" type="submit">
-              {" "}
-              &#128269;
-            </button>
+            <IconButton
+                className="search--button"
+                type="submit"
+                style={{ width: "50px", height: "50px" }}
+                >
+                    <SearchIcon />
+            </IconButton>
           </form>
         </div>
         <div className="list__cards">

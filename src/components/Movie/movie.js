@@ -102,16 +102,15 @@ const Movie = () => {
         <div className="movie__links">
             <div className="movie__heading1">Useful Links</div>
             {currentMovieDetail && currentMovieDetail.homepage && (
-            <a
+            <a className="text-center"
                 href={currentMovieDetail.homepage}
                 target="_blank"
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: "none"}}
             >
-                <p>
-                <span className="movie__homeButton movie__Button">
-                    Movie Page<i className="newTab fas fa-external-link-alt"></i>
-                </span>
-                </p>
+            <button className="movie__homeButton">
+                <span className="buttonText">Movie Page</span>
+                <i className="newTab fas fa-external-link-alt"></i>
+            </button>
             </a>
             )}
         </div>
@@ -123,6 +122,7 @@ const Movie = () => {
         </div>
         <Forum movieId={id} />
         <Watch movieId={id} />
+
         </div>
     );
 };

@@ -14,6 +14,11 @@
     flex-basis: 0;
     width: 1000px;
   }
+
+  .movie__review.card {
+    background: transparent;
+    border: none;
+  }
   
   @media (max-width: 1000px) {
     .movie__review {

@@ -150,11 +150,18 @@
 
 .movie__homeButton {
     background-color:#F1C6A8;
-    text-align: center;
     font-family: 'Be Vietnam Pro', sans-serif;
     color: black;
+    font-weight: bold;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    width: 115px;
+    width: 130px;
+    height: 35px;
+    margin-top: 28px;
+    border-radius: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
 .movie__homeButton:hover {
@@ -191,3 +198,10 @@
     font-family: 'Playfair Display', serif;
     font-size: 1.4rem;
 }
+
+.buttonText {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 20px;
+    white-space: nowrap;
+  }
