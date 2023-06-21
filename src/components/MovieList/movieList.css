@@ -34,10 +34,10 @@
 
 .search-bar {
     padding: 0.5rem;
-    width: 74%; /* Making the search bar wider */
+    width: 80%; /* Making the search bar wider */
     font-size: 1.5rem;
     border-radius: 4px;
-    height: 30px;
+    height: 50px;
 }
 
 .search-button {

@@ -41,7 +41,7 @@ function ResponsiveAppBar() {
 
   useEffect(() => {
     if (prevPath.current === "/search" && location.pathname !== "/search") {
-      setLocalSearchText('');
+      setLocalSearchText("");
     }
     prevPath.current = location.pathname;
   }, [location.pathname]);
@@ -124,12 +124,18 @@ function ResponsiveAppBar() {
                   name="search"
                   value={localSearchText}
                   onChange={(e) => setLocalSearchText(e.target.value)}
-                  style={{ width: "200px", height: "30px" }}
+                  style={{ width: "200px", height: "40px" }}
                 />
                 <button
                   className="search-button"
                   type="submit" // make the button of type submit to trigger the form onSubmit event
-                  style={{ width: "50px", height: "40px" }}
+                  style={{
+                    width: "50px",
+                    height: "40px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                 >
                   &#128269;
                 </button>
