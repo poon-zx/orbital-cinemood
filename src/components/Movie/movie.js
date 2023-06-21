@@ -52,6 +52,7 @@ const Movie = () => {
                     currentMovieDetail ? currentMovieDetail.poster_path : ""
                 }`}
                 />
+                <Watch className="watch__add" movieId={id} />
             </div>
             </div>
             <div className="movie__detailRight">
@@ -121,8 +122,6 @@ const Movie = () => {
             <WriteReview movieId={id} />
         </div>
         <Forum movieId={id} />
-        <Watch movieId={id} />
-
         </div>
     );
 };

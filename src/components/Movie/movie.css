@@ -205,3 +205,9 @@
     margin-left: 20px;
     white-space: nowrap;
   }
+
+  .movie__left {
+    position: absolute;
+    left: 17%;
+    top: 950px;
+  }

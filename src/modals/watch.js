@@ -275,8 +275,8 @@ function Watch({ movieId }) {
 
     return (
         <>
-            <button className="review-btn" onClick={() => setModalShow(true)}>
-                button
+            <button className="add-btn" onClick={() => setModalShow(true)}>
+                Add this movie
             </button>
 
             <MyVerticallyCenteredModal
