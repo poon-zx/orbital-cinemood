@@ -33,9 +33,8 @@ const MovieList = () => {
       });
       
   };
-
   return (
-    <div className="movie__list">
+    <div className="movie__list" data-testid="movie-list">
       <h2 className="list__title">
         {(() => {
           if (type === "top_rated") {

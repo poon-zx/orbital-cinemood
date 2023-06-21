@@ -12,19 +12,19 @@ const Pagination = ({ page, setPage, totalResults }) => {
   };
 
   const Next = () => {
-    if (page < Math.ceil(totalResults / 20)) { // If the current page is less than the total number of pages
+    if (page < Math.ceil(totalResults / 20) && page < 10) { // If the current page is less than the total number of pages
       setPage(page + 1);
       window.scrollTo(0, 0);
     }
   };
 
   return (
-    <div className="pagination-container">
-      <button className="pagination-button" onClick={Previous}>
+    <div className="pagination-container" data-testid="pagination">
+      <button className="pagination-button" onClick={Previous} data-testid="previous-button">
         Previous
       </button>
       <span className="page-number">Page {page}</span>
-      <button className="pagination-button" onClick={Next}>
+      <button className="pagination-button" onClick={Next} data-testid="next-button">
         Next
       </button>
     </div>
