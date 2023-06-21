@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap');
 
-.search-bar {
+.search {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,21 +15,22 @@
     margin-left: 15px;
     font-family: 'Be Vietnam Pro', sans-serif;
     font-size: 16px;
+    padding: 8px;
 }
 
 @media (max-width: 1085px) {
-    .search-bar {
+    .search {
       width: 230px; 
     }
   }
 
   @media (max-width: 550px) {
-    .search-bar {
+    .search {
       width: 100px; 
     }
   }
   @media (max-width: 480px) {
-    .search-bar {
+    .search {
       width: 80px; 
     }
   }

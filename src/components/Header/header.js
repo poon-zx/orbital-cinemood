@@ -121,7 +121,7 @@ function ResponsiveAppBar() {
                 }}
               >
                 <input
-                  className="search-bar"
+                  className="search"
                   type="text"
                   placeholder="search movie name..."
                   name="search"
