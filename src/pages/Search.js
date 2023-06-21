@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { SearchContext } from '../context/SearchContext';
+import { SearchContext } from "../context/SearchContext";
 import Cards from "../components/Card/card.js";
 import "../components/MovieList/movieList.css";
 import Pagination from "../components/Pagination/Pagination.js";
@@ -33,11 +33,15 @@ const Search = () => {
     <div className="movie__list">
       <h2 className="list__title">Search Results</h2>
       <div className="list__cards">
-        {movieList.map((movie, index) => (
-          <Cards key={index} movie={movie} />
-        ))}
+        {movieList.length > 0 ? (
+          movieList.map((movie, index) => <Cards key={index} movie={movie} />)
+        ) : (
+          <p>No search results found.</p>
+        )}
       </div>
-      {movieList.length > 0 && <Pagination page={page} setPage={setPage} totalResults={totalResults} />}
+      {movieList.length > 0 && (
+        <Pagination page={page} setPage={setPage} totalResults={totalResults} />
+      )}
     </div>
   );
 };

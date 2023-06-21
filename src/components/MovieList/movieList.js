@@ -8,6 +8,7 @@ const MovieList = () => {
   const [movieList, setMovieList] = useState([]);
   const { type } = useParams();
   const [page, setPage] = useState(1);
+  const [totalResults, setTotalResults] = useState(0);
 
   useEffect(() => {
     getData();
@@ -26,11 +27,14 @@ const MovieList = () => {
       }?api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US&page=${page}`
     )
       .then((res) => res.json())
-      .then((data) => setMovieList(data.results));
+      .then((data) => {
+        setMovieList(data.results);
+        setTotalResults(data.total_pages); // Set total pages here
+      });
+      
   };
-
   return (
-    <div className="movie__list">
+    <div className="movie__list" data-testid="movie-list">
       <h2 className="list__title">
         {(() => {
           if (type === "top_rated") {
@@ -47,7 +51,7 @@ const MovieList = () => {
           <Cards movie={movie} />
         ))}
       </div>
-      {movieList.length > 0 && <Pagination page={page} setPage={setPage} />}
+      {movieList.length > 0 && <Pagination page={page} setPage={setPage} totalResults={totalResults} />}
     </div>
   );
 };

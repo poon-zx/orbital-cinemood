@@ -15,7 +15,7 @@ const Cards = ({ movie }) => {
   return (
     <>
       {isLoading ? (
-        <div className="cards">
+        <div className="cards" data-testid="movie-card">
           <SkeletonTheme color="#202020" highlightColor="#444">
             <Skeleton height={300} duration={2} data-testid="skeleton-loader" />
           </SkeletonTheme>
