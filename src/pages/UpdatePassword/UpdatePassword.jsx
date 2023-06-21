@@ -93,7 +93,7 @@ const UpdatePassword = () => {
                 <Button
                   disabled={loading}
                   type="submit"
-                  className="w-50 update-button"
+                  className="update-button"
                 >
                   Update
                 </Button>
