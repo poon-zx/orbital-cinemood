@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import WriteReview from "../../modals/writeReview.js";
 import Rating from "../../modals/rating.js";
+import Watch from "../../modals/watch.js";
 import { useParams } from "react-router-dom";
 import Forum from "../Forum/forum.js"
 import "./movie.css";
@@ -121,6 +122,7 @@ const Movie = () => {
             <WriteReview movieId={id} />
         </div>
         <Forum movieId={id} />
+        <Watch movieId={id} />
         </div>
     );
 };

@@ -34,5 +34,33 @@
     align-items: center;
     margin: auto;
     text-align: center;
-    font-size: 30px;
+    font-size: 20px;
+}
+
+.have__you {
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Playfair Display', serif;
+}
+
+.watch-btn {
+    border-radius: 17px;
+    background-color: #E19C8D;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    width: 220px;
+    margin-bottom: 10px;
+    height: 38px;
+    align-items: center;
+}
+
+.watch-btn:hover {
+    background-color: #E6816B;
+    transform: translateY(-1px);
+    align-items: center;
+}
+
+.center-btn {
+    align-items: center;
 }

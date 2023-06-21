@@ -92,7 +92,7 @@ function MyVerticallyCenteredModal(props) {
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-            <Modal.Header closeButton>
+            <Modal.Header className="px-4" closeButton>
                 <Modal.Title className="ms-auto">
                     <h4 className="rate__this">Rate this </h4>
                     <h3 className="movie__name">{currentMovie ? currentMovie.original_title : ""}</h3>
