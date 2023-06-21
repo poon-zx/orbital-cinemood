@@ -4,7 +4,6 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import {
   MemoryRouter,
   useLocation,
-  Router,
   BrowserRouter,
 } from "react-router-dom";
 import userEvent from "@testing-library/user-event";

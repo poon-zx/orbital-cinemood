@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, screen, waitFor } from "@testing-library/react";
+import { render,  screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Search from "../pages/Search";
 import { SearchContext } from '../context/SearchContext';
@@ -11,7 +11,6 @@ jest.mock("../components/Card/card.js", () => {
   };
 });
 
-const mockSetSearchText = jest.fn();
 
 const wrapper = ({ children }) => (
   <MemoryRouter initialEntries={["/search"]}>
@@ -25,7 +24,7 @@ const wrapper = ({ children }) => (
 
 test("renders Search component", () => {
   render(<Search />, { wrapper });
-  expect(screen.getByText(/Search Results/i)).toBeInTheDocument();
+  expect(screen.getAllByText("Search Results")[0]).toBeInTheDocument();
 });
 
 test("displays search results", async () => {
