@@ -79,7 +79,7 @@ function ResponsiveAppBar() {
         <Container maxWidth="xl">
           <Box display="flex" alignItems="center">
             <Link to="/home" style={{ textDecoration: "none" }}>
-              <Box component="img" sx={{ height: 50 }} alt="Logo" src={logo} />
+              <Box component="img" sx={{ height: 50 }} alt="Home" src={logo} />
             </Link>
             <Box flexGrow={1} display="flex" justifyContent="left">
               <Box display={{ xs: "flex", md: "none" }}>
@@ -128,6 +128,7 @@ function ResponsiveAppBar() {
                 />
                 <button
                   className="search-button"
+                  role="search-button"
                   type="submit" // make the button of type submit to trigger the form onSubmit event
                   style={{
                     width: "50px",

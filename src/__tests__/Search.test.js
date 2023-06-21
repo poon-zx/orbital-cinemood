@@ -2,6 +2,8 @@ import React from "react";
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Search from "../pages/Search";
+import { SearchContext } from '../context/SearchContext';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 jest.mock("../components/Card/card.js", () => {
   return function DummyCards({ movie }) {
@@ -9,12 +11,24 @@ jest.mock("../components/Card/card.js", () => {
   };
 });
 
+const mockSetSearchText = jest.fn();
+
+const wrapper = ({ children }) => (
+  <MemoryRouter initialEntries={["/search"]}>
+    <SearchContext.Provider value={{ searchText: 'Movie Test', setSearchText: jest.fn() }}>
+      <Routes>
+        <Route path="/search" element={ children } />
+      </Routes>
+    </SearchContext.Provider>
+  </MemoryRouter>
+);
+
 test("renders Search component", () => {
-  render(<Search />);
-  expect(screen.getByText(/Search/i)).toBeInTheDocument();
+  render(<Search />, { wrapper });
+  expect(screen.getByText(/Search Results/i)).toBeInTheDocument();
 });
 
-test("submits form and calls search function", async () => {
+test("displays search results", async () => {
   const movie = {
     id: 1,
     original_title: "Movie Test",
@@ -26,17 +40,11 @@ test("submits form and calls search function", async () => {
 
   global.fetch = jest.fn(() =>
     Promise.resolve({
-      json: () => Promise.resolve({ results: [movie] }),
+      json: () => Promise.resolve({ results: [movie], total_results: 1 }),
     })
   );
 
-  render(<Search />);
-
-  const searchInput = screen.getByPlaceholderText(/search movie name.../i);
-  const searchButton = screen.getByRole("button");
-
-  fireEvent.change(searchInput, { target: { value: "Movie Test" } });
-  fireEvent.click(searchButton);
+  render(<Search />, { wrapper });
 
   await waitFor(() =>
     expect(screen.getByText("Movie Test")).toBeInTheDocument()
