@@ -43,7 +43,7 @@ function ResponsiveAppBar() {
 
   useEffect(() => {
     if (prevPath.current === "/search" && location.pathname !== "/search") {
-      setLocalSearchText('');
+      setLocalSearchText("");
     }
     prevPath.current = location.pathname;
   }, [location.pathname]);
@@ -81,7 +81,7 @@ function ResponsiveAppBar() {
         <Container maxWidth="xl">
           <Box display="flex" alignItems="center">
             <Link to="/home" style={{ textDecoration: "none" }}>
-              <Box component="img" sx={{ height: 50 }} alt="Logo" src={logo} />
+              <Box component="img" sx={{ height: 50 }} alt="Home" src={logo} />
             </Link>
             <Box flexGrow={1} display="flex" justifyContent="left">
               <Box display={{ xs: "flex", md: "none" }}>
@@ -132,8 +132,7 @@ function ResponsiveAppBar() {
                 <IconButton
                 className="search-button"
                 type="submit"
-                style={{ width: "40px", height: "40px" }}
-                >
+                style={{ width: "40px", height: "40px" }}>
                     <SearchIcon />
                 </IconButton>
               </form>

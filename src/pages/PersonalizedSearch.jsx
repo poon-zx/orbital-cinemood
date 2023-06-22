@@ -118,6 +118,9 @@ const PersonalizedSearch = () => {
     return (
         <div className="movie__list">
         <h2 className="list__title" style={{ marginTop: "30px" }}>Movie Recommender</h2>
+  <p className="list__description"> 
+        Enter below what you want to watch and we'll recommend you some movies! 
+      </p>
         <div className="container">
             <div className="search-container" style={{ display: "flex", alignItems: "center" }}>
             <form
@@ -146,6 +149,7 @@ const PersonalizedSearch = () => {
                 <Cards key={movie.id} movie={movie} />
             ))}
             </div>
+
         </div>
         </div>
     );

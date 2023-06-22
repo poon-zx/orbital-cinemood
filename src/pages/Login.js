@@ -99,6 +99,7 @@ function Login() {
         >
           <img src={logo} alt="Logo" height="100" />
           <Auth
+          ref={el => el && (el.dataset.testid = 'login-form')}
             supabaseClient={supabase}
             className="App"
             appearance={{

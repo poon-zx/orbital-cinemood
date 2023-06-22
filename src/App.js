@@ -6,7 +6,7 @@ import MovieList from "./components/MovieList/movieList.js";
 import Movie from "./components/Movie/movie.js";
 import { Routes, Route, useLocation } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
-import PasswordReset from "./pages/UpdatePassword.jsx";
+import PasswordReset from "./pages/UpdatePassword/UpdatePassword.jsx";
 import NotFound from "./pages/NotFound";
 import Search from "./pages/Search.js";
 import PersonalizedSearch from "./pages/PersonalizedSearch.jsx";

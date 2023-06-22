@@ -1,9 +1,12 @@
 import React, { useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
-import { useAuth } from "../context/AuthProvider";
+import { useAuth } from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { Box, Container } from "@mui/material";
-import logo from "../images/logo.svg";
+import logo from "../../images/logo.svg";
+import "./UpdatePassword.css";
+import "../../App.css";
+import "../style.css";
 
 const UpdatePassword = () => {
   const { updatePassword } = useAuth();
@@ -51,6 +54,7 @@ const UpdatePassword = () => {
           padding: "18px",
           backgroundColor: "white",
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+          marginTop: "50px",
         }}
       >
         <img src={logo} alt="Logo" height="100" />
@@ -58,16 +62,22 @@ const UpdatePassword = () => {
           <Card.Body>
             <h2 className="text-center mb-4">Update Password</h2>
             <Form onSubmit={handleSubmit}>
-              <Form.Group id="password">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" ref={passwordRef} required />
+              <Form.Group id="password" className="mb-3">
+                <Form.Label>Password:</Form.Label>
+                <Form.Control
+                  type="password"
+                  ref={passwordRef}
+                  required
+                  className="form-input"
+                />
               </Form.Group>
-              <Form.Group id="confirm-password">
-                <Form.Label>Confirm Password</Form.Label>
+              <Form.Group id="confirm-password" className="mb-3">
+                <Form.Label>Confirm Password:</Form.Label>
                 <Form.Control
                   type="password"
                   ref={confirmPasswordRef}
                   required
+                  className="form-input"
                 />
               </Form.Group>
               {errorMsg && (
@@ -80,7 +90,11 @@ const UpdatePassword = () => {
                 </Alert>
               )}
               <div className="text-center mt-2">
-                <Button disabled={loading} type="submit" className="w-50">
+                <Button
+                  disabled={loading}
+                  type="submit"
+                  className="update-button"
+                >
                   Update
                 </Button>
               </div>

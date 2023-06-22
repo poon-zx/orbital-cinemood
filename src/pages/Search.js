@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { SearchContext } from '../context/SearchContext';
+import { SearchContext } from "../context/SearchContext";
 import Cards from "../components/Card/card.js";
 import "../components/MovieList/movieList.css";
 import Pagination from "../components/Pagination/Pagination.js";
@@ -8,10 +8,10 @@ const Search = () => {
   const { searchText } = useContext(SearchContext);
   const [page, setPage] = useState(1);
   const [movieList, setMovieList] = useState([]);
+  const [totalResults, setTotalResults] = useState(0); // New state
 
   useEffect(() => {
     getData();
-    // eslint-disable-next-line
   }, [page, searchText]);
 
   const getData = () => {
@@ -24,18 +24,24 @@ const Search = () => {
           (movie) => movie.poster_path
         );
         setMovieList(moviesWithPoster);
+        setTotalResults(data.total_results); // set the total results here
       });
   };
 
+  // Pass totalResults to the Pagination component
   return (
     <div className="movie__list">
       <h2 className="list__title">Search Results</h2>
-        <div className="list__cards">
-          {movieList.map((movie, index) => (
-            <Cards key={index} movie={movie} />
-          ))}
-        </div>
-      {movieList.length > 0 && <Pagination page={page} setPage={setPage} />}
+      <div className="list__cards">
+        {movieList.length > 0 ? (
+          movieList.map((movie, index) => <Cards key={index} movie={movie} />)
+        ) : (
+          <p>No search results found.</p>
+        )}
+      </div>
+      {movieList.length > 0 && (
+        <Pagination page={page} setPage={setPage} totalResults={totalResults} />
+      )}
     </div>
   );
 };
