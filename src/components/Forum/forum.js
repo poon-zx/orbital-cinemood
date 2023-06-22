@@ -80,7 +80,7 @@ const Forum = ({ movieId }) => {
                         <div className="movie__card" key={review.id}>
                             <div className="profile__container">
                                 <Avatar className="movie_reviewAvatar"/>
-                                <div className="movie_reviewEmail">{review.user.username ? review.user.username : review.user.email}</div>
+                                <div className="movie_reviewEmail">{review.user.email}</div>
                             </div>
                             <div className="movie__review_left">
                                 <CardTitle tag="h5" className="movie__reviewTitle">
@@ -180,7 +180,7 @@ const Replies = ({ reviewId }) => {
                         <div className="reply__container">
                             <Avatar />
                             <div className="reply__user">
-                                <div className="reply__user__email">{reply.user.username ? reply.user.username : reply.user.email}</div>
+                                <div className="reply__user__email">{reply.user.email}</div>
                                 <CardText className="reply__user__content">{reply.content}</CardText>
                             </div>
                         </div>

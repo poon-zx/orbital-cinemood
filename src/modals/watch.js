@@ -10,8 +10,13 @@ function MyVerticallyCenteredModal(props) {
     const [message, setMessage] = useState("");
     const [remove, setRemove] = useState("");
     const [error, setError] = useState("");
+    const [notice, setNotice] = useState("");
     const auth = useAuth();
     
+    useEffect(() => {
+        updateString();
+    }, []);
+
     const addWatchlist = async () => {
         const { data: existingUserData, error: existingUserError } =
             await supabase
@@ -49,27 +54,10 @@ function MyVerticallyCenteredModal(props) {
             } else {
                 setMessage("Watchlist has been updated successfully!");
                 setRemove("Remove from Watchlist");
+                setNotice("In your watchlist");
             }
 
-        } else {
-            // Add new user
-            const { data: addData, error: addError } = await supabase
-                .from('user')
-                .insert([
-                    {
-                        id: auth.user.id,
-                        to_watch: [props.movieId],
-                    },
-                ]);
-
-            if (addError) {
-                console.log(addError);
-                return;
-            }
-            setMessage("Watchlist has been updated successfully!");
-            setRemove("Remove from Watchlist");
-
-        }
+        } 
         setError('');
     };
 
@@ -127,26 +115,10 @@ function MyVerticallyCenteredModal(props) {
             } else {
                 setMessage("Watch history has been updated successfully!");
                 setRemove("Remove from watch history");
+                setNotice("In your watch history");
             }
 
-        } else {
-            // Add new user
-            const { data: addData, error: addError } = await supabase
-                .from('user')
-                .insert([
-                    {
-                        id: auth.user.id,
-                        watched: [props.movieId],
-                    },
-                ]);
-
-            if (addError) {
-                console.log(addError);
-                return;
-            }
-            setMessage("Watch history has been updated successfully!");
-            setRemove("Remove from watch history"); 
-        }
+        } 
         setError('');
     };
 
@@ -179,6 +151,7 @@ function MyVerticallyCenteredModal(props) {
                     return;
                 }
                 setMessage("Removed from watchlist");
+                setNotice("Have you ever watched this movie?");
 
             } else if (existingUser.watched.includes(props.movieId)) {
                 const updatedWatched = existingUser.watched.filter((movie) => movie !== props.movieId);
@@ -194,6 +167,7 @@ function MyVerticallyCenteredModal(props) {
                     return;
                 }
                 setMessage("Removed from watch history");
+                setNotice("Have you ever watched this movie?");
             }
         }
         setRemove("");
@@ -213,29 +187,26 @@ function MyVerticallyCenteredModal(props) {
         const existingUser = existingUserData[0];
         if (existingUser.to_watch.includes(props.movieId)) {
             setRemove("Remove from watchlist");
+            setNotice("In your watchlist");
         } else if (existingUser.watched.includes(props.movieId)) {
             setRemove("Remove from watch history");
+            setNotice("In your watch history");
         } else {
             setRemove("");
+            setNotice("Have you watched this movie?");
         }
     };
 
     const handleWatchHistory = async () => {
-        updateString();
         addWatchHistory();
-        updateString();
     }
 
     const handleWatchList = async () => {
-        updateString();
         addWatchlist();
-        updateString();
     }
 
     const handleRemove = async () => {
-        updateString();
         removebutton();
-        updateString();
     }
 
     return (
@@ -251,7 +222,7 @@ function MyVerticallyCenteredModal(props) {
         >
             <Modal.Header className="px-4" closeButton>
                 <Modal.Title className="ms-auto">
-                    <h3 className="have__you">Have you watched this movie?</h3>
+                    <h3 className="have__you">{notice}</h3>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body className="text-center">
