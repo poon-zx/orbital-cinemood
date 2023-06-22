@@ -65,10 +65,9 @@ function MyVerticallyCenteredModal(props) {
                 .insert([
                 {
                     id: v4(),
-                    title: title,
-                    content: content,
+                    rating: value,
                     movie_id: props.movieId,
-                    user_id: auth.user.id
+                    user_id: auth.user.id,
                 },
                 ]);
         

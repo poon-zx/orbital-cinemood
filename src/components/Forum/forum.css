@@ -11,17 +11,23 @@
     flex-grow: 1;
     flex-basis: 0;
     width: 1000px;
+    transition: width 0.2s;
   }
 
   .movie__review.card {
     background: transparent;
     border: none;
   }
-  
-  @media (max-width: 1000px) {
+
+  @media (max-width: 1200px) {
     .movie__review {
-      width: 100%;
-      max-width: 1000px; 
+      width: 650px; 
+    }
+  }
+
+  @media (max-width: 780px) {
+    .movie__review {
+      width: 350px; 
     }
   }
 
