@@ -63,7 +63,6 @@ function MyVerticallyCenteredModal(props) {
                         content: content,
                         movie_id: props.movieId,
                         user_id: auth.user.id,
-                        user_email: auth.user.email
                     },
                 ]);
 

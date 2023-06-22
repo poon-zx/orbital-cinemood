@@ -17,6 +17,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import logo from "../../images/logo.png";
 import { supabase } from "../../supabase.js";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import "./header.css"
+import SearchIcon from '@mui/icons-material/Search';
 
 const pages = [
   { label: "Popular", path: "/movies/popular" },
@@ -119,27 +121,20 @@ function ResponsiveAppBar() {
                 }}
               >
                 <input
+                  className="search"
                   type="text"
                   placeholder="search movie name..."
                   name="search"
                   value={localSearchText}
                   onChange={(e) => setLocalSearchText(e.target.value)}
-                  style={{ width: "200px", height: "40px" }}
+                  style={{ transition: "width 0.3s" }}
                 />
-                <button
-                  className="search-button"
-                  role="search-button"
-                  type="submit" // make the button of type submit to trigger the form onSubmit event
-                  style={{
-                    width: "50px",
-                    height: "40px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  &#128269;
-                </button>
+                <IconButton
+                className="search-button"
+                type="submit"
+                style={{ width: "40px", height: "40px" }}>
+                    <SearchIcon />
+                </IconButton>
               </form>
             </Box>
             <Box style={{ marginLeft: "7px" }}>

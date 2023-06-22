@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap');
+
+.search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 30px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    border:none;
+    border-radius: 10px;
+    transition: width 0.1s;
+    margin-left: 15px;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 16px;
+    padding: 8px;
+}
+
+@media (max-width: 1085px) {
+    .search {
+      width: 230px; 
+    }
+  }
+
+  @media (max-width: 550px) {
+    .search {
+      width: 100px; 
+    }
+  }
+  @media (max-width: 480px) {
+    .search {
+      width: 80px; 
+    }
+  }
+
+  .search--bar {
+    width: 700px;
+    height: 30px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    border:none;
+    border-radius: 10px;
+    transition: width 0.1s;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 16px;
+    padding: 8px;
+    margin-top: 20px;
+}
+
+@media (max-width: 1085px) {
+    .search--bar {
+      width: 450px; 
+    }
+  }
+
+  @media (max-width: 800px) {
+    .search--bar {
+      width: 350px; 
+    }
+  }
+
+  @media (max-width: 550px) {
+    .search--bar {
+      width: 250px; 
+    }
+  }
+
+  
+

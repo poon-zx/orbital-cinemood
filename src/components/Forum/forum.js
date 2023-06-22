@@ -20,7 +20,7 @@ const Forum = ({ movieId }) => {
         try {
             const { data, error } = await supabase
                 .from("review")
-                .select("*")
+                .select(`*, user: user_id (email, username)`)
                 .eq("movie_id", movieId);
 
             if (error) {
@@ -44,7 +44,6 @@ const Forum = ({ movieId }) => {
                     content: replyContent,
                     review_id: reviewId,
                     user_id: auth.user.id,
-                    user_email: auth.user.email
                 },
             ]);
 
@@ -73,22 +72,23 @@ const Forum = ({ movieId }) => {
     return (
         <div className="forum">
             <Card className="movie__review">
-                {currentMovieReview.length > 0 ? (
+                {currentMovieReview
+                    .filter((review) => review.title !== null)
+                    .filter((review) => review.content !== null)
+                    .length > 0 ? (
                     currentMovieReview.map((review) => (
                         <div className="movie__card" key={review.id}>
                             <div className="profile__container">
                                 <Avatar className="movie_reviewAvatar"/>
-                                <div className="movie_reviewEmail">{review.user_email}</div>
+                                <div className="movie_reviewEmail">{review.user.username ? review.user.username : review.user.email}</div>
                             </div>
                             <div className="movie__review_left">
                                 <CardTitle tag="h5" className="movie__reviewTitle">
                                     {review.title}
                                 </CardTitle>
-                                {review.rating && (
-                                    <CardText className="movie__reviewRating">
-                                        Rating: {review.rating}/10
-                                    </CardText>
-                                )}
+                                <CardText className="movie__reviewRating">
+                                    Rating: {review.rating}/10
+                                </CardText>
                                 <CardText className="movie__reviewContent">
                                     {review.content}
                                 </CardText>
@@ -154,7 +154,9 @@ const Replies = ({ reviewId }) => {
         try {
             const { data, error } = await supabase
                 .from("reply")
-                .select("*")
+                .select(`*, 
+                    user:user_id (email, username)`
+                )
                 .eq("review_id", reviewId);
 
             if (error) {
@@ -178,7 +180,7 @@ const Replies = ({ reviewId }) => {
                         <div className="reply__container">
                             <Avatar />
                             <div className="reply__user">
-                                <div className="reply__user__email">{reply.user_email}</div>
+                                <div className="reply__user__email">{reply.user.username ? reply.user.username : reply.user.email}</div>
                                 <CardText className="reply__user__content">{reply.content}</CardText>
                             </div>
                         </div>

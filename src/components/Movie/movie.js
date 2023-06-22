@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import WriteReview from "../../modals/writeReview.js";
 import Rating from "../../modals/rating.js";
+import Watch from "../../modals/watch.js";
 import { useParams } from "react-router-dom";
 import Forum from "../Forum/forum.js"
 import "./movie.css";
@@ -51,6 +52,7 @@ const Movie = () => {
                     currentMovieDetail ? currentMovieDetail.poster_path : ""
                 }`}
                 />
+                <Watch className="watch__add" movieId={id} />
             </div>
             </div>
             <div className="movie__detailRight">
@@ -101,16 +103,15 @@ const Movie = () => {
         <div className="movie__links">
             <div className="movie__heading1">Useful Links</div>
             {currentMovieDetail && currentMovieDetail.homepage && (
-            <a
+            <a className="text-center"
                 href={currentMovieDetail.homepage}
                 target="_blank"
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: "none"}}
             >
-                <p>
-                <span className="movie__homeButton movie__Button">
-                    Movie Page<i className="newTab fas fa-external-link-alt"></i>
-                </span>
-                </p>
+            <button className="movie__homeButton">
+                <span className="buttonText">Movie Page</span>
+                <i className="newTab fas fa-external-link-alt"></i>
+            </button>
             </a>
             )}
         </div>
