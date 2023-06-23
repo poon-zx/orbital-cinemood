@@ -52,7 +52,7 @@
     text-align: center;
     display: flex;
     justify-content: center;
-    margin-left: 50px;
+    margin-left: 45px;
     font-family: 'Be Vietnam Pro', sans-serif;
     font-weight: bold;
 }
@@ -90,10 +90,11 @@
 
 .edit-username {
     font-size: 18px;
-    width: 300px;
+    width: 250px;
     border-radius: 12px;
     border-width: 1.5px;
     padding: 8px;
+    margin-left: 65px;
 }
 
 .box {
