@@ -10,7 +10,7 @@ import requests
 app = Flask(__name__, static_folder='build')
 CORS(app)
 
-@app.route('/', defaults={'path': ''})
+@app.route('/login', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
     if path != "" and os.path.exists(app.static_folder + '/' + path):
