@@ -131,6 +131,7 @@ function ResponsiveAppBar() {
                 />
                 <IconButton
                 className="search-button"
+                role="search-button"
                 type="submit"
                 style={{ width: "40px", height: "40px" }}>
                     <SearchIcon />

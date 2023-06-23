@@ -249,7 +249,7 @@ function MyVerticallyCenteredModal(props) {
                 props.onHide();
             }}
         >
-            <Modal.Header className="px-4" closeButton>
+            <Modal.Header className="px-4" closeButton data-testid="close-button">
                 <Modal.Title className="ms-auto">
                     <h3 className="have__you">Have you watched this movie?</h3>
                 </Modal.Title>

@@ -3,6 +3,7 @@ import { Box, Container} from "@mui/material";
 import logo from "../../images/logo.svg";
 import { Card }  from 'react-bootstrap'
 import { useLocation } from 'react-router-dom';
+import './UpdatePassword.css'
 
 
 const ConfirmationPage = () => {
@@ -39,7 +40,7 @@ const ConfirmationPage = () => {
         <Card>
           <Card.Body>
             <h3 className="text-center mb-4">Confirm Reset Password</h3>
-            <button className="btn btn-primary w-100" onClick={handleConfirmation}>
+            <button className="update-button" onClick={handleConfirmation}>
                 Click To Reset Password
             </button>
             </Card.Body>
