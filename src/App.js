@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Login from "./pages/Login.js";
+import Profile from "./pages/Profile/Profile.js";
 import Header from "./components/Header/header.js";
 import MovieList from "./components/MovieList/movieList.js";
 import Movie from "./components/Movie/movie.js";
@@ -20,7 +21,8 @@ export default function App() {
     location.pathname === "/home" ||
     location.pathname.match(/^\/movie\//) ||
     location.pathname.match(/^\/movies\//) ||
-    location.pathname === "/search";
+    location.pathname === "/search" ||
+    location.pathname === "/profile";
 
   return (
     <div className="App">
@@ -36,6 +38,7 @@ export default function App() {
             <Route path="movie/:id" element={<Movie />} />
             <Route path="movies/:type" element={<MovieList />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
