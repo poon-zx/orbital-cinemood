@@ -31,7 +31,7 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<PasswordReset />} />
-          <Route path="/reset/confirm-signup" element={<ConfirmationPage />} />
+          <Route path="/confirm-signup" element={<ConfirmationPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<PersonalizedSearch />} />
             <Route path="movie/:id" element={<Movie />} />
