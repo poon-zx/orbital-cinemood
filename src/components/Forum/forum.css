@@ -124,3 +124,15 @@
     margin-bottom: 0px;
     margin-top: 10px;
   }
+
+  .reply__date {
+    text-align: right;
+    font-size: 13px;
+    align-items: right;
+    margin-top: 3px;
+  }
+
+  .reply__first {
+    display: flex;
+    width: 100%;
+  }

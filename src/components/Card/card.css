@@ -47,8 +47,15 @@
 }
 
 .card__runtime {
-    font-size: .75rem;
+    font-size: 0.9rem;
     margin-bottom: 0.25rem;
+    font-weight: bold;
+}
+
+.card__review-title {
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+    font-weight: bold;
 }
 
 .card__rating {
