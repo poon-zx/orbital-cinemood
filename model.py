@@ -10,13 +10,15 @@ import requests
 app = Flask(__name__, static_folder='build')
 CORS(app)
 
-@app.route('/l', defaults={'path': ''})
+@app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
     if path != "" and os.path.exists(app.static_folder + '/' + path):
         return send_from_directory(app.static_folder, path)
     elif not request.path.startswith('/login'):  # Check if path is not /login
         return redirect('/login')
+    
+    return app.send_static_file('index.html')
 
 
 model = SentenceTransformer('all-mpnet-base-v2')
