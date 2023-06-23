@@ -15,9 +15,6 @@ CORS(app)
 def serve(path):
     if path != "" and os.path.exists(app.static_folder + '/' + path):
         return send_from_directory(app.static_folder, path)
-    elif not request.path.startswith('/login') and not request.path.startswith('/confirm-signup'):  # Check if path is not /login
-        return redirect('/login')
-    
     return app.send_static_file('index.html')
 
 

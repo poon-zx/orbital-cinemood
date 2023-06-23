@@ -30,8 +30,7 @@ export default function App() {
         {showHeader && <Header />}
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path ="/" element={<Login />} />
-          <Route path="/reset" element={<PasswordReset />} />
+          <Route path ="/" element={<PasswordReset />} />
           <Route path="/confirm-signup" element={<ConfirmationPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<PersonalizedSearch />} />
