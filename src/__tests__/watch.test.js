@@ -1,9 +1,8 @@
 import React from 'react';
-import { render, fireEvent, waitFor, getByTestId } from '@testing-library/react';
+import { render, fireEvent, waitFor} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { MemoryRouter } from 'react-router-dom';
 import Watch from '../modals/watch';
-import { supabase } from '../supabase';
 
 it('should open the modal when button is clicked', async () => {
     const { getByText } = render(
