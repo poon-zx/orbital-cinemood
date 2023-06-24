@@ -107,5 +107,8 @@
 .watch-container {
     text-align: left;
     display: flex;
-    margin-left: 2%;
+    margin-left: 4%;
+    margin-top: 7px;
+    margin-bottom: 7px;
 }
+

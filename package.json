@@ -25,7 +25,9 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.11.2",
     "react-scripts": "^5.0.1",
+    "react-slick": "^0.29.0",
     "reactstrap": "^9.1.10",
+    "slick-carousel": "^1.8.1",
     "string-similarity": "^4.0.4",
     "web-vitals": "^2.1.4"
   },
@@ -55,8 +57,8 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
-    "msw": "^1.2.2",
-    "jest-fetch-mock": "^3.0.3"
+    "jest-fetch-mock": "^3.0.3",
+    "msw": "^1.2.2"
   },
   "jest": {
     "resetMocks": false
