@@ -92,13 +92,13 @@ const UpdatePassword = () => {
                 </Alert>
               )}
               <div className="text-center mt-2">
-                <Button
+                <button
                   disabled={loading}
                   type="submit"
                   className="update-button"
                 >
                   Update
-                </Button>
+                </button>
               </div>
             </Form>
           </Card.Body>

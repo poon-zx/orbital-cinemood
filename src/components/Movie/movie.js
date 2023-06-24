@@ -117,11 +117,6 @@ const Movie = () => {
             )}
         </div>
         <div className="movie__heading2">Reviews</div>
-        <div className="qn">What do you think?</div>
-        <div className="movie__buttons">
-            <Rating movieId={id} />
-            <WriteReview movieId={id} />
-        </div>
         <Forum movieId={id} />
         </div>
     );
