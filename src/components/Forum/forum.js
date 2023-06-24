@@ -89,7 +89,10 @@ const Forum = ({ movieId }) => {
                     .filter((review) => review.title !== null)
                     .filter((review) => review.content !== null)
                     .length > 0 ? (
-                    currentMovieReview.map((review) => (
+                    currentMovieReview
+                        .filter((review) => review.title !== null)
+                        .filter((review) => review.content !== null)
+                        .map((review) => (
                         <div className="movie__card" key={review.id}>
                             <div className="profile__container">
                                 <Avatar className="movie_reviewAvatar"/>
