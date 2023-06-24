@@ -142,6 +142,7 @@ function Rate({ movieId }) {
             <Button
                 variant="text"
                 className="rate-btn"
+                data-testid="rate-btn"
                 onClick={() => setModalShow(true)}
                 size="small"
             >

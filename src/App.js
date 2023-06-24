@@ -13,6 +13,7 @@ import Search from "./pages/Search.js";
 import PersonalizedSearch from "./pages/PersonalizedSearch.jsx";
 import { SearchProvider } from './context/SearchContext';
 import "bootstrap/dist/css/bootstrap.min.css";
+import ConfirmationPage from "./pages/UpdatePassword/Confirmation";
 
 export default function App() {
   const location = useLocation();
@@ -31,8 +32,8 @@ export default function App() {
         {showHeader && <Header />}
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/reset" element={<PasswordReset />} />
-          <Route path="/" element={<Login />} />
+          <Route path ="/" element={<PasswordReset />} />
+          <Route path="/confirm-signup" element={<ConfirmationPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<PersonalizedSearch />} />
             <Route path="movie/:id" element={<Movie />} />

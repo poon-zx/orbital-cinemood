@@ -69,7 +69,7 @@ function ResponsiveAppBar() {
 
   const handleLogOutClick = async () => {
     await supabase.auth.signOut();
-    navigate("/"); // Redirect to the login page
+    navigate("/login"); // Redirect to the login page
   };
 
   const handleSearch = (e) => {
@@ -134,6 +134,7 @@ function ResponsiveAppBar() {
                 />
                 <IconButton
                 className="search-button"
+                role="search-button"
                 type="submit"
                 style={{ width: "40px", height: "40px" }}>
                     <SearchIcon />

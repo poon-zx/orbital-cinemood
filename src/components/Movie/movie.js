@@ -52,7 +52,7 @@ const Movie = () => {
                     currentMovieDetail ? currentMovieDetail.poster_path : ""
                 }`}
                 />
-                <Watch className="watch__add" movieId={id} />
+                <Watch className="watch__add" movieId={id} data-testid="add-watch" />
             </div>
             </div>
             <div className="movie__detailRight">
@@ -104,6 +104,7 @@ const Movie = () => {
             <div className="movie__heading1">Useful Links</div>
             {currentMovieDetail && currentMovieDetail.homepage && (
             <a className="text-center"
+            data-testid="movie-homepage"
                 href={currentMovieDetail.homepage}
                 target="_blank"
                 style={{ textDecoration: "none"}}

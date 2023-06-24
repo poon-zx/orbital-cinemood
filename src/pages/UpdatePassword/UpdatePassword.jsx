@@ -29,9 +29,11 @@ const UpdatePassword = () => {
     try {
       setErrorMsg("");
       setLoading(true);
-      const { error } = await updatePassword(passwordRef.current.value);
+      const { data, error } = await updatePassword(passwordRef.current.value);
       if (!error) {
-        navigate("/");
+        navigate("/login");
+      } else {
+        setErrorMsg("Error in Updating Password. Please try again");
       }
     } catch (error) {
       setErrorMsg("Error in Updating Password. Please try again");

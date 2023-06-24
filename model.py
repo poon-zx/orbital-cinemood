@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, redirect
 from flask_cors import CORS, cross_origin
 from sentence_transformers import SentenceTransformer, util
 import torch
@@ -15,8 +15,7 @@ CORS(app)
 def serve(path):
     if path != "" and os.path.exists(app.static_folder + '/' + path):
         return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, 'index.html')
+    return app.send_static_file('index.html')
 
 
 model = SentenceTransformer('all-mpnet-base-v2')
