@@ -6,15 +6,19 @@ import "./forum.css";
 import defaultImg from "../../images/default-avatar.png";
 import { v4 as uuid } from 'uuid';
 import { useAuth } from '../../context/AuthProvider.jsx';
+import WriteReview from "../../modals/writeReview.js";
+import Rating from "../../modals/rating.js";
+import { SettingsOverscanRounded } from "@mui/icons-material";
 
 const Forum = ({ movieId }) => {
     const [currentMovieReview, setMovieReview] = useState([]);
     const auth = useAuth();
     const [selectedReviewId, setSelectedReviewId] = useState(null);
+    const [save, setSave] = useState(false);
 
     useEffect(() => {
         fetchForumPosts();
-    }, [movieId, currentMovieReview, selectedReviewId]);
+    }, [movieId, currentMovieReview, selectedReviewId, save]);
 
     const fetchForumPosts = async () => {
         try {
@@ -34,6 +38,10 @@ const Forum = ({ movieId }) => {
         } catch (error) {
             console.error("Error fetching forum posts:", error.message);
         }
+    };
+
+    const handleSave = async () => {
+        setSave(true);
     };
 
     const handleReply = async (reviewId, replyContent) => {
@@ -71,6 +79,11 @@ const Forum = ({ movieId }) => {
 
     return (
         <div className="forum">
+            <div className="qn">What do you think?</div>
+            <div className="movie__buttons">
+                <Rating movieId={movieId} />
+                <WriteReview movieId={movieId} onClick={handleSave}/>
+            </div>
             <Card className="movie__review">
                 {currentMovieReview
                     .filter((review) => review.title !== null)

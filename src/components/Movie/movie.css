@@ -197,6 +197,7 @@
 .qn {
     font-family: 'Playfair Display', serif;
     font-size: 1.4rem;
+    margin-top: -18px;
 }
 
 .buttonText {

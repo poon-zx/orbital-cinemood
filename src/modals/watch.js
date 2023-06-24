@@ -11,6 +11,7 @@ function MyVerticallyCenteredModal(props) {
     const [remove, setRemove] = useState("");
     const [error, setError] = useState("");
     const [notice, setNotice] = useState("");
+    const [status, setStatus] = useState(true);
     const auth = useAuth();
     
     useEffect(() => {
@@ -55,6 +56,7 @@ function MyVerticallyCenteredModal(props) {
                 setMessage("Watchlist has been updated successfully!");
                 setRemove("Remove from Watchlist");
                 setNotice("In your watchlist");
+                setStatus(true);
             }
 
         } 
@@ -116,6 +118,7 @@ function MyVerticallyCenteredModal(props) {
                 setMessage("Watch history has been updated successfully!");
                 setRemove("Remove from watch history");
                 setNotice("In your watch history");
+                setStatus(true);
             }
 
         } 
@@ -171,6 +174,7 @@ function MyVerticallyCenteredModal(props) {
             }
         }
         setRemove("");
+        setStatus(false);
     };
 
     const updateString = async () => {
@@ -188,9 +192,11 @@ function MyVerticallyCenteredModal(props) {
         if (existingUser.to_watch.includes(props.movieId)) {
             setRemove("Remove from watchlist");
             setNotice("In your watchlist");
+            setStatus(true);
         } else if (existingUser.watched.includes(props.movieId)) {
             setRemove("Remove from watch history");
             setNotice("In your watch history");
+            setStatus(true);
         } else {
             setRemove("");
             setNotice("Have you watched this movie?");
@@ -233,7 +239,7 @@ function MyVerticallyCenteredModal(props) {
                     <button className="watch-btn" onClick={handleWatchHistory}>Add to watch history</button>
                 </div>
                 <div>
-                    <Button onClick={handleRemove} className="remove-btn">{remove}</Button>
+                    {status ? <Button onClick={handleRemove} className="remove-btn">{remove}</Button> : ""}
                 </div>
                 {message && <div className="text-danger">{message}</div>}
             </Modal.Body>

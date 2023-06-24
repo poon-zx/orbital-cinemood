@@ -8,11 +8,10 @@ import StarIcon from '@mui/icons-material/Star';
 import { useAuth } from '../context/AuthProvider.jsx'
 
 function MyVerticallyCenteredModal(props) {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
     const [message, setMessage] = useState("");
     const [value, setValue] = useState("");
     const [currentMovie, setMovie] = useState();
+    const [haveRating, setHaveRating] = useState(false);
     const auth = useAuth();
 
     useEffect(() => {
@@ -26,6 +25,28 @@ function MyVerticallyCenteredModal(props) {
         )
         .then((res) => res.json())
         .then((data) => setMovie(data));
+    };
+
+    const fetchRating = async () => {
+        try {
+            const { data, error } = await supabase
+                .from("review")
+                .select("*")
+                .eq("movie_id", props.movieId);
+
+            if (error) {
+                console.error("Error fetching rating", error.message);
+                return;
+            }
+
+            if (data && data.length > 0) {
+                const existingValue = data[0].rating;
+                setValue(existingValue);
+                existingValue ? setHaveRating(true) : setHaveRating(false);
+            }
+        } catch (error) {
+            console.error("Error fetching rating", error.message);
+        }
     };
 
     const addRating = async () => {
@@ -56,7 +77,7 @@ function MyVerticallyCenteredModal(props) {
             }
         
             if (updateData) {
-                setMessage("Review updated successfully!");
+                setMessage("Rating updated successfully!");
             }
         } else {
             // Add new review
@@ -77,12 +98,53 @@ function MyVerticallyCenteredModal(props) {
             }
         
             if (addData) {
-                setMessage("Review added successfully!");
+                setMessage("Rating updated successfully!");
             }
         }
-        props.onHide();
-        window.location.reload();
+        setMessage("Rating updated successfully!");
+        setHaveRating(true);
+        setTimeout(() => {
+            setMessage("");
+        }, 500); // Clear the message after 0.5 second
     };
+
+    const removeRating = async () => {
+        const { data: existingReviewData, error: existingReviewError } = await supabase
+            .from('review')
+            .select('*')
+            .eq('user_id', auth.user.id)
+            .eq('movie_id', props.movieId);
+      
+        if (existingReviewError) {
+            console.log(existingReviewError);
+            return;
+        }
+      
+        if (existingReviewData.length > 0) {
+            // delete existing review
+            const existingReview = existingReviewData[0];
+            const { data: updateData, error: updateError } = await supabase
+                .from('review')
+                .update({
+                rating: null
+                })
+                .eq('id', existingReview.id);
+        
+            if (updateError) {
+                console.log(updateError);
+                return;
+            }
+        
+            if (updateData) {
+                setMessage("Rating updated successfully!");
+            }
+        }
+        setMessage("Rating updated successfully!");
+        setHaveRating(false);
+        setTimeout(() => {
+            setMessage("");
+        }, 500); // Clear the message after 0.5 second
+    }
 
     return (
         <Modal
@@ -93,11 +155,12 @@ function MyVerticallyCenteredModal(props) {
         >
             <Modal.Header className="px-4" closeButton>
                 <Modal.Title className="ms-auto">
-                    <h5 className="rate__this">Rate this </h5>
+                    <h5 className="rate__this">{haveRating ? "You rated" : "Rate this" }</h5>
                     <h3 className="movie__name__modal">{currentMovie ? currentMovie.original_title : ""}</h3>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body >
+                <div className="text-center">{haveRating ? value + "/10" : ""}</div>
                 <Box style={{
                     display: "flex",
                     justifyContent: "center"}}
@@ -119,8 +182,9 @@ function MyVerticallyCenteredModal(props) {
                     display: "flex",
                     justifyContent: "center"}}
                 >
-                    <Button variant="text" className="remove-btn">Remove Rating</Button>
+                    <Button variant="text" className="remove-btn" onClick={removeRating}>Remove Rating</Button>
                 </Box>
+                {message && <div className="text-success text-center">{message}</div>}
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={props.onHide}>
