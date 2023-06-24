@@ -38,7 +38,7 @@
     background-color: #F6F1EA;
     border-radius: 10px;
     max-width: 1000px; 
-    width: 100%; 
+    width: 100%;
     padding: 20px;
 }
 
@@ -118,4 +118,21 @@
     text-align: left;
   }
 
-  
+  .movie__reviewTitle {
+    text-align: left;
+    font-size: 18px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+  }
+
+  .reply__date {
+    text-align: right;
+    font-size: 13px;
+    align-items: right;
+    margin-top: 3px;
+  }
+
+  .reply__first {
+    display: flex;
+    width: 100%;
+  }

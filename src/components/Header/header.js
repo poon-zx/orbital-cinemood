@@ -26,7 +26,10 @@ const pages = [
   { label: "Upcoming", path: "/movies/upcoming" },
 ];
 
-const settings = ["Profile", "Logout"];
+const settings = [
+    {label: "Profile", path: "/profile"},
+    {label: "Logout", path: "/"},
+];
 
 function ResponsiveAppBar() {
   const { setSearchText } = useContext(SearchContext);
@@ -194,12 +197,17 @@ function ResponsiveAppBar() {
       >
         {settings.map((setting) => (
           <MenuItem
-            key={setting}
+            key={setting.label}
             onClick={
-              setting === "Logout" ? handleLogOutClick : handleCloseUserMenu
+              setting.label === "Logout" ? handleLogOutClick : handleCloseUserMenu
             }
           >
-            <Typography textAlign="center">{setting}</Typography>
+            <Link
+              to={"/profile"}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <Typography textAlign="center">{setting.label}</Typography>
+            </Link> 
           </MenuItem>
         ))}
       </Menu>

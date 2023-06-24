@@ -80,7 +80,6 @@ function MyVerticallyCenteredModal(props) {
         setContent('');
         setError('');
         props.onHide();
-        window.location.reload();
     };
 
     const handleKeyDown = (event) => {

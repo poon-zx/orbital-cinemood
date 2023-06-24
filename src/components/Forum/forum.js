@@ -14,7 +14,7 @@ const Forum = ({ movieId }) => {
 
     useEffect(() => {
         fetchForumPosts();
-    }, []);
+    }, [movieId, currentMovieReview, selectedReviewId]);
 
     const fetchForumPosts = async () => {
         try {
@@ -53,12 +53,12 @@ const Forum = ({ movieId }) => {
             }
 
             if (data) {
-                fetchForumPosts(); // Refresh the forum posts to display the new reply
+                fetchForumPosts(); 
             }
         } catch (error) {
             console.error("Error posting reply:", error.message);
         }
-        window.location.reload();
+        fetchForumPosts();
     };
 
     const handleReplyButtonClick = (reviewId) => {
@@ -80,7 +80,7 @@ const Forum = ({ movieId }) => {
                         <div className="movie__card" key={review.id}>
                             <div className="profile__container">
                                 <Avatar className="movie_reviewAvatar"/>
-                                <div className="movie_reviewEmail">{review.user.email}</div>
+                                <div className="movie_reviewEmail">{review.user.username ? review.user.username : review.user.email}</div>
                             </div>
                             <div className="movie__review_left">
                                 <CardTitle tag="h5" className="movie__reviewTitle">
@@ -93,7 +93,15 @@ const Forum = ({ movieId }) => {
                                     {review.content}
                                 </CardText>
                                 <CardText className="movie__reviewDate">
-                                    Created at: {review.created_at}
+                                    Created at: {new Date (review.created_at).toLocaleString("en-US", {
+                                        year: "numeric",
+                                        month: "2-digit",
+                                        day: "2-digit",
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                        second: "2-digit",
+                                        hour12: true
+                                        })}
                                 </CardText>
                                 <Button
                                     className="reply-button"
@@ -148,7 +156,7 @@ const Replies = ({ reviewId }) => {
 
     useEffect(() => {
         fetchReplies();
-    }, []);
+    }, [reviewId, replies]);
 
     const fetchReplies = async () => {
         try {
@@ -180,7 +188,22 @@ const Replies = ({ reviewId }) => {
                         <div className="reply__container">
                             <Avatar />
                             <div className="reply__user">
-                                <div className="reply__user__email">{reply.user.email}</div>
+                                <div className="reply__first">
+                                    <span className="reply__user__email">
+                                        {reply.user.username ? reply.user.username : reply.user.email}
+                                    </span>
+                                    <span className="reply__date">
+                                        {new Date (reply.created_at).toLocaleString("en-US", {
+                                        year: "numeric",
+                                        month: "2-digit",
+                                        day: "2-digit",
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                        second: "2-digit",
+                                        hour12: true
+                                        })}
+                                    </span>
+                                </div>
                                 <CardText className="reply__user__content">{reply.content}</CardText>
                             </div>
                         </div>
