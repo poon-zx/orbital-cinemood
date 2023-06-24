@@ -20,7 +20,7 @@ function MyVerticallyCenteredModal(props) {
         getData(props.movieId);
         window.scrollTo(0, 0);
         fetchRating();
-    }, [haveRating]);
+    }, []);
 
     const getData = (id) => {
         fetch(
