@@ -52,7 +52,7 @@ const CardsUser = ({ movie }) => {
                 {movie ? movie.review_title : ""}
               </div>
               <div className="card__description">
-                {movie.review_content ? movie.review_content.slice(0, 118) + "..." : "No review"}
+                {movie.review_content ? movie.review_content.slice(0, 118) + (movie.review_content.length <= 118 ? "" : "...") : "No review"}
               </div>
             </div>
           </div>
