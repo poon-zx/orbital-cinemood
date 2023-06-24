@@ -122,7 +122,7 @@ const PersonalizedSearch = () => {
         Enter below what you want to watch and we'll recommend you some movies! 
       </p>
         <div className="container">
-            <div className="search-container" style={{ display: "flex", alignItems: "center" }}>
+            <div className="search-container" style={{ display: "flex", alignItems: "center", marginTop: "-40px"}}>
             <form
                 onSubmit={(e) => {
                 e.preventDefault();
