@@ -6,18 +6,21 @@ import './modals.css';
 import { Rating, Box, Button } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { useAuth } from '../context/AuthProvider.jsx'
+import { AirlineSeatIndividualSuiteOutlined } from '@mui/icons-material';
 
 function MyVerticallyCenteredModal(props) {
     const [message, setMessage] = useState("");
     const [value, setValue] = useState("");
     const [currentMovie, setMovie] = useState();
     const [haveRating, setHaveRating] = useState(false);
+    const [display, setDisplay] = useState("");
     const auth = useAuth();
 
     useEffect(() => {
         getData(props.movieId);
         window.scrollTo(0, 0);
-    }, []);
+        fetchRating();
+    }, [haveRating]);
 
     const getData = (id) => {
         fetch(
@@ -41,7 +44,7 @@ function MyVerticallyCenteredModal(props) {
 
             if (data && data.length > 0) {
                 const existingValue = data[0].rating;
-                setValue(existingValue);
+                setDisplay(existingValue);
                 existingValue ? setHaveRating(true) : setHaveRating(false);
             }
         } catch (error) {
@@ -105,7 +108,8 @@ function MyVerticallyCenteredModal(props) {
         setHaveRating(true);
         setTimeout(() => {
             setMessage("");
-        }, 500); // Clear the message after 0.5 second
+        }, 700); 
+        setValue(value);
     };
 
     const removeRating = async () => {
@@ -143,7 +147,8 @@ function MyVerticallyCenteredModal(props) {
         setHaveRating(false);
         setTimeout(() => {
             setMessage("");
-        }, 500); // Clear the message after 0.5 second
+        }, 700); 
+        setValue("");
     }
 
     return (
@@ -160,7 +165,7 @@ function MyVerticallyCenteredModal(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body >
-                <div className="text-center">{haveRating ? value + "/10" : ""}</div>
+                <div className="text-center">{value ? value + "/10" : (display ? display + "/10" : "")}</div>
                 <Box style={{
                     display: "flex",
                     justifyContent: "center"}}
@@ -176,13 +181,16 @@ function MyVerticallyCenteredModal(props) {
                         onChange={(event, newValue) => {
                         setValue(newValue);
                         }}
+                        onHoverChange={(event, newHoverValue) => {
+                            setValue(newHoverValue);
+                        }}
                     /> 
                 </Box>
                 <Box style={{
                     display: "flex",
                     justifyContent: "center"}}
                 >
-                    <Button variant="text" className="remove-btn" onClick={removeRating}>Remove Rating</Button>
+                    {haveRating ? <Button variant="text" className="remove-btn" onClick={removeRating}>Remove Rating</Button> : ""}
                 </Box>
                 {message && <div className="text-success text-center">{message}</div>}
             </Modal.Body>
