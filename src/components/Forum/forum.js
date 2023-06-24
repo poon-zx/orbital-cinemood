@@ -8,6 +8,7 @@ import { v4 as uuid } from 'uuid';
 import { useAuth } from '../../context/AuthProvider.jsx';
 import WriteReview from "../../modals/writeReview.js";
 import Rating from "../../modals/rating.js";
+import Delete from "../../modals/delete.js"
 import { SettingsOverscanRounded } from "@mui/icons-material";
 
 const Forum = ({ movieId }) => {
@@ -97,6 +98,9 @@ const Forum = ({ movieId }) => {
                             <div className="profile__container">
                                 <Avatar className="movie_reviewAvatar"/>
                                 <div className="movie_reviewEmail">{review.user.username ? review.user.username : review.user.email}</div>
+                                <div className="delete-container">
+                                    {review.user_id === auth.user.id ? <Delete reviewId={review.id} /> : ""}
+                                </div>
                             </div>
                             <div className="movie__review_left">
                                 <CardTitle tag="h5" className="movie__reviewTitle">
@@ -128,7 +132,7 @@ const Forum = ({ movieId }) => {
                                 </Button>
                                 {selectedReviewId === review.id && (
                                     <div className="replies-container">
-                                        <Replies reviewId={review.id} />
+                                        <Replies reviewId={review.id} setClicked={true}/>
                                         <ReplyForm reviewId={review.id} handleReply={handleReply} />
                                     </div>
                                 )}
@@ -167,12 +171,12 @@ const ReplyForm = ({ reviewId, handleReply }) => {
     );
 };
 
-const Replies = ({ reviewId }) => {
+const Replies = ({ reviewId, clicked }) => {
     const [replies, setReplies] = useState([]);
 
     useEffect(() => {
         fetchReplies();
-    }, [reviewId, replies]);
+    }, [reviewId, replies, clicked]);
 
     const fetchReplies = async () => {
         try {
@@ -203,26 +207,24 @@ const Replies = ({ reviewId }) => {
                     <div className="reply" key={reply.id}>
                         <div className="reply__container">
                             <Avatar />
-                            <div className="reply__user">
-                                <div className="reply__first">
-                                    <span className="reply__user__email">
-                                        {reply.user.username ? reply.user.username : reply.user.email}
-                                    </span>
-                                    <span className="reply__date">
-                                        {new Date (reply.created_at).toLocaleString("en-US", {
-                                        year: "numeric",
-                                        month: "2-digit",
-                                        day: "2-digit",
-                                        hour: "2-digit",
-                                        minute: "2-digit",
-                                        second: "2-digit",
-                                        hour12: true
-                                        })}
-                                    </span>
-                                </div>
-                                <CardText className="reply__user__content">{reply.content}</CardText>
+                            <div className="reply__first">
+                                <span className="reply__user__email">
+                                    {reply.user.username ? reply.user.username : reply.user.email}
+                                </span>
+                                <span className="reply__date">
+                                    {new Date (reply.created_at).toLocaleString("en-US", {
+                                    year: "numeric",
+                                    month: "2-digit",
+                                    day: "2-digit",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                    second: "2-digit",
+                                    hour12: true
+                                    })}
+                                </span>
                             </div>
                         </div>
+                        <CardText className="reply__user__content">{reply.content}</CardText>
                     </div>
                 ))
             ) : (

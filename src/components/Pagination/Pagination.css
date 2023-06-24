@@ -9,16 +9,16 @@
     padding: 0.25rem 0.75rem;
     margin: 0.25rem;
     text-align: center;
-    background-color: #C06C84;
+    background-color: #f1f1f1;
     border: none;
-    color: white;
+    color: black;
     cursor: pointer;
     border-radius: 8px;
-    width: 90px;
+    width: 120px;
 }
 
 .pagination-button:hover {
-    background: #ad5971;
+    background: #E19C8D;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 

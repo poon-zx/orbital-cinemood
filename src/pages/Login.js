@@ -80,7 +80,7 @@ function Login() {
   }, [navigate]);
 
   return (
-    <div className="Login center-content">
+    <div className="Login-section center-content">
       <Container
         maxWidth="xs"
         display="flex"
