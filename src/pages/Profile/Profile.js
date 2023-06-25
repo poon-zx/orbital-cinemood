@@ -144,6 +144,7 @@ const Profile = () => {
                           className="edit-icon-button"
                           onClick={handleEdit}
                           disabled={editing}
+                          data-testid="edit-btn"
                         >
                           <EditIcon className="edit-icon" />
                         </IconButton>

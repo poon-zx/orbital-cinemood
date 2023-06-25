@@ -22,12 +22,12 @@ model = SentenceTransformer('all-mpnet-base-v2')
 
 import requests
 
-url_csv = "https://storage.googleapis.com/cinemood/Overall%20Movie.csv"
+url_csv = "https://storage.googleapis.com/cinemood/Overall%20Movie%20(removed).csv"
 response_csv = requests.get(url_csv)
 data = StringIO(response_csv.text)
 dataset = pd.read_csv(data)
 
-url_tensors = "https://storage.googleapis.com/cinemood/Overall%20Movies.pt"
+url_tensors = "https://storage.googleapis.com/cinemood/Overall%20Movie%20(removed).pt"
 response_tensors = requests.get(url_tensors)
 tensors = torch.load(BytesIO(response_tensors.content))
 
@@ -40,12 +40,12 @@ def find_similarity():
     input = input.replace("[^a-zA-Z#]", " ")
     embeddings1 = model.encode(input, convert_to_tensor=True)
     cosine_scores = util.pytorch_cos_sim(embeddings1, tensors)
-    top_results = torch.topk(cosine_scores, k=30)
+    top_results = torch.topk(cosine_scores, k=70)
     top_indices = top_results[1][0]
     top_scores = top_results[0][0]
 
     results = []
-    for i in range(30):
+    for i in range(70):
         results.append({
             'movie': dataset['Movie Name'][top_indices[i].item()],
             'score': float(top_scores[i].item()),

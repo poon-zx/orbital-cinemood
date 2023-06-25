@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import Cards from "../components/Card/card";
+import Cards from "../../components/Card/card";
 import "@testing-library/jest-dom";
 
 describe("Cards component", () => {

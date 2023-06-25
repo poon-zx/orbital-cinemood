@@ -1,8 +1,8 @@
 import React from "react";
 import { render, waitFor, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import { useAuth} from "../context/AuthProvider";
-import Login from "../pages/Login";
+import { useAuth} from "../../context/AuthProvider";
+import Login from "../../pages/Login";
 import "@testing-library/jest-dom";
 import { createMemoryHistory } from "history";
 

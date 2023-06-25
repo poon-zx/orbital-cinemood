@@ -4,7 +4,7 @@ import {
   fireEvent
 } from "@testing-library/react";
 import '@testing-library/jest-dom'
-import Rate from "../modals/rating";
+import Rate from "../../modals/rating";
 import { MemoryRouter } from "react-router-dom";
 
 

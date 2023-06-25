@@ -52,7 +52,6 @@ const PersonalizedSearch = () => {
             if (contentType && contentType.includes("application/json")) {
             const similarityResults = await response.json();
 
-            // sort the results by rating in descending order
 
             const moviePromises = similarityResults.results.map((result) =>
                 fetch(
@@ -86,9 +85,7 @@ const PersonalizedSearch = () => {
                         movie.title.toLowerCase(),
                         similarityResults.results[index].movie.toLowerCase()
                     ) > 0.9 &&
-                    movie.release_date.slice(0, 4) ===
-                        similarityResults.results[index].year &&
-                    movie.poster_path
+                    movie.poster_path && movie.vote_count >= 1
                 );
 
                 return matchingMovie;

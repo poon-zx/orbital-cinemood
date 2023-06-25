@@ -1,11 +1,11 @@
 import React from "react";
 import { render,  screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Search from "../pages/Search";
-import { SearchContext } from '../context/SearchContext';
+import Search from "../../pages/Search";
+import { SearchContext } from '../../context/SearchContext';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
-jest.mock("../components/Card/card.js", () => {
+jest.mock("../../components/Card/card.js", () => {
   return function DummyCards({ movie }) {
     return <div>{movie.original_title}</div>;
   };

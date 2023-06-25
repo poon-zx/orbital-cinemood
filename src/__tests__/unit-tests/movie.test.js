@@ -2,15 +2,15 @@ import React from "react";
 import { render, waitFor, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { MemoryRouter } from "react-router-dom";
-import Movie from "../components/Movie/movie";
+import Movie from "../../components/Movie/movie";
 import fetchMock from "jest-fetch-mock";
 
 fetchMock.enableMocks();
 
-jest.mock("../modals/rating.js", () => () => <div>Mock Rating</div>);
-jest.mock("../modals/writeReview.js", () => () => <div>Mock WriteReview</div>);
-jest.mock("../modals/watch.js", () => () => <div>Mock Watch</div>);
-jest.mock("../components/Forum/forum.js", () => () => <div>Mock Forum</div>);
+jest.mock("../../modals/rating.js", () => () => <div>Mock Rating</div>);
+jest.mock("../../modals/writeReview.js", () => () => <div>Mock WriteReview</div>);
+jest.mock("../../modals/watch.js", () => () => <div>Mock Watch</div>);
+jest.mock("../../components/Forum/forum.js", () => () => <div>Mock Forum</div>);
 
 describe("Movie Component", () => {
   beforeEach(() => {
