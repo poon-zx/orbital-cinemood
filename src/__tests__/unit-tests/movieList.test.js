@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import MovieList from '../components/MovieList/movieList';
+import MovieList from '../../components/MovieList/movieList';
 import '@testing-library/jest-dom'
 import { fireEvent } from '@testing-library/react';
 

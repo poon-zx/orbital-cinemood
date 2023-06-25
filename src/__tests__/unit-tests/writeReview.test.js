@@ -5,7 +5,7 @@ import {
   } from "@testing-library/react";
   import '@testing-library/jest-dom'
   import { MemoryRouter } from "react-router-dom";
-import WriteReview from "../modals/writeReview";
+import WriteReview from "../../modals/writeReview";
   
   test("renders without crashing", () => {
     render(

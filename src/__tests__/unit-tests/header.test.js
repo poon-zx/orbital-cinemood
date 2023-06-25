@@ -7,8 +7,8 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
-import Header from "../components/Header/header.js";
-import { SearchContext } from "../context/SearchContext.js"; // import your SearchContext
+import Header from "../../components/Header/header.js";
+import { SearchContext } from "../../context/SearchContext.js"; // import your SearchContext
 import { act } from "react-dom/test-utils";
 import { createMemoryHistory } from "history";
 

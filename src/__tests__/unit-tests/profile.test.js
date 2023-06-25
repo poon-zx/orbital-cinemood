@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Profile from '../pages/Profile/Profile';
+import Profile from '../../pages/Profile/Profile';
 import '@testing-library/jest-dom'
 
-jest.mock('../context/AuthProvider.jsx', () => ({
+jest.mock('../../context/AuthProvider.jsx', () => ({
     useAuth: () => ({
       user: { id: '123' },
     }),

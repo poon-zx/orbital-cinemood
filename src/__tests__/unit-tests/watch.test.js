@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent, waitFor} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { MemoryRouter } from 'react-router-dom';
-import Watch from '../modals/watch';
+import Watch from '../../modals/watch';
 
 it('should open the modal when button is clicked', async () => {
     const { getByText } = render(

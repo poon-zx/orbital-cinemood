@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import PersonalizedSearch from "../pages/PersonalizedSearch";
+import PersonalizedSearch from "../../pages/PersonalizedSearch";
 
 // Mock the global fetch function
 global.fetch = jest.fn(() =>
