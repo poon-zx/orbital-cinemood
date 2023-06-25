@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Button} from '@mui/material';
 import Modal from 'react-bootstrap/Modal';
-import { supabase } from '../supabase.js';
+import { getSupabaseInstance } from '../supabase.js';
 import { v4 } from 'uuid';
 import './modals.css';
 import { useAuth } from '../context/AuthProvider.jsx';
@@ -20,7 +20,7 @@ function MyVerticallyCenteredModal(props) {
 
     const addWatchlist = async () => {
         const { data: existingUserData, error: existingUserError } =
-            await supabase
+            await getSupabaseInstance()
                 .from('user')
                 .select('*')
                 .eq('id', auth.user.id);
@@ -36,7 +36,7 @@ function MyVerticallyCenteredModal(props) {
             const updatedToWatch = existingUser.to_watch.includes(props.movieId) || existingUser.watched.includes(props.movieId)
                 ? existingUser.to_watch
                 : [...existingUser.to_watch, props.movieId];
-            const { data: updateData, error: updateError } = await supabase
+            const { data: updateData, error: updateError } = await getSupabaseInstance()
                 .from('user')
                 .update({
                     to_watch: updatedToWatch,
@@ -65,7 +65,7 @@ function MyVerticallyCenteredModal(props) {
 
     const addWatchHistory = async (e) => {    
         const { data: existingUserData, error: existingUserError } =
-            await supabase
+            await getSupabaseInstance()
                 .from('user')
                 .select('*')
                 .eq('id', auth.user.id);
@@ -99,7 +99,7 @@ function MyVerticallyCenteredModal(props) {
                 }
             }
 
-            const { data: updateData, error: updateError } = await supabase
+            const { data: updateData, error: updateError } = await getSupabaseInstance()
                 .from('user')
                 .update({
                     to_watch: updatedToWatch,
@@ -127,7 +127,7 @@ function MyVerticallyCenteredModal(props) {
 
     const removebutton = async () => {
         const { data: existingUserData, error: existingUserError } =
-            await supabase
+            await getSupabaseInstance()
                 .from('user')
                 .select('*')
                 .eq('id', auth.user.id);
@@ -142,7 +142,7 @@ function MyVerticallyCenteredModal(props) {
             const existingUser = existingUserData[0];
             if (existingUser.to_watch.includes(props.movieId)) {
                 const updatedToWatch = existingUser.to_watch.filter((movie) => movie !== props.movieId);
-                const { data: updateData, error: updateError } = await supabase
+                const { data: updateData, error: updateError } = await getSupabaseInstance()
                     .from('user')
                     .update({
                         to_watch: updatedToWatch,
@@ -158,7 +158,7 @@ function MyVerticallyCenteredModal(props) {
 
             } else if (existingUser.watched.includes(props.movieId)) {
                 const updatedWatched = existingUser.watched.filter((movie) => movie !== props.movieId);
-                const { data: updateData, error: updateError } = await supabase
+                const { data: updateData, error: updateError } = await getSupabaseInstance()
                     .from('user')
                     .update({
                         watched: updatedWatched,
@@ -179,7 +179,7 @@ function MyVerticallyCenteredModal(props) {
 
     const updateString = async () => {
         const { data: existingUserData, error: existingUserError } =
-        await supabase
+        await getSupabaseInstance()
             .from('user')
             .select('*')
             .eq('id', auth.user.id);

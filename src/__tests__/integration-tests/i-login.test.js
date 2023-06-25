@@ -3,7 +3,6 @@ import { render, waitFor, fireEvent, screen } from "@testing-library/react";
 import Login from "../../pages/Login";
 import "@testing-library/jest-dom";
 import { MemoryRouter as Router, Route, Routes } from "react-router-dom";
-import { supabase } from "../../supabase";
 import App from "../../App";
 import PersonalizedSearch from "../../pages/PersonalizedSearch";
 

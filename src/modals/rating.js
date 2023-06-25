@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { supabase } from '../supabase.js';
+import { getSupabaseInstance } from '../supabase.js';
 import { v4 } from 'uuid';
 import './modals.css';
 import { Rating, Box, Button } from '@mui/material';
@@ -32,7 +32,7 @@ function MyVerticallyCenteredModal(props) {
 
     const fetchRating = async () => {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await getSupabaseInstance()
                 .from("review")
                 .select("*")
                 .eq("movie_id", props.movieId);
@@ -53,7 +53,7 @@ function MyVerticallyCenteredModal(props) {
     };
 
     const addRating = async () => {
-        const { data: existingReviewData, error: existingReviewError } = await supabase
+        const { data: existingReviewData, error: existingReviewError } = await getSupabaseInstance()
             .from('review')
             .select('*')
             .eq('user_id', auth.user.id)
@@ -67,7 +67,7 @@ function MyVerticallyCenteredModal(props) {
         if (existingReviewData.length > 0) {
             // Update existing review
             const existingReview = existingReviewData[0];
-            const { data: updateData, error: updateError } = await supabase
+            const { data: updateData, error: updateError } = await getSupabaseInstance()
                 .from('review')
                 .update({
                 rating: value
@@ -84,7 +84,7 @@ function MyVerticallyCenteredModal(props) {
             }
         } else {
             // Add new review
-            const { data: addData, error: addError } = await supabase
+            const { data: addData, error: addError } = await getSupabaseInstance()
                 .from('review')
                 .insert([
                 {
@@ -113,7 +113,7 @@ function MyVerticallyCenteredModal(props) {
     };
 
     const removeRating = async () => {
-        const { data: existingReviewData, error: existingReviewError } = await supabase
+        const { data: existingReviewData, error: existingReviewError } = await getSupabaseInstance()
             .from('review')
             .select('*')
             .eq('user_id', auth.user.id)
@@ -127,7 +127,7 @@ function MyVerticallyCenteredModal(props) {
         if (existingReviewData.length > 0) {
             // delete existing review
             const existingReview = existingReviewData[0];
-            const { data: updateData, error: updateError } = await supabase
+            const { data: updateData, error: updateError } = await getSupabaseInstance()
                 .from('review')
                 .update({
                 rating: null

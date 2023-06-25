@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import logo from "../../images/logo.png";
-import { supabase } from "../../supabase.js";
+import { getSupabaseInstance } from "../../supabase.js";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./header.css"
 import SearchIcon from '@mui/icons-material/Search';
@@ -68,7 +68,7 @@ function ResponsiveAppBar() {
   };
 
   const handleLogOutClick = async () => {
-    await supabase.auth.signOut();
+    await getSupabaseInstance().auth.signOut();
     navigate("/login"); // Redirect to the login page
   };
 

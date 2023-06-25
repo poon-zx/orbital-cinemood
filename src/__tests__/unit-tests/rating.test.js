@@ -8,7 +8,6 @@ import Rate from "../../modals/rating";
 import { MemoryRouter } from "react-router-dom";
 
 
-jest.mock("../supabase.js");
 
 test("renders without crashing", () => {
   render(
