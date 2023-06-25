@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardText, CardTitle, CardImg } from "reactstrap";
-import { Avatar, Button } from "@mui/material";
+import { Avatar, Button, IconButton } from "@mui/material";
 import { supabase } from "../../supabase";
 import "./forum.css";
 import defaultImg from "../../images/default-avatar.png";
@@ -8,6 +8,8 @@ import { v4 as uuid } from 'uuid';
 import { useAuth } from '../../context/AuthProvider.jsx';
 import WriteReview from "../../modals/writeReview.js";
 import Rating from "../../modals/rating.js";
+import Delete from "../../modals/delete.js"
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { SettingsOverscanRounded } from "@mui/icons-material";
 
 const Forum = ({ movieId }) => {
@@ -97,6 +99,9 @@ const Forum = ({ movieId }) => {
                             <div className="profile__container">
                                 <Avatar className="movie_reviewAvatar"/>
                                 <div className="movie_reviewEmail">{review.user.username ? review.user.username : review.user.email}</div>
+                                <div className="delete-container">
+                                    {review.user_id === auth.user.id ? <Delete reviewId={review.id} /> : ""}
+                                </div>
                             </div>
                             <div className="movie__review_left">
                                 <CardTitle tag="h5" className="movie__reviewTitle">
@@ -119,18 +124,21 @@ const Forum = ({ movieId }) => {
                                         hour12: true
                                         })}
                                 </CardText>
-                                <Button
+                                <div className="reply-button-container">
+                                    <Button
                                     className="reply-button"
                                     variant="text"
                                     onClick={() => handleReplyButtonClick(review.id)}
-                                >
-                                    Reply
-                                </Button>
+                                    sx={{width:"178px", textAlign: "left"}}
+                                    >
+                                        Show reply thread
+                                    </Button>
+                                </div>
                                 {selectedReviewId === review.id && (
-                                    <div className="replies-container">
-                                        <Replies reviewId={review.id} />
-                                        <ReplyForm reviewId={review.id} handleReply={handleReply} />
-                                    </div>
+                                <div className="replies-container">
+                                    <Replies reviewId={review.id} />
+                                    <ReplyForm reviewId={review.id} handleReply={handleReply} />
+                                </div>
                                 )}
                             </div>
                         </div>
@@ -167,12 +175,13 @@ const ReplyForm = ({ reviewId, handleReply }) => {
     );
 };
 
-const Replies = ({ reviewId }) => {
+const Replies = ({ reviewId, deleteReply = false}) => {
     const [replies, setReplies] = useState([]);
+    const auth = useAuth();
 
     useEffect(() => {
         fetchReplies();
-    }, [reviewId, replies]);
+    }, [reviewId, replies, deleteReply]);
 
     const fetchReplies = async () => {
         try {
@@ -196,6 +205,27 @@ const Replies = ({ reviewId }) => {
         }
     };
 
+    const handleDelete = async (replyId) => {
+        try {
+            const { data, error } = await supabase
+                .from("reply")
+                .delete()
+                .eq("id", replyId);
+
+            if (error) {
+                console.error("Error deleting reply:", error.message);
+                return;
+            }
+
+            if (data) {
+                deleteReply = true;
+                fetchReplies();
+            }
+        } catch (error) {
+            console.error("Error deleting reply:", error.message);
+        }
+    };
+
     return (
         <div className="replies">
             {replies.length > 0 ? (
@@ -203,10 +233,10 @@ const Replies = ({ reviewId }) => {
                     <div className="reply" key={reply.id}>
                         <div className="reply__container">
                             <Avatar />
-                            <div className="reply__user">
-                                <div className="reply__first">
+                            <div className="reply__first">
+                                <span>
                                     <span className="reply__user__email">
-                                        {reply.user.username ? reply.user.username : reply.user.email}
+                                    {reply.user.username ? reply.user.username : reply.user.email}
                                     </span>
                                     <span className="reply__date">
                                         {new Date (reply.created_at).toLocaleString("en-US", {
@@ -219,10 +249,20 @@ const Replies = ({ reviewId }) => {
                                         hour12: true
                                         })}
                                     </span>
-                                </div>
-                                <CardText className="reply__user__content">{reply.content}</CardText>
+                                </span>
+                                <span className="delete-icon-button">
+                                    {reply.user_id === auth.user.id ?
+                                    <IconButton
+                                        className="delete-icon-button"
+                                        onClick={() => handleDelete(reply.id)}
+                                    >
+                                        <DeleteOutlineOutlinedIcon className="edit-icon" />
+                                    </IconButton> : ""
+                                    }
+                                </span>
                             </div>
                         </div>
+                        <CardText className="reply__user__content">{reply.content}</CardText>
                     </div>
                 ))
             ) : (

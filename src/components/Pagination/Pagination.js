@@ -21,11 +21,11 @@ const Pagination = ({ page, setPage, totalResults }) => {
   return (
     <div className="pagination-container" data-testid="pagination">
       <button className="pagination-button" onClick={Previous} data-testid="previous-button">
-        Previous
+        &#8249;&#8249; Previous 
       </button>
       <span className="page-number">Page {page}</span>
       <button className="pagination-button" onClick={Next} data-testid="next-button">
-        Next
+        Next &#8250;&#8250;
       </button>
     </div>
   );
