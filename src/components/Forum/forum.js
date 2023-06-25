@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardText, CardTitle, CardImg } from "reactstrap";
-import { Avatar, Button } from "@mui/material";
+import { Avatar, Button, IconButton } from "@mui/material";
 import { supabase } from "../../supabase";
 import "./forum.css";
 import defaultImg from "../../images/default-avatar.png";
@@ -9,6 +9,7 @@ import { useAuth } from '../../context/AuthProvider.jsx';
 import WriteReview from "../../modals/writeReview.js";
 import Rating from "../../modals/rating.js";
 import Delete from "../../modals/delete.js"
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { SettingsOverscanRounded } from "@mui/icons-material";
 
 const Forum = ({ movieId }) => {
@@ -123,18 +124,21 @@ const Forum = ({ movieId }) => {
                                         hour12: true
                                         })}
                                 </CardText>
-                                <Button
+                                <div className="reply-button-container">
+                                    <Button
                                     className="reply-button"
                                     variant="text"
                                     onClick={() => handleReplyButtonClick(review.id)}
-                                >
-                                    Reply
-                                </Button>
+                                    sx={{width:"178px", textAlign: "left"}}
+                                    >
+                                        Show reply thread
+                                    </Button>
+                                </div>
                                 {selectedReviewId === review.id && (
-                                    <div className="replies-container">
-                                        <Replies reviewId={review.id} setClicked={true}/>
-                                        <ReplyForm reviewId={review.id} handleReply={handleReply} />
-                                    </div>
+                                <div className="replies-container">
+                                    <Replies reviewId={review.id} />
+                                    <ReplyForm reviewId={review.id} handleReply={handleReply} />
+                                </div>
                                 )}
                             </div>
                         </div>
@@ -171,12 +175,13 @@ const ReplyForm = ({ reviewId, handleReply }) => {
     );
 };
 
-const Replies = ({ reviewId, clicked }) => {
+const Replies = ({ reviewId, deleteReply = false}) => {
     const [replies, setReplies] = useState([]);
+    const auth = useAuth();
 
     useEffect(() => {
         fetchReplies();
-    }, [reviewId, replies, clicked]);
+    }, [reviewId, replies, deleteReply]);
 
     const fetchReplies = async () => {
         try {
@@ -200,6 +205,27 @@ const Replies = ({ reviewId, clicked }) => {
         }
     };
 
+    const handleDelete = async (replyId) => {
+        try {
+            const { data, error } = await supabase
+                .from("reply")
+                .delete()
+                .eq("id", replyId);
+
+            if (error) {
+                console.error("Error deleting reply:", error.message);
+                return;
+            }
+
+            if (data) {
+                deleteReply = true;
+                fetchReplies();
+            }
+        } catch (error) {
+            console.error("Error deleting reply:", error.message);
+        }
+    };
+
     return (
         <div className="replies">
             {replies.length > 0 ? (
@@ -208,19 +234,31 @@ const Replies = ({ reviewId, clicked }) => {
                         <div className="reply__container">
                             <Avatar />
                             <div className="reply__first">
-                                <span className="reply__user__email">
+                                <span>
+                                    <span className="reply__user__email">
                                     {reply.user.username ? reply.user.username : reply.user.email}
+                                    </span>
+                                    <span className="reply__date">
+                                        {new Date (reply.created_at).toLocaleString("en-US", {
+                                        year: "numeric",
+                                        month: "2-digit",
+                                        day: "2-digit",
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                        second: "2-digit",
+                                        hour12: true
+                                        })}
+                                    </span>
                                 </span>
-                                <span className="reply__date">
-                                    {new Date (reply.created_at).toLocaleString("en-US", {
-                                    year: "numeric",
-                                    month: "2-digit",
-                                    day: "2-digit",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                    second: "2-digit",
-                                    hour12: true
-                                    })}
+                                <span className="delete-icon-button">
+                                    {reply.user_id === auth.user.id ?
+                                    <IconButton
+                                        className="delete-icon-button"
+                                        onClick={() => handleDelete(reply.id)}
+                                    >
+                                        <DeleteOutlineOutlinedIcon className="edit-icon" />
+                                    </IconButton> : ""
+                                    }
                                 </span>
                             </div>
                         </div>
