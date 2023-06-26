@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Container, Row, Col } from "reactstrap";
 import { Avatar, Button, IconButton } from "@mui/material";
-import { supabase } from "../../supabase";
+import { getSupabaseInstance } from "../../supabase";
 import { useAuth } from "../../context/AuthProvider.jsx";
 import EditIcon from "@mui/icons-material/Edit";
 import "./Profile.css";
@@ -22,7 +22,7 @@ const Profile = () => {
 
   const fetchProfile = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await getSupabaseInstance()
         .from("user")
         .select("*")
         .eq("id", auth.user.id);
@@ -41,7 +41,7 @@ const Profile = () => {
   };
 
   const handleSave = async () => {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabaseInstance()
       .from("user")
       .select("*")
       .eq("id", auth.user.id);
@@ -52,7 +52,7 @@ const Profile = () => {
     }
     if (data) {
       const user = data[0];
-      const { updateData, updateError } = await supabase
+      const { updateData, updateError } = await getSupabaseInstance()
         .from("user")
         .update({
           username: username,

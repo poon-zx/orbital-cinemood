@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { supabase } from '../supabase.js';
+import { getSupabaseInstance } from '../supabase.js';
 import { v4 } from 'uuid';
 import './modals.css';
 import { useAuth } from '../context/AuthProvider.jsx';
@@ -22,7 +22,7 @@ function MyVerticallyCenteredModal(props) {
         }
 
         const { data: existingReviewData, error: existingReviewError } =
-            await supabase
+            await getSupabaseInstance()
                 .from('review')
                 .select('*')
                 .eq('user_id', auth.user.id)
@@ -36,7 +36,7 @@ function MyVerticallyCenteredModal(props) {
         if (existingReviewData.length > 0) {
             // Update existing review
             const existingReview = existingReviewData[0];
-            const { data: updateData, error: updateError } = await supabase
+            const { data: updateData, error: updateError } = await getSupabaseInstance()
                 .from('review')
                 .update({
                     title: title,
@@ -54,7 +54,7 @@ function MyVerticallyCenteredModal(props) {
             }
         } else {
             // Add new review
-            const { data: addData, error: addError } = await supabase
+            const { data: addData, error: addError } = await getSupabaseInstance()
                 .from('review')
                 .insert([
                     {

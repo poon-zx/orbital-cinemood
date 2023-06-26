@@ -4,7 +4,7 @@ import Cards from "../components/Card/card.js";
 import "../components/MovieList/movieList.css";
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton } from "@mui/material";
-import { supabase } from "../supabase";
+import { getSupabaseInstance } from "../supabase";
 import { useAuth } from "../context/AuthProvider.jsx";
 
 const PersonalizedSearch = () => {
@@ -17,13 +17,13 @@ const PersonalizedSearch = () => {
     }, []);
 
     const insertUser = async () => {
-        const { data: userData, error: userError } = await supabase
+        const { data: userData, error: userError } = await getSupabaseInstance()
             .from('user')
             .select('*')
             .eq('id', auth.user.id);
 
         if (userData && userData.length === 0) {
-            await supabase.from('user').insert([
+            await getSupabaseInstance().from('user').insert([
                 {
                     id: auth.user.id,
                     email: auth.user.email

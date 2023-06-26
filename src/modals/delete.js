@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { supabase } from '../supabase.js';
+import { getSupabaseInstance } from '../supabase.js';
 import { v4 } from 'uuid';
 import './modals.css';
 import { Box, IconButton } from '@mui/material';
@@ -14,7 +14,7 @@ function MyVerticallyCenteredModal(props) {
     const auth = useAuth();
 
     const deleteReview = async () => {
-        const { data: existingReviewData, error: existingReviewError } = await supabase
+        const { data: existingReviewData, error: existingReviewError } = await getSupabaseInstance()
             .from('review')
             .select('*')
             .eq('id', props.reviewId);
@@ -27,7 +27,7 @@ function MyVerticallyCenteredModal(props) {
         if (existingReviewData.length > 0) {
             // delete existing review
             const existingReview = existingReviewData[0];
-            const { data: updateData, error: updateError } = await supabase
+            const { data: updateData, error: updateError } = await getSupabaseInstance()
                 .from('review')
                 .delete()
                 .eq('id', existingReview.id);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardText, CardTitle, CardImg } from "reactstrap";
 import { Avatar, Button, IconButton } from "@mui/material";
-import { supabase } from "../../supabase";
+import { getSupabaseInstance } from "../../supabase";
 import "./forum.css";
 import defaultImg from "../../images/default-avatar.png";
 import { v4 as uuid } from 'uuid';
@@ -24,7 +24,7 @@ const Forum = ({ movieId }) => {
 
     const fetchForumPosts = async () => {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await getSupabaseInstance()
                 .from("review")
                 .select(`*, user: user_id (email, username)`)
                 .eq("movie_id", movieId);
@@ -48,7 +48,7 @@ const Forum = ({ movieId }) => {
 
     const handleReply = async (reviewId, replyContent) => {
         try {
-            const { data, error } = await supabase.from("reply").insert([
+            const { data, error } = await getSupabaseInstance().from("reply").insert([
                 {
                     id: uuid(),
                     content: replyContent,

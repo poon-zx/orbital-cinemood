@@ -1,12 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { supabase } from "../supabase";
+import { getSupabaseInstance } from "../supabase";
 
 export const AuthContext = createContext({});
 
 export const useAuth = () => useContext(AuthContext);
 
 const updatePassword = (updatedPassword) =>
-  supabase.auth.updateUser({ password: updatedPassword });
+  getSupabaseInstance().auth.updateUser({ password: updatedPassword });
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(false);
@@ -16,14 +16,14 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     setLoading(true);
     const getUser = async () => {
-      const { data } = await supabase.auth.getUser();
+      const { data } = await getSupabaseInstance().auth.getUser();
       const { user: currentUser } = data;
       setUser(currentUser ?? null);
       setAuth(currentUser ? true : false);
       setLoading(false);
     };
     getUser();
-    const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
+    const { data } = getSupabaseInstance().auth.onAuthStateChange(async (event, session) => {
       if (event === "PASSWORD_RECOVERY") {
         setAuth(false);
       } else if (event === "SIGNED_IN") {

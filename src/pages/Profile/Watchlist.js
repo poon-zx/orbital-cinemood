@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import CardsUser from "../../components/Card/cardUser";
-import { supabase } from "../../supabase";
+import { getSupabaseInstance } from "../../supabase";
 import "./Watchhistory.css";
 
 const Watchlist = ({ user_id }) => {
@@ -25,7 +25,7 @@ const Watchlist = ({ user_id }) => {
 
   const fetchWatchlist = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await getSupabaseInstance()
         .from("user")
         .select("*")
         .eq("id", user_id);
@@ -48,7 +48,7 @@ const Watchlist = ({ user_id }) => {
       `https://api.themoviedb.org/3/movie/${movie_id}?api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US`
     );
     const movieData = await response.json();
-    const { data, error } = await supabase
+    const { data, error } = await getSupabaseInstance()
       .from("review")
       .select("*")
       .eq("user_id", user_id)

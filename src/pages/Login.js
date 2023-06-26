@@ -5,7 +5,7 @@ import "./style.css";
 import { Auth } from "@supabase/auth-ui-react";
 import { useNavigate } from "react-router-dom";
 import { Box, Container } from "@mui/material";
-import { supabase } from "../supabase.js";
+import { getSupabaseInstance } from "../supabase.js";
 
 const customTheme = {
   default: {
@@ -73,7 +73,7 @@ function Login() {
       }
     };
 
-    const subscription = supabase.auth.onAuthStateChange(handleAuthStateChange);
+    const subscription = getSupabaseInstance().auth.onAuthStateChange(handleAuthStateChange);
 
     return () => {
     };
@@ -100,7 +100,7 @@ function Login() {
           <img src={logo} alt="Logo" height="100" />
           <Auth
           ref={el => el && (el.dataset.testid = 'login-form')}
-            supabaseClient={supabase}
+            supabaseClient={getSupabaseInstance()}
             className="App"
             appearance={{
               theme: customTheme,
