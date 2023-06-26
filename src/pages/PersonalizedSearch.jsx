@@ -85,6 +85,8 @@ const PersonalizedSearch = () => {
                         movie.title.toLowerCase(),
                         similarityResults.results[index].movie.toLowerCase()
                     ) > 0.9 &&
+                    movie.release_date.slice(0, 4) ===
+                        similarityResults.results[index].year &&
                     movie.poster_path && movie.vote_count >= 1
                 );
 

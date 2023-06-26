@@ -28,7 +28,7 @@ const pages = [
 
 const settings = [
     {label: "Profile", path: "/profile"},
-    {label: "Logout", path: "/"},
+    {label: "Logout", path: "/login"},
 ];
 
 function ResponsiveAppBar() {
@@ -204,7 +204,7 @@ function ResponsiveAppBar() {
             }
           >
             <Link
-              to={"/profile"}
+              to={setting.path}
               style={{ textDecoration: "none", color: "black" }}
             >
               <Typography textAlign="center">{setting.label}</Typography>
