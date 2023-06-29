@@ -20,6 +20,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./header.css"
 import SearchIcon from '@mui/icons-material/Search';
 import { useAuth } from "../../context/AuthProvider.jsx";
+import Notifications from "./notifications";
 
 const pages = [
   { label: "Popular", path: "/movies/popular" },
@@ -144,6 +145,7 @@ function ResponsiveAppBar() {
               </form>
             </Box>
             <Box style={{ marginLeft: "7px" }}>
+              <Notifications />
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar />

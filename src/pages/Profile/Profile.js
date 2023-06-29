@@ -9,6 +9,8 @@ import "./Profile.css";
 import Watchlist from "./Watchlist";
 import Watchhistory from "./Watchhistory";
 import Recommendations from "./Recommendations";
+import SendFriendRequest from "./SendFriendRequest";
+import { Send } from "@mui/icons-material";
 
 const Profile = () => {
   const auth = useAuth();
@@ -104,13 +106,7 @@ const Profile = () => {
                   >
                     <div className="card-profile-actions">
                       {!viewingOwnProfile && (
-                      <button
-                        className="profile-btn"
-                        onClick={(e) => e.preventDefault()}
-                        size="sm"
-                      >
-                        Connect
-                      </button>
+                      <SendFriendRequest currentUserId={currentUserId} friendUserId={urlId} />
                     )}
                     </div>
                   </Col>
