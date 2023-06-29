@@ -7,6 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import "./Profile.css";
 import Watchlist from "./Watchlist";
 import Watchhistory from "./Watchhistory";
+import Recommendations from "./Recommendations";
 
 const Profile = () => {
   const auth = useAuth();
@@ -158,6 +159,10 @@ const Profile = () => {
                   <div className="box">Watch history</div>
                   <div className="watch-container">
                     <Watchhistory user_id={auth.user.id} />
+                  </div>
+                  <div className="box">Movies you may like</div>
+                  <div className="watch-container">
+                    <Recommendations user_id={auth.user.id} />
                   </div>
                 </div>
                 <div className="mt-5 py-5 border-top text-center"></div>

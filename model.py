@@ -31,6 +31,17 @@ url_tensors = "https://storage.googleapis.com/cinemood/Overall%20Movie%20(remove
 response_tensors = requests.get(url_tensors)
 tensors = torch.load(BytesIO(response_tensors.content))
 
+url_recco_csv = "https://storage.googleapis.com/cinemood/Overall%20Movie%20(genre).csv"
+response_recco_csv = requests.get(url_recco_csv)
+data_recco = StringIO(response_recco_csv.text)
+dataset_recco = pd.read_csv(data_recco)
+
+url_recco_tensors = "https://storage.googleapis.com/cinemood/Overall%20Movie%20(genre).pt"
+response_recco_tensors = requests.get(url_recco_tensors)
+tensors_recco = torch.load(BytesIO(response_recco_tensors.content))
+
+scores = [-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5]
+
 @app.route("/find_similarity/", methods=['POST', 'OPTIONS'])
 @cross_origin(options=None)
 
@@ -54,6 +65,34 @@ def find_similarity():
         })
 
     return jsonify({'results': results})
+
+@app.route("/give_recommendations/", methods=['POST', 'OPTIONS'])
+@cross_origin(options=None)
+
+def give_recommendations():
+    item = request.get_json()
+    nice = item['input']
+    embeddings1 = model.encode(nice[0][0], convert_to_tensor=True)
+    cosine_scores = util.pytorch_cos_sim(embeddings1, tensors_recco) * scores[nice[0][1] - 1]
+    if len(nice) > 1:
+        for i in nice[1:]:
+            embeddings1 = model.encode(i[0], convert_to_tensor=True)
+            cosine_scores += util.pytorch_cos_sim(embeddings1, tensors_recco) * scores[i[1] - 1]
+    top_results = torch.topk(cosine_scores, k=20)
+    top_indices = top_results[1][0]
+    top_scores = top_results[0][0]
+
+    results = []
+    for i in range(20):
+        results.append({
+            'movie': dataset['Movie Name'][top_indices[i].item()],
+            'score': float(top_scores[i].item()),
+            'year': dataset['Year of Release'][top_indices[i].item()],
+            'rating': dataset['Movie Rating'][top_indices[i].item()]
+        })
+
+    return jsonify({'results': results})
+
 
 if __name__ == '__main__':
     # Check if running on Heroku or locally
