@@ -52,7 +52,6 @@
     text-align: center;
     display: flex;
     justify-content: center;
-    margin-left: 45px;
     font-family: 'Be Vietnam Pro', sans-serif;
     font-weight: bold;
 }
@@ -111,4 +110,10 @@
     margin-top: 7px;
     margin-bottom: 7px;
 }
+
+.invisible {
+    visibility: hidden;
+    pointer-events: none;
+  }
+  
 

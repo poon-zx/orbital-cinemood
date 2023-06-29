@@ -19,6 +19,7 @@ import { getSupabaseInstance } from "../../supabase.js";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./header.css"
 import SearchIcon from '@mui/icons-material/Search';
+import { useAuth } from "../../context/AuthProvider.jsx";
 
 const pages = [
   { label: "Popular", path: "/movies/popular" },
@@ -26,16 +27,17 @@ const pages = [
   { label: "Upcoming", path: "/movies/upcoming" },
 ];
 
-const settings = [
-    {label: "Profile", path: "/profile"},
-    {label: "Logout", path: "/login"},
-];
-
 function ResponsiveAppBar() {
   const { setSearchText } = useContext(SearchContext);
   const navigate = useNavigate();
   const location = useLocation();
   const [localSearchText, setLocalSearchText] = useState(""); // Add a local state for the input
+  const auth = useAuth();
+
+  const settings = [
+    {label: "Profile", path: `/profile/${auth.user.id}`},
+    {label: "Logout", path: "/login"},
+];
 
   // Clear search bar when navigating to another page
 

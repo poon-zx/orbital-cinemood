@@ -23,7 +23,7 @@ export default function App() {
     location.pathname.match(/^\/movie\//) ||
     location.pathname.match(/^\/movies\//) ||
     location.pathname === "/search" ||
-    location.pathname === "/profile";
+    location.pathname.match(/^\/profile\//);
 
   return (
     <div className="App">
@@ -39,7 +39,7 @@ export default function App() {
             <Route path="movie/:id" element={<Movie />} />
             <Route path="movies/:type" element={<MovieList />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:id" element={<Profile />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

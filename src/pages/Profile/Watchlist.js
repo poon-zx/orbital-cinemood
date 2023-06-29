@@ -9,7 +9,7 @@ const Watchlist = ({ user_id }) => {
 
   useEffect(() => {
     fetchWatchlist();
-  }, []);
+  }, [user_id]);
 
   useEffect(() => {
     if (profile.length > 0) {

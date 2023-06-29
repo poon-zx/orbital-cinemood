@@ -9,7 +9,7 @@ const Watchhistory = ({ user_id }) => {
 
   useEffect(() => {
     fetchWatchhistory();
-  }, []);
+  }, [user_id]);
 
   useEffect(() => {
     if (profile.length > 0) {
