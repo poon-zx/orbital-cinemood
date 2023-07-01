@@ -8,13 +8,30 @@ import { getSupabaseInstance } from "../supabase";
 import { useAuth } from "../context/AuthProvider.jsx";
 
 const PersonalizedSearch = () => {
-  const [searchText, setSearchText] = useState("");
-  const [movieList, setMovieList] = useState([]);
+    const [searchText, setSearchText] = useState(() => {
+        // Get the search text from local storage (or use a default value if not found)
+        return localStorage.getItem("searchText") || "";
+      });
+      const [movieList, setMovieList] = useState(() => {
+        // Get the movie list from local storage (or use a default value if not found)
+        const storedMovieList = localStorage.getItem("movieList");
+        return storedMovieList ? JSON.parse(storedMovieList) : [];
+      });
   const auth = useAuth();
 
   useEffect(() => {
     insertUser();
   }, []);
+
+  useEffect(() => {
+    // Save the search text to local storage whenever it changes
+    localStorage.setItem("searchText", searchText);
+  }, [searchText]);
+
+  useEffect(() => {
+    // Save the movie list to local storage whenever it changes
+    localStorage.setItem("movieList", JSON.stringify(movieList));
+  }, [movieList]);
 
   const insertUser = async () => {
     const { data: userData, error: userError } = await getSupabaseInstance()
@@ -56,7 +73,7 @@ const PersonalizedSearch = () => {
 
           const moviePromises = similarityResults.results.map((result) =>
             fetch(
-              `https://api.themoviedb.org/3/search/movie?query=${result.movie}&api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US`
+              `https://api.themoviedb.org/3/search/movie?query=${result.movie}&api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
             )
           );
           console.log(similarityResults.results);
@@ -109,6 +126,8 @@ const PersonalizedSearch = () => {
   };
 
   const search = () => {
+    // Clear the local storage when a new search is initiated
+    localStorage.removeItem("movieList");
     getData();
   };
 

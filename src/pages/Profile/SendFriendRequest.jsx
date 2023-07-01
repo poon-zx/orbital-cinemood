@@ -20,6 +20,25 @@ const SendFriendRequest = ({ currentUserId, friendUserId }) => {
       return;
     }
 
+    const { data:currentFriends, error: fetchFriendsError } =
+        await getSupabaseInstance()
+            .from("user")
+            .select("friends")
+            .eq("id", currentUserId)
+            .single();
+    
+    if (fetchFriendsError) {
+        console.error("Error fetching user data:", fetchFriendsError.message);
+        return;
+    }
+
+    const { friends } = currentFriends;
+
+    if (friends.includes(friendUserId)) {
+        alert("You are already friends with this user.");
+        return;
+    }
+
     // If a request already exists and it's still pending, do not send a new one
     if (existingRequest.length > 0 && existingRequest[0].status === "pending") {
       alert("Friend request has already been sent.");

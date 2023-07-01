@@ -22,6 +22,10 @@ const Forum = ({ movieId }) => {
     fetchForumPosts();
   }, [movieId, currentMovieReview, selectedReviewId, save]);
 
+  const scroll = () => {
+    window.scrollTo(0, 0);
+    };
+
   const fetchForumPosts = async () => {
     try {
       const { data, error } = await getSupabaseInstance()
@@ -100,7 +104,7 @@ const Forum = ({ movieId }) => {
                 <div className="profile__container">
                   <Avatar className="movie_reviewAvatar" />
                   <div className="movie_reviewEmail">
-                    <Link to={`/profile/${review.user_id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link to={`/profile/${review.user_id}`} style={{ textDecoration: 'none', color: 'inherit' }} onClick={scroll}>
                       {review.user.username
                         ? review.user.username
                         : review.user.email}

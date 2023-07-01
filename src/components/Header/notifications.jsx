@@ -154,7 +154,7 @@ const Notifications = () => {
       >
         <Box sx={{ bgcolor: "#EBCBC1", color: 'white', p: 1 }}>
           <Typography variant="h6" sx={{ ml: '6px', color: 'black', fontFamily: 'Playfair Display'}}>Notifications</Typography>
-          <Divider sx={{ bgcolor: 'black', my: 1 }} /> 
+          <Divider sx={{ bgcolor: 'black', my: 1, mb:"-5px" }} /> 
         </Box>
         {notifications.length > 0 ? (
           notifications.map((notification, index) => (

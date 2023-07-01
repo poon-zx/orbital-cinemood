@@ -49,12 +49,12 @@ const Recommendations = ({ user_ids }) => {
     // for each movie in movie_id_list, fetch the rating
     const moviePromises = movie_id_list.map(async (movie_id) => {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${movie_id}?api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US`
+        `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
       );
       const movieData = await response.json();
 
       const cast = await fetch(
-        `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US`
+        `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
       );
       const castData = await cast.json();
       const reviewPromises = user_ids.map(async (user_id) => {

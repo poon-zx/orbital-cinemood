@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./App.css";
 import Login from "./pages/Login.js";
 import Profile from "./pages/Profile/Profile.js";
@@ -18,6 +18,16 @@ import MovieBlend from "./pages/Profile/MovieBlend.js";
 
 export default function App() {
   const location = useLocation();
+
+  useEffect(() => {
+    // Define the paths where you want to keep the localStorage data
+    const paths = ["/movie/", "/home"];
+
+    if (!paths.some((path) => location.pathname.startsWith(path))) {
+      localStorage.removeItem("searchText");
+      localStorage.removeItem("movieList");
+    }
+  }, [location]);
 
   const showHeader =
     location.pathname === "/home" ||

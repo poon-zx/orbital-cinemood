@@ -16,7 +16,7 @@ const Search = () => {
 
   const getData = () => {
     fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${searchText.toLowerCase()}}&api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US&page=${page}`
+      `https://api.themoviedb.org/3/search/movie?query=${searchText.toLowerCase()}}&api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=${page}`
     )
       .then((res) => res.json())
       .then((data) => {
