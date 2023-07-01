@@ -8,15 +8,15 @@ import { getSupabaseInstance } from "../supabase";
 import { useAuth } from "../context/AuthProvider.jsx";
 
 const PersonalizedSearch = () => {
-    const [searchText, setSearchText] = useState(() => {
-        // Get the search text from local storage (or use a default value if not found)
-        return localStorage.getItem("searchText") || "";
-      });
-      const [movieList, setMovieList] = useState(() => {
-        // Get the movie list from local storage (or use a default value if not found)
-        const storedMovieList = localStorage.getItem("movieList");
-        return storedMovieList ? JSON.parse(storedMovieList) : [];
-      });
+  const [searchText, setSearchText] = useState(() => {
+    // Get the search text from local storage (or use a default value if not found)
+    return localStorage.getItem("searchText") || "";
+  });
+  const [movieList, setMovieList] = useState(() => {
+    // Get the movie list from local storage (or use a default value if not found)
+    const storedMovieList = localStorage.getItem("movieList");
+    return storedMovieList ? JSON.parse(storedMovieList) : [];
+  });
   const auth = useAuth();
 
   useEffect(() => {
@@ -143,6 +143,15 @@ const PersonalizedSearch = () => {
       <p className="movie__tagline">
         Enter below what you want to watch and we'll recommend you some movies!
       </p>
+      <p className="movie__tagline" style={{textAlign: "left", marginLeft:"550px"}}>
+        Here are some sample prompts:
+        <br />
+        <ul>
+          <li>Funny basketball movies</li>
+          <li>Cartoon movies for kids</li>
+          <li>Romantic Comedy</li>
+        </ul>
+      </p>
       <div className="container">
         <div
           className="search-container"
@@ -159,6 +168,7 @@ const PersonalizedSearch = () => {
               placeholder="I want to watch a ..."
               onChange={trigger}
               className="search--bar"
+              value={searchText}
             />
             <IconButton
               className="search--button"

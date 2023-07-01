@@ -13,7 +13,9 @@ network:
     - 8080/tcp
 
 env_variables:
-  # Put any required environment variables here
+  REACT_APP_SUPABASE_URL="https://ccecaffoxnxnahwfcpcy.supabase.co"
+  REACT_APP_SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjZWNhZmZveG54bmFod2ZjcGN5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODQ1NjY1MTAsImV4cCI6MjAwMDE0MjUxMH0.-W7IPp668Pp4uT5ZwzAawRU7fJYj20_6MXGOm06VDgA"
+  REACT_APP_TMDB_API_KEY="0d3e5f1c5b02f2f9d8de3dad573c9847"
 
 handlers:
 - url: /static
