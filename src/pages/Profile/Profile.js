@@ -4,7 +4,7 @@ import { Avatar, Button, IconButton } from "@mui/material";
 import { getSupabaseInstance } from "../../supabase";
 import { useAuth } from "../../context/AuthProvider.jsx";
 import EditIcon from "@mui/icons-material/Edit";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import "./Profile.css";
 import Watchlist from "./Watchlist";
 import Watchhistory from "./Watchhistory";
@@ -106,8 +106,21 @@ const Profile = () => {
                   >
                     <div className="card-profile-actions">
                       {!viewingOwnProfile && (
-                      <SendFriendRequest currentUserId={currentUserId} friendUserId={urlId} />
-                    )}
+                        <>
+                          <SendFriendRequest
+                            currentUserId={currentUserId}
+                            friendUserId={urlId}
+                          />
+                          <Button
+                            className="profile-btn"
+                            component={Link} to={`/blend/${urlId}`}
+                            size="lg"
+                            style={{ color: 'inherit', textTransform: 'none', marginTop: '-3px' }}
+                          >
+                            Movie Blend
+                          </Button>
+                        </>
+                      )}
                     </div>
                   </Col>
                   <Col className="order-lg-1">
@@ -128,38 +141,55 @@ const Profile = () => {
                   </Col>
                 </Row>
                 <div className="text-center mt-5">
-                <div className="name-display-container" style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                  <h5 className="display">display name</h5>
-                  <div className="name-container" style={{display: "flex", justifyContent: "center"}}>
-                  <h3 className="name" style={{ marginLeft: viewingOwnProfile ? '45px' : '20px' }}>
-                    {editing && viewingOwnProfile ? (
-                      <>
-                        <input
-                          type="text"
-                          value={username}
-                          onChange={(e) => setUsername(e.target.value)}
-                          className="edit-username"
-                        />
-                        <Button onClick={handleSave}>save</Button>
-                        <Button onClick={handleCancel}>cancel</Button>
-                      </>
-                    ) : (
-                      <>
-                        {profile.username ? profile.username : profile.email}
-                        {viewingOwnProfile && (
-                        <IconButton
-                          className={"edit-icon-button"}
-                          onClick={handleEdit}
-                          disabled={editing}
-                          data-testid="edit-btn"
-                        >
-                          <EditIcon className="edit-icon" />
-                        </IconButton>
-                      )}
-                      </>
-                    )}
-                  </h3>
-                  </div>
+                  <div
+                    className="name-display-container"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <h5 className="display">display name</h5>
+                    <div
+                      className="name-container"
+                      style={{ display: "flex", justifyContent: "center" }}
+                    >
+                      <h3
+                        className="name"
+                        style={{
+                          marginLeft: viewingOwnProfile ? "45px" : "20px",
+                        }}
+                      >
+                        {editing && viewingOwnProfile ? (
+                          <>
+                            <input
+                              type="text"
+                              value={username}
+                              onChange={(e) => setUsername(e.target.value)}
+                              className="edit-username"
+                            />
+                            <Button onClick={handleSave}>save</Button>
+                            <Button onClick={handleCancel}>cancel</Button>
+                          </>
+                        ) : (
+                          <>
+                            {profile.username
+                              ? profile.username
+                              : profile.email}
+                            {viewingOwnProfile && (
+                              <IconButton
+                                className={"edit-icon-button"}
+                                onClick={handleEdit}
+                                disabled={editing}
+                                data-testid="edit-btn"
+                              >
+                                <EditIcon className="edit-icon" />
+                              </IconButton>
+                            )}
+                          </>
+                        )}
+                      </h3>
+                    </div>
                   </div>
                   <div className="box">Watchlist</div>
                   <div className="watch-container">
@@ -169,12 +199,14 @@ const Profile = () => {
                   <div className="watch-container">
                     <Watchhistory user_id={urlId} />
                   </div>
-                  {viewingOwnProfile && (<>
-                  <div className="box">Movies you may like</div>
-                  <div className="watch-container">
-                    <Recommendations user_id={auth.user.id} />
-                  </div></>
-                )}
+                  {viewingOwnProfile && (
+                    <>
+                      <div className="box">Movies you may like</div>
+                      <div className="watch-container">
+                        <Recommendations user_ids={[auth.user.id]} />
+                      </div>
+                    </>
+                  )}
                 </div>
                 <div className="mt-5 py-5 border-top text-center"></div>
               </div>

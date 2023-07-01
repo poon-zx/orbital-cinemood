@@ -3,7 +3,7 @@ import logo from "../images/logo.svg";
 import "../App.css";
 import "./style.css";
 import { Auth } from "@supabase/auth-ui-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Box, Container } from "@mui/material";
 import { getSupabaseInstance } from "../supabase.js";
 
@@ -65,10 +65,11 @@ const customTheme = {
 
 function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleAuthStateChange = async (event) => {
-      if (event === "SIGNED_IN") {
+      if (event === "SIGNED_IN" && location.pathname === "/login") {
         navigate("/home");
       }
     };
@@ -77,7 +78,7 @@ function Login() {
 
     return () => {
     };
-  }, [navigate]);
+  }, [navigate, location]);
 
   return (
     <div className="Login-section center-content">

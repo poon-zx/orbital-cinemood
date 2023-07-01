@@ -14,6 +14,7 @@ import PersonalizedSearch from "./pages/PersonalizedSearch.jsx";
 import { SearchProvider } from './context/SearchContext';
 import "bootstrap/dist/css/bootstrap.min.css";
 import ConfirmationPage from "./pages/UpdatePassword/Confirmation";
+import MovieBlend from "./pages/Profile/MovieBlend.js";
 
 export default function App() {
   const location = useLocation();
@@ -23,7 +24,8 @@ export default function App() {
     location.pathname.match(/^\/movie\//) ||
     location.pathname.match(/^\/movies\//) ||
     location.pathname === "/search" ||
-    location.pathname.match(/^\/profile\//);
+    location.pathname.match(/^\/profile\//) ||
+    location.pathname.match(/^\/blend\//);
 
   return (
     <div className="App">
@@ -40,6 +42,7 @@ export default function App() {
             <Route path="movies/:type" element={<MovieList />} />
             <Route path="/search" element={<Search />} />
             <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/blend/:id" element={<MovieBlend />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

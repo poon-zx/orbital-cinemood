@@ -8,8 +8,10 @@ import {
   MenuItem,
   Typography,
   Button,
+  Divider
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { Box } from "@mui/system";
 
 const Notifications = () => {
   const auth = useAuth();
@@ -73,14 +75,17 @@ const Notifications = () => {
         .from("user")
         .select("friends")
         .eq("id", fromUserId)
-        .single();
 
     if (fetchUserErrorFriend) {
-      console.error("Error fetching user data:", fetchUserError.message);
+      console.error("Error fetching user data:", fetchUserErrorFriend.message);
       return;
     }
 
-    const { friendsFriend = [] } = userDataFriend;
+    console.log('userDataFriend:', userDataFriend);
+
+    const friendsFriend = userDataFriend[0]?.friends || [];
+
+    console.log(friendsFriend)
 
     const updatedFriendsFriend = friendsFriend.includes(auth.user.id)
       ? friendsFriend
@@ -141,11 +146,20 @@ const Notifications = () => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        PaperProps={{
+            sx: {
+              bgcolor: "#EBCBC1",
+            },
+          }}
       >
+        <Box sx={{ bgcolor: "#EBCBC1", color: 'white', p: 1 }}>
+          <Typography variant="h6" sx={{ ml: '6px', color: 'black', fontFamily: 'Playfair Display'}}>Notifications</Typography>
+          <Divider sx={{ bgcolor: 'black', my: 1 }} /> 
+        </Box>
         {notifications.length > 0 ? (
           notifications.map((notification, index) => (
-            <MenuItem key={notification.id}>
-              <Typography>
+            <MenuItem key={notification.id} sx={{py:2}}>
+              <Typography sx={{mb:1}}>
                 {notification.user_from.username
                   ? notification.user_from.username
                   : notification.user_from.email}{" "}
@@ -154,16 +168,20 @@ const Notifications = () => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() =>
+                onClick={(event) =>{
+                    event.stopPropagation();
                   handleAccept(notification.id, notification.user_id_from)
-                }
+                }}
+                sx={{ bgcolor: '#E19C8D', marginLeft:"10px", color: 'black' }}
               >
                 Accept
               </Button>
             </MenuItem>
           ))
         ) : (
+            <MenuItem sx={{py:2}}>
           <Typography>No notifications</Typography>
+        </MenuItem>
         )}
       </Menu>
     </>
