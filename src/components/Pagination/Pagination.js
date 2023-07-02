@@ -20,13 +20,17 @@ const Pagination = ({ page, setPage, totalResults }) => {
 
   return (
     <div className="pagination-container" data-testid="pagination">
+      {page !== 1 && (
       <button className="pagination-button" onClick={Previous} data-testid="previous-button">
         &#8249;&#8249; Previous 
       </button>
+      )}
       <span className="page-number">Page {page}</span>
+      {page < 10 && page < Math.ceil(totalResults / 20) && (
       <button className="pagination-button" onClick={Next} data-testid="next-button">
         Next &#8250;&#8250;
       </button>
+      )}
     </div>
   );
 };
