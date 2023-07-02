@@ -143,10 +143,22 @@ const PersonalizedSearch = () => {
       <p className="movie__tagline">
         Enter below what you want to watch and we'll recommend you some movies!
       </p>
-      <p className="movie__tagline" style={{textAlign: "left", marginLeft:"550px"}}>
+      <p
+        className="movie__tagline"
+        style={{ textAlign: "center", width: "100%"}}
+      >
         Here are some sample prompts:
         <br />
-        <ul>
+        <ul
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: "10px",
+            paddingInlineStart: "20px",
+            width: "100%",
+          }}
+        >
           <li>Funny basketball movies</li>
           <li>Cartoon movies for kids</li>
           <li>Romantic Comedy</li>

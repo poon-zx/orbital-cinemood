@@ -1,12 +1,17 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Cards from "../../components/Card/card";
 import { getSupabaseInstance } from "../../supabase";
 import "./Watchhistory.css";
 import stringSimilarity from "string-similarity";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useLocation } from "react-router-dom";
+import Box from '@mui/material/Box';
 
 const Recommendations = ({ user_ids }) => {
   const [recommendations, setRecommendations] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const location = useLocation();
 
   useEffect(() => {
     fetchRecommendations();
@@ -30,7 +35,7 @@ const Recommendations = ({ user_ids }) => {
       const resolvedUserData = await Promise.all(userDataPromises);
 
       // Combine all watched movies into one array
-      const movieIds = resolvedUserData.map(data => data[0].watched).flat();
+      const movieIds = resolvedUserData.map((data) => data[0].watched).flat();
 
       console.log(movieIds);
 
@@ -185,15 +190,30 @@ const Recommendations = ({ user_ids }) => {
       className="row__posters"
       style={{ height: recommendations?.length > 0 ? "372px" : "auto" }}
     >
-      {isLoading
-        ? "Loading..."
-        : recommendations
-        ? recommendations.map((movie) => (
-            <div key={movie.id} className="row__poster row__posterLarge">
-              <Cards key={movie.id} movie={movie} />
-            </div>
-          ))
-        : "Add movies to your watch history to see movies you may like!!"}
+      {isLoading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "10vh",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      ) : recommendations ? (
+        recommendations.map((movie) => (
+          <div key={movie.id} className="row__poster row__posterLarge">
+            <Cards key={movie.id} movie={movie} />
+          </div>
+        ))
+      ) : location.pathname.startsWith("/blend/") ? (
+        <Box sx={{ textAlign: 'center', width:"1800px" }}>
+        Both of you don't have any movies in your watch histories, try adding some!
+        </Box>
+      ) : (
+        "Add movies to your watch history to see movies you may like!"
+      )}
     </div>
   );
 };

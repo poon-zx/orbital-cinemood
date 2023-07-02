@@ -201,7 +201,7 @@ const Profile = () => {
                   </div>
                   {viewingOwnProfile && (
                     <>
-                      <div className="box">Movies you may like</div>
+                      <div className="box">Movies you may like (based on watch history and ratings)</div>
                       <div className="watch-container">
                         <Recommendations user_ids={[auth.user.id]} />
                       </div>

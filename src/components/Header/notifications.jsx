@@ -136,7 +136,7 @@ const Notifications = () => {
     <>
       <IconButton color="inherit" onClick={handleClick}>
         <Badge badgeContent={notifications.length} color="error">
-          <NotificationsIcon />
+          <NotificationsIcon sx={{color: "#363636"}}/>
         </Badge>
       </IconButton>
 
