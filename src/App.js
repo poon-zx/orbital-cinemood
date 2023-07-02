@@ -5,7 +5,7 @@ import Profile from "./pages/Profile/Profile.js";
 import Header from "./components/Header/header.js";
 import MovieList from "./components/MovieList/movieList.js";
 import Movie from "./components/Movie/movie.js";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PasswordReset from "./pages/UpdatePassword/UpdatePassword.jsx";
 import NotFound from "./pages/NotFound";
@@ -15,6 +15,7 @@ import { SearchProvider } from './context/SearchContext';
 import "bootstrap/dist/css/bootstrap.min.css";
 import ConfirmationPage from "./pages/UpdatePassword/Confirmation";
 import MovieBlend from "./pages/Profile/MovieBlend.js";
+import { getSupabaseInstance } from "./supabase";
 
 export default function App() {
   const location = useLocation();
