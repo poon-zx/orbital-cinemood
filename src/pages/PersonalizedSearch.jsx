@@ -161,7 +161,7 @@ const PersonalizedSearch = () => {
         >
           <li>Funny basketball movies</li>
           <li>Cartoon movies for kids</li>
-          <li>Romantic Comedy</li>
+          <li>Romantic Comedy Adam Sandler</li>
         </ul>
       </p>
       <div className="container">

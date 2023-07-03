@@ -37,12 +37,11 @@ const Recommendations = ({ user_ids }) => {
       // Combine all watched movies into one array
       const movieIds = resolvedUserData.map((data) => data[0].watched).flat();
 
-      console.log(movieIds);
+      const timesWatched = resolvedUserData.map((data) => data[0].watched.length).flat();
 
-      // Remove duplicates
-      const uniqueMovieIds = [...new Set(movieIds)];
+      const filteredTimesWatched = timesWatched.filter((length) => length > 0);
 
-      const movieData = await getData(uniqueMovieIds, user_ids);
+      const movieData = await getData(movieIds, user_ids, filteredTimesWatched);
       setRecommendations(movieData);
     } catch (error) {
       console.error("Error fetching profile:", error.message);
@@ -50,7 +49,7 @@ const Recommendations = ({ user_ids }) => {
     setIsLoading(false);
   };
 
-  const getData = async (movie_id_list, user_ids) => {
+  const getData = async (movie_id_list, user_ids, timesWatched) => {
     // for each movie in movie_id_list, fetch the rating
     const moviePromises = movie_id_list.map(async (movie_id) => {
       const response = await fetch(
@@ -85,7 +84,7 @@ const Recommendations = ({ user_ids }) => {
         averageRating = validRatings[0];
       } else if (validRatings.length > 1) {
         averageRating =
-          validRatings.reduce((a, b) => a + b, 0) / validRatings.length;
+          Math.floor(validRatings.reduce((a, b) => a + b, 0) / validRatings.length);
       }
 
       // get directors names
@@ -114,11 +113,14 @@ const Recommendations = ({ user_ids }) => {
         " " +
         movieData.overview;
       // return array of movieText and rating
-      console.log(movieText);
       return [movieText, averageRating];
     });
 
     const resolvedPromises = await Promise.all(moviePromises);
+
+    resolvedPromises.push(timesWatched);
+
+    console.log(resolvedPromises);
 
     const response = await fetch("/give_recommendations/", {
       method: "POST",
