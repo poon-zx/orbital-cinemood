@@ -15,7 +15,10 @@ const Cards = ({ movie }) => {
   return (
     <>
       {isLoading ? (
-        <div className="cards" data-testid="movie-card">
+        <div className="cards" data-testid="movie-card" style={{
+          backgroundImage: `url(https://image.tmdb.org/t/p/original${movie ? movie.poster_path : ""})`,
+          backgroundSize: 'cover',
+          filter: 'blur(7px)'}}>
           <SkeletonTheme color="#202020" highlightColor="#444">
             <Skeleton height={300} duration={2} data-testid="skeleton-loader" />
           </SkeletonTheme>

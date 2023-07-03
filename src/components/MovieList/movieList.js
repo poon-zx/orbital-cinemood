@@ -16,20 +16,27 @@ const MovieList = () => {
   }, []);
 
   useEffect(() => {
+    // Reset page number to 1 when changing types
+    setPage(1);
     getData();
     // eslint-disable-next-line
-  }, [type, page]);
+  }, [type]);
+
+  useEffect(() => {
+    getData();
+    // eslint-disable-next-line
+  }, [page]);
 
   const getData = () => {
     fetch(
       `https://api.themoviedb.org/3/movie/${
         type ? type : "popular"
-      }?api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US&page=${page}`
+      }?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=${page}`
     )
       .then((res) => res.json())
       .then((data) => {
         setMovieList(data.results);
-        setTotalResults(data.total_pages); // Set total pages here
+        setTotalResults(200); // Set total pages here
       });
       
   };
@@ -47,7 +54,7 @@ const MovieList = () => {
         })()}
       </h2>
       <div className="list__cards">
-        {movieList.map((movie) => (
+        {movieList.map((movie) => (movie.poster_path &&
           <Cards movie={movie} />
         ))}
       </div>

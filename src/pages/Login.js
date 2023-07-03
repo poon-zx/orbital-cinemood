@@ -1,9 +1,9 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import logo from "../images/logo.svg";
 import "../App.css";
 import "./style.css";
 import { Auth } from "@supabase/auth-ui-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Box, Container } from "@mui/material";
 import { getSupabaseInstance } from "../supabase.js";
 
@@ -65,19 +65,22 @@ const customTheme = {
 
 function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [redirected, setRedirected] = useState(false);
 
   useEffect(() => {
     const handleAuthStateChange = async (event) => {
-      if (event === "SIGNED_IN") {
+      if (event === "SIGNED_IN" && location.pathname === "/login" && !redirected) {
+        console.log("haha");
+        setRedirected(true);
         navigate("/home");
       }
     };
 
-    const subscription = getSupabaseInstance().auth.onAuthStateChange(handleAuthStateChange);
+    const {data : {subscription} } = getSupabaseInstance().auth.onAuthStateChange(handleAuthStateChange);
 
-    return () => {
-    };
-  }, [navigate]);
+    return () => subscription.unsubscribe();
+  }, [navigate, location, redirected]);
 
   return (
     <div className="Login-section center-content">

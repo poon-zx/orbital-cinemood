@@ -24,7 +24,7 @@ function MyVerticallyCenteredModal(props) {
 
     const getData = (id) => {
         fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=0d3e5f1c5b02f2f9d8de3dad573c9847&language=en-US`
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
         )
         .then((res) => res.json())
         .then((data) => setMovie(data));
