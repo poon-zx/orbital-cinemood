@@ -42,7 +42,7 @@ const Friends = () => {
 
     return (
         <div>
-            <h1 style={{marginTop: "20px"}}>Friends</h1>
+            <h1 style={{marginTop: "1rem", fontFamily: 'Playfair Display, serif'}}>Friends</h1>
             <div className="friends-container">
                 {friendReturn ? friendReturn.map((friend) => (
                     <FriendsCard friend={friend} />

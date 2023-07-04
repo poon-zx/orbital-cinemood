@@ -5,7 +5,7 @@ import "./friends.css";
 const FriendsCard = ({friend}) => {
     return (
         <Link to={`/profile/${friend.id}`} style={{ textDecoration: 'none', color: 'inherit', fontSize: '24px' }}>
-            <Card className="friends-card">
+            <Card className="friends-card" style = {{borderRadius: '10px'}}>
                 <img 
                     src={friend.avatar_url} 
                     alt=""
@@ -14,7 +14,7 @@ const FriendsCard = ({friend}) => {
                     style={{marginTop: '10px', marginBottom: '10px', borderRadius: '50%'}}
                 />
                 <div>
-                <Link to={`/profile/${friend.id}`} style={{ textDecoration: 'none', color: 'inherit', fontSize: '24px' }}>
+                <Link to={`/profile/${friend.id}`} style={{ textDecoration: 'none', color: 'inherit', fontSize: '20px' }}>
                     {friend.username
                     ? friend.username
                     : friend.email}

@@ -13,7 +13,7 @@ import Replies from "./replies.js";
 import ReplyForm from "./replyForm.js";
 
 const Forum = ({ movieId }) => {
-  const [currentMovieReview, setMovieReview] = useState([]);
+  const [currentMovieReview, setMovieReview] = useState(null);
   const auth = useAuth();
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [save, setSave] = useState(false);
@@ -40,6 +40,8 @@ const Forum = ({ movieId }) => {
 
       if (data && data.length > 0) {
         setMovieReview(data);
+      } else {
+        setMovieReview([]);
       }
     } catch (error) {
       console.error("Error fetching forum posts:", error.message);
@@ -50,32 +52,7 @@ const Forum = ({ movieId }) => {
     setSave(true);
   };
 
-  const handleReply = async (reviewId, replyContent) => {
-    try {
-      const { data, error } = await getSupabaseInstance()
-        .from("reply")
-        .insert([
-          {
-            id: uuid(),
-            content: replyContent,
-            review_id: reviewId,
-            user_id: auth.user.id,
-          },
-        ]);
-
-      if (error) {
-        console.error("Error posting reply:", error.message);
-        return;
-      }
-
-      if (data) {
-        fetchForumPosts();
-      }
-    } catch (error) {
-      console.error("Error posting reply:", error.message);
-    }
-    fetchForumPosts();
-  };
+  
 
   const handleReplyButtonClick = (reviewId) => {
     if (selectedReviewId === reviewId) {
@@ -93,7 +70,7 @@ const Forum = ({ movieId }) => {
         <WriteReview movieId={movieId} onClick={handleSave} />
       </div>
       <Card className="movie__review">
-        {currentMovieReview
+        {currentMovieReview !== null && currentMovieReview
           .filter((review) => review.title !== null)
           .filter((review) => review.content !== null).length > 0 ? (
           currentMovieReview
@@ -152,11 +129,7 @@ const Forum = ({ movieId }) => {
                   </div>
                   {selectedReviewId === review.id && (
                     <div className="replies-container">
-                      <Replies reviewId={review.id} />
-                      <ReplyForm
-                        reviewId={review.id}
-                        handleReply={handleReply}
-                      />
+                      <Replies reviewId={review.id} movieId={movieId}/>
                     </div>
                   )}
                 </div>
