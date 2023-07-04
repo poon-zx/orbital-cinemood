@@ -1,10 +1,11 @@
 import { Box, Modal, Slider, Button, Avatar } from "@mui/material";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import AvatarEditor from "react-avatar-editor";
 import { FcAddImage } from "react-icons/fc";
 import "./cropper.css";
 import { getSupabaseInstance } from "../../supabase";
 import { useAuth } from "../../context/AuthProvider.jsx";
+import { ProfileImageContext } from "../../context/ProfileImageProvider";
 
 // Styles
 const boxStyle = {
@@ -26,6 +27,8 @@ const CropperModal = ({ src, modalOpen, setModalOpen, setPreview, fetchProfilePi
     const [slideValue, setSlideValue] = useState(10);
     const cropRef = useRef(null);
     const auth = useAuth();
+
+    const { profileImageUrl, setProfileImageUrl } = useContext(ProfileImageContext);
    
     const updateProfilePicture = async (userId, pictureUrl) => {
         const { data, error } = await getSupabaseInstance()
@@ -88,6 +91,8 @@ const CropperModal = ({ src, modalOpen, setModalOpen, setPreview, fetchProfilePi
                 .storage
                 .from('avatars')
                 .getPublicUrl(fileName);
+
+                setProfileImageUrl(dataPP.data.publicUrl);
             console.log(dataPP.data.publicUrl);
             await updateProfilePicture(auth.user.id, dataPP.data.publicUrl);
 

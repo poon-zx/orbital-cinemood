@@ -17,6 +17,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ConfirmationPage from "./pages/UpdatePassword/Confirmation";
 import MovieBlend from "./pages/Profile/MovieBlend.js";
 import { getSupabaseInstance } from "./supabase";
+import { ProfileImageProvider } from "./context/ProfileImageProvider";
 
 export default function App() {
   const location = useLocation();
@@ -42,6 +43,7 @@ export default function App() {
 
   return (
     <div className="App">
+      <ProfileImageProvider>
       <SearchProvider>
       <div className="content-container">
         {showHeader && <Header />}
@@ -62,6 +64,7 @@ export default function App() {
         </Routes>
       </div>
       </SearchProvider>
+      </ProfileImageProvider>
     </div>
   );
 }
