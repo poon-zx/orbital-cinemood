@@ -34,9 +34,11 @@ function ResponsiveAppBar() {
   const location = useLocation();
   const [localSearchText, setLocalSearchText] = useState(""); // Add a local state for the input
   const auth = useAuth();
+  const [display, setDisplay] = useState(null);
 
   const settings = [
     {label: "Profile", path: `/profile/${auth.user.id}`},
+    {label: "Friends", path: "/friends"},
     {label: "Logout", path: "/login"},
 ];
 
@@ -52,6 +54,7 @@ function ResponsiveAppBar() {
       setLocalSearchText("");
     }
     prevPath.current = location.pathname;
+    fetchProfilePicture();
   }, [location.pathname]);
 
   const handleOpenNavMenu = (event) => {
@@ -81,12 +84,26 @@ function ResponsiveAppBar() {
     navigate("/search");
   };
 
+  const fetchProfilePicture = async () => {
+    const { data, error } = await getSupabaseInstance()
+        .from('user')
+        .select('avatar_url')
+        .eq('id', auth.user.id)
+        .single();
+    if (error) {
+        console.error('Error fetching profile picture:', error);
+        return null;
+    }
+    const pictureUrl = data.avatar_url;
+    setDisplay(pictureUrl);
+};
+
   return (
     <AppBar position="sticky" sx={{ bgcolor: "#EBCBC1" }}>
       <Toolbar>
         <Container maxWidth="xl">
           <Box display="flex" alignItems="center">
-            <Link to="/home" style={{ textDecoration: "none" }}>
+            <Link to="/home" style={{ textDecoration: "none", marginTop: "-5px" }}>
               <Box component="img" sx={{ height: 50 }} alt="Home" src={logo} />
             </Link>
             <Box flexGrow={1} display="flex" justifyContent="left">
@@ -111,7 +128,7 @@ function ResponsiveAppBar() {
                   >
                     <Link
                       to={page.path}
-                      style={{ textDecoration: "none", color: "black" }}
+                      style={{ textDecoration: "none", color: "black", textTransform: "none", fontSize: "1rem", fontFamily: "'Be Vietnam Pro', sans-serif"}}
                     >
                       {page.label}
                     </Link>
@@ -148,7 +165,15 @@ function ResponsiveAppBar() {
               <Notifications />
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar />
+                    {display ? <img
+                    src={
+                    display 
+                    }
+                    alt=""
+                    width="50"
+                    height="50"
+                    className="img-preview"
+                /> : <Avatar sx={{ width: 50, height: 50 }} />}
                 </IconButton>
               </Tooltip>
             </Box>

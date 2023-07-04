@@ -60,7 +60,7 @@ const UpdatePassword = () => {
         }}
       >
         <img src={logo} alt="Logo" height="100" />
-        <Card>
+        <Card className="update-card">
           <Card.Body>
             <h2 className="text-center mb-4">Update Password</h2>
             <Form onSubmit={handleSubmit}>

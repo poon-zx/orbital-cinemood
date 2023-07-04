@@ -127,8 +127,6 @@ const Notifications = () => {
       );
       return;
     }
-
-    handleClose();
   };
 
   const handleReject = async (notificationId, fromUserId) => {
@@ -169,8 +167,6 @@ const Notifications = () => {
       );
       return;
     }
-
-    handleClose();
   };
 
   const handleConfirmationAccepted = async (notificationId) => {
@@ -191,8 +187,6 @@ const Notifications = () => {
     setNotifications(
       notifications.filter((notification) => notification.id !== notificationId)
     );
-
-    handleClose();
   };
 
   const handleConfirmationRejected = async (notificationId) => {
@@ -213,8 +207,6 @@ const Notifications = () => {
     setNotifications(
       notifications.filter((notification) => notification.id !== notificationId)
     );
-
-    handleClose();
   };
 
   useEffect(() => {

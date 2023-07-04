@@ -158,3 +158,29 @@
   .delete-icon-button {
     margin-top: -2px;
   }
+
+  .reply-input {
+    width: 400px;
+    height: 30px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    border:none;
+    border-radius: 10px;
+    transition: width 0.1s;
+    margin-left: 15px;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  @media (max-width: 1085px) {
+    .reply-input {
+      width: 230px; 
+    }
+  }
+
+  .reply-btn {
+    margin-left: 10px;
+    border-radius: 5px;
+    width: 52px;
+  }
