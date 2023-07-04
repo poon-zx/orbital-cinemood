@@ -8,10 +8,12 @@ import {
   MenuItem,
   Typography,
   Button,
-  Divider
+  Divider,
 } from "@mui/material";
+import CancelIcon from "@mui/icons-material/Cancel";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Box } from "@mui/system";
+import { v4 } from "uuid";
 
 const Notifications = () => {
   const auth = useAuth();
@@ -74,18 +76,18 @@ const Notifications = () => {
       await getSupabaseInstance()
         .from("user")
         .select("friends")
-        .eq("id", fromUserId)
+        .eq("id", fromUserId);
 
     if (fetchUserErrorFriend) {
       console.error("Error fetching user data:", fetchUserErrorFriend.message);
       return;
     }
 
-    console.log('userDataFriend:', userDataFriend);
+    console.log("userDataFriend:", userDataFriend);
 
     const friendsFriend = userDataFriend[0]?.friends || [];
 
-    console.log(friendsFriend)
+    console.log(friendsFriend);
 
     const updatedFriendsFriend = friendsFriend.includes(auth.user.id)
       ? friendsFriend
@@ -106,6 +108,112 @@ const Notifications = () => {
       notifications.filter((notification) => notification.id !== notificationId)
     );
 
+    // Send "Accepted" notification to the user who sent the friend request
+    const { error: createNotificationError } = await getSupabaseInstance()
+      .from("notification")
+      .insert([
+        {
+          id: v4(),
+          user_id_from: auth.user.id,
+          user_id_to: fromUserId,
+          status: "acceptedConfirmation",
+        },
+      ]);
+
+    if (createNotificationError) {
+      console.error(
+        "Error creating notification:",
+        createNotificationError.message
+      );
+      return;
+    }
+
+    handleClose();
+  };
+
+  const handleReject = async (notificationId, fromUserId) => {
+    // Step 1: Update the notification status to 'rejected'
+    const { error: updateNotificationError } = await getSupabaseInstance()
+      .from("notification")
+      .update({ status: "rejected" })
+      .eq("id", notificationId);
+
+    if (updateNotificationError) {
+      console.error(
+        "Error updating notification:",
+        updateNotificationError.message
+      );
+      return;
+    }
+
+    // Step 2: Update local notifications state
+    setNotifications(
+      notifications.filter((notification) => notification.id !== notificationId)
+    );
+
+    const { error: createNotificationError } = await getSupabaseInstance()
+      .from("notification")
+      .insert([
+        {
+          id: v4(),
+          user_id_from: auth.user.id,
+          user_id_to: fromUserId,
+          status: "rejectedConfirmation",
+        },
+      ]);
+
+    if (createNotificationError) {
+      console.error(
+        "Error creating notification:",
+        createNotificationError.message
+      );
+      return;
+    }
+
+    handleClose();
+  };
+
+  const handleConfirmationAccepted = async (notificationId) => {
+    const { error: updateNotificationError } = await getSupabaseInstance()
+      .from("notification")
+      .update({ status: "accept confirmation accepted" })
+      .eq("id", notificationId);
+
+    if (updateNotificationError) {
+      console.error(
+        "Error updating notification:",
+        updateNotificationError.message
+      );
+      return;
+    }
+
+    // Step 2: Update local notifications state
+    setNotifications(
+      notifications.filter((notification) => notification.id !== notificationId)
+    );
+
+    handleClose();
+  };
+
+  const handleConfirmationRejected = async (notificationId) => {
+    const { error: updateNotificationError } = await getSupabaseInstance()
+      .from("notification")
+      .update({ status: "reject confirmation accepted" })
+      .eq("id", notificationId);
+
+    if (updateNotificationError) {
+      console.error(
+        "Error updating notification:",
+        updateNotificationError.message
+      );
+      return;
+    }
+
+    // Step 2: Update local notifications state
+    setNotifications(
+      notifications.filter((notification) => notification.id !== notificationId)
+    );
+
     handleClose();
   };
 
@@ -117,12 +225,18 @@ const Notifications = () => {
           "*, user_from: user_id_from (email, username), user_to: user_id_to (email, username)"
         )
         .eq("user_id_to", auth.user.id)
-        .eq("status", "pending"); // Assuming 'pending' notifications are the ones unread
+        .in("status", [
+          "pending",
+          "acceptedConfirmation",
+          "rejectedConfirmation"
+        ]); // Assuming 'pending' notifications are the ones unread
 
       if (error) {
         console.error("Error fetching notifications:", error.message);
         return;
       }
+
+      console.log(data);
 
       if (data) {
         setNotifications(data);
@@ -136,7 +250,7 @@ const Notifications = () => {
     <>
       <IconButton color="inherit" onClick={handleClick}>
         <Badge badgeContent={notifications.length} color="error">
-          <NotificationsIcon sx={{color: "#363636"}}/>
+          <NotificationsIcon sx={{ color: "#363636" }} />
         </Badge>
       </IconButton>
 
@@ -147,41 +261,119 @@ const Notifications = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
         PaperProps={{
-            sx: {
-              bgcolor: "#EBCBC1",
-            },
-          }}
+          sx: {
+            bgcolor: "#EBCBC1",
+          },
+        }}
       >
-        <Box sx={{ bgcolor: "#EBCBC1", color: 'white', p: 1 }}>
-          <Typography variant="h6" sx={{ ml: '6px', color: 'black', fontFamily: 'Playfair Display'}}>Notifications</Typography>
-          <Divider sx={{ bgcolor: 'black', my: 1, mb:"-5px" }} /> 
+        <Box sx={{ bgcolor: "#EBCBC1", color: "white", p: 1 }}>
+          <Typography
+            variant="h6"
+            sx={{ ml: "6px", color: "black", fontFamily: "Playfair Display" }}
+          >
+            Notifications
+          </Typography>
+          <Divider sx={{ bgcolor: "black", my: 1, mb: "-5px" }} />
         </Box>
         {notifications.length > 0 ? (
           notifications.map((notification, index) => (
-            <MenuItem key={notification.id} sx={{py:2}}>
-              <Typography sx={{mb:1}}>
-                {notification.user_from.username
-                  ? notification.user_from.username
-                  : notification.user_from.email}{" "}
-                has sent you a friend request, do you accept?
-              </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={(event) =>{
+            <MenuItem key={notification.id} sx={{ py: 2 }}>
+              {notification.status === "pending" && (
+                <Typography sx={{ mb: 1 }}>
+                  {notification.user_from.username
+                    ? notification.user_from.username
+                    : notification.user_from.email}{" "}
+                  has sent you a friend request, do you accept?
+                </Typography>
+              )}
+              {notification.status === "acceptedConfirmation" && (
+                <Typography sx={{ mb: 1 }}>
+                  {notification.user_from.username
+                    ? notification.user_from.username
+                    : notification.user_from.email} accepted your friend
+                  request.
+                </Typography>
+              )}
+              {notification.status === "rejectedConfirmation" && (
+                <Typography sx={{ mb: 1 }}>
+                  {notification.user_from.username
+                    ? notification.user_from.username
+                    : notification.user_from.email} rejected your friend
+                  request.
+                </Typography>
+              )}
+              {notification.status === "acceptedConfirmation" && (
+                <IconButton
+                  onClick={(event) => {
                     event.stopPropagation();
-                  handleAccept(notification.id, notification.user_id_from)
-                }}
-                sx={{ bgcolor: '#E19C8D', marginLeft:"10px", color: 'black' }}
-              >
-                Accept
-              </Button>
+                    handleConfirmationAccepted(
+                      notification.id,
+                      notification.status
+                    );
+                  }}
+                  sx={{
+                    marginTop:"-6px",
+                    color: "black",
+                  }}
+                >
+                  <CancelIcon />
+                </IconButton>
+              )}
+              {notification.status === "rejectedConfirmation" && (
+                <IconButton
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleConfirmationRejected(
+                      notification.id,
+                      notification.status
+                    );
+                  }}
+                  sx={{
+                    marginTop:"-6px",
+                    color: "black",
+                  }}
+                >
+                  <CancelIcon />
+                </IconButton>
+              )}
+              {notification.status === "pending" && (
+                <>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleAccept(notification.id, notification.user_id_from);
+                    }}
+                    sx={{
+                      bgcolor: "#E19C8D",
+                      marginLeft: "10px",
+                      color: "black",
+                    }}
+                  >
+                    Accept
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleReject(notification.id, notification.user_id_from);
+                    }}
+                    sx={{
+                      bgcolor: "#E19C8D",
+                      marginLeft: "10px",
+                      color: "black",
+                    }}
+                  >
+                    Reject
+                  </Button>
+                </>
+              )}
             </MenuItem>
           ))
         ) : (
-            <MenuItem sx={{py:2}}>
-          <Typography>No notifications</Typography>
-        </MenuItem>
+          <MenuItem>No notifications</MenuItem>
         )}
       </Menu>
     </>
