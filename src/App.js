@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import "./App.css";
 import Login from "./pages/Login.js";
 import Profile from "./pages/Profile/Profile.js";
+import Friends from "./pages/Friends/friends.js";
 import Header from "./components/Header/header.js";
 import MovieList from "./components/MovieList/movieList.js";
 import Movie from "./components/Movie/movie.js";
@@ -36,7 +37,8 @@ export default function App() {
     location.pathname.match(/^\/movies\//) ||
     location.pathname === "/search" ||
     location.pathname.match(/^\/profile\//) ||
-    location.pathname.match(/^\/blend\//);
+    location.pathname.match(/^\/blend\//) ||
+    location.pathname === "/friends";
 
   return (
     <div className="App">
@@ -54,6 +56,7 @@ export default function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/blend/:id" element={<MovieBlend />} />
+            <Route path="/friends" element={<Friends />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

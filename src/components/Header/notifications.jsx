@@ -105,8 +105,6 @@ const Notifications = () => {
     setNotifications(
       notifications.filter((notification) => notification.id !== notificationId)
     );
-
-    handleClose();
   };
 
   useEffect(() => {

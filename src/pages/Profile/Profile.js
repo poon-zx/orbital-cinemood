@@ -10,7 +10,8 @@ import Watchlist from "./Watchlist";
 import Watchhistory from "./Watchhistory";
 import Recommendations from "./Recommendations";
 import SendFriendRequest from "./SendFriendRequest";
-import { Send } from "@mui/icons-material";
+import { Crop, Send } from "@mui/icons-material";
+import Cropper from "../../components/Profile/Cropper";
 
 const Profile = () => {
   const auth = useAuth();
@@ -92,11 +93,8 @@ const Profile = () => {
                 <Row className="justify-content-center">
                   <Col className="order-lg-2" xs="12" md="4">
                     <div className="card-profile-image">
-                      <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                        <Avatar
-                          className="profile-pic"
-                          sx={{ height: "150px", width: "150px" }}
-                        ></Avatar>
+                      <a className="card-profile-image" href="#pablo">
+                        <Cropper/>
                       </a>
                     </div>
                   </Col>
