@@ -155,7 +155,7 @@ const Profile = () => {
                       <h3
                         className="name"
                         style={{
-                          marginLeft: viewingOwnProfile ? "45px" : "20px",
+                          marginLeft: viewingOwnProfile ? "45px" : "10px",
                         }}
                       >
                         {editing && viewingOwnProfile ? (
