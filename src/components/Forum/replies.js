@@ -8,8 +8,9 @@ import { v4 as uuid } from 'uuid';
 import { useAuth } from '../../context/AuthProvider.jsx';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { SettingsOverscanRounded } from "@mui/icons-material";
+import ReplyForm from "./replyForm.js";
 
-const Replies = ({ reviewId, deleteReply = false}) => {
+const Replies = ({ reviewId, deleteReply = false, movieId}) => {
     const [replies, setReplies] = useState([]);
     const auth = useAuth();
 
@@ -22,7 +23,7 @@ const Replies = ({ reviewId, deleteReply = false}) => {
             const { data, error } = await getSupabaseInstance()
                 .from("reply")
                 .select(`*, 
-                    user:user_id (email, username)`
+                    user:user_id (email, username, avatar_url)`
                 )
                 .eq("review_id", reviewId);
 
@@ -60,13 +61,40 @@ const Replies = ({ reviewId, deleteReply = false}) => {
         }
     };
 
+    const handleReply = async (reviewId, replyContent) => {
+        try {
+          const { data, error } = await getSupabaseInstance()
+            .from("reply")
+            .insert([
+              {
+                id: uuid(),
+                content: replyContent,
+                review_id: reviewId,
+                user_id: auth.user.id,
+              },
+            ]);
+    
+          if (error) {
+            console.error("Error posting reply:", error.message);
+            return;
+          }
+    
+          if (data) {
+            fetchReplies();
+          }
+        } catch (error) {
+          console.error("Error posting reply:", error.message);
+        }
+        fetchReplies();
+      };
+
     return (
         <div className="replies">
             {replies.length > 0 ? (
                 replies.map((reply) => (
                     <div className="reply" key={reply.id}>
                         <div className="reply__container">
-                            <Avatar />
+                        {reply.user.avatar_url ? <img src={reply.user.avatar_url} className="movie_replyAvatar" alt="" width="40" height="40" style={{borderRadius: "50%"}}/> : <Avatar className="movie_replyAvatar" sx={{width: 40, height: 40}}/>}
                             <div className="reply__first">
                                 <span>
                                     <span className="reply__user__email">
@@ -102,6 +130,10 @@ const Replies = ({ reviewId, deleteReply = false}) => {
             ) : (
                 <div className="no-replies">No replies yet.</div>
             )}
+            <ReplyForm
+                    reviewId={reviewId}
+                    handleReply={handleReply}
+            />
         </div>
     );
 };

@@ -13,10 +13,11 @@ import Replies from "./replies.js";
 import ReplyForm from "./replyForm.js";
 
 const Forum = ({ movieId }) => {
-  const [currentMovieReview, setMovieReview] = useState([]);
+  const [currentMovieReview, setMovieReview] = useState(null);
   const auth = useAuth();
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [save, setSave] = useState(false);
+  const [buttonName, setButtonName] = useState("Show reply thread");
 
   useEffect(() => {
     fetchForumPosts();
@@ -30,7 +31,7 @@ const Forum = ({ movieId }) => {
     try {
       const { data, error } = await getSupabaseInstance()
         .from("review")
-        .select(`*, user: user_id (email, username)`)
+        .select(`*, user: user_id (email, username, avatar_url)`)
         .eq("movie_id", movieId);
 
       if (error) {
@@ -40,6 +41,8 @@ const Forum = ({ movieId }) => {
 
       if (data && data.length > 0) {
         setMovieReview(data);
+      } else {
+        setMovieReview([]);
       }
     } catch (error) {
       console.error("Error fetching forum posts:", error.message);
@@ -50,38 +53,15 @@ const Forum = ({ movieId }) => {
     setSave(true);
   };
 
-  const handleReply = async (reviewId, replyContent) => {
-    try {
-      const { data, error } = await getSupabaseInstance()
-        .from("reply")
-        .insert([
-          {
-            id: uuid(),
-            content: replyContent,
-            review_id: reviewId,
-            user_id: auth.user.id,
-          },
-        ]);
-
-      if (error) {
-        console.error("Error posting reply:", error.message);
-        return;
-      }
-
-      if (data) {
-        fetchForumPosts();
-      }
-    } catch (error) {
-      console.error("Error posting reply:", error.message);
-    }
-    fetchForumPosts();
-  };
+  
 
   const handleReplyButtonClick = (reviewId) => {
     if (selectedReviewId === reviewId) {
       setSelectedReviewId(null); // Hide the dropdown if the button is clicked again
+      setButtonName("Show reply thread");
     } else {
       setSelectedReviewId(reviewId);
+      setButtonName("Hide reply thread");
     }
   };
 
@@ -93,7 +73,7 @@ const Forum = ({ movieId }) => {
         <WriteReview movieId={movieId} onClick={handleSave} />
       </div>
       <Card className="movie__review">
-        {currentMovieReview
+        {currentMovieReview !== null && currentMovieReview
           .filter((review) => review.title !== null)
           .filter((review) => review.content !== null).length > 0 ? (
           currentMovieReview
@@ -102,7 +82,7 @@ const Forum = ({ movieId }) => {
             .map((review) => (
               <div className="movie__card" key={review.id}>
                 <div className="profile__container">
-                  <Avatar className="movie_reviewAvatar" />
+                  {review.user.avatar_url ? <img src={review.user.avatar_url} className="movie_reviewAvatar" alt="" width="60" height="60" style={{borderRadius: "50%"}}/> : <Avatar className="movie_reviewAvatar" sx={{width: 60, height: 60}}/>}
                   <div className="movie_reviewEmail">
                     <Link to={`/profile/${review.user_id}`} style={{ textDecoration: 'none', color: 'inherit' }} onClick={scroll}>
                       {review.user.username
@@ -147,16 +127,12 @@ const Forum = ({ movieId }) => {
                       onClick={() => handleReplyButtonClick(review.id)}
                       sx={{ width: "178px", textAlign: "left" }}
                     >
-                      Show reply thread
+                        {buttonName}
                     </Button>
                   </div>
                   {selectedReviewId === review.id && (
                     <div className="replies-container">
-                      <Replies reviewId={review.id} />
-                      <ReplyForm
-                        reviewId={review.id}
-                        handleReply={handleReply}
-                      />
+                      <Replies reviewId={review.id} movieId={movieId}/>
                     </div>
                   )}
                 </div>

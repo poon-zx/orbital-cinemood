@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthProvider.jsx";
 import { getSupabaseInstance } from "../../supabase.js";
-import { Avatar, Card } from "@mui/material";
-import { Link } from "react-router-dom";
+import FriendsCard from "./friendsCard.js";
 
 const Friends = () => {
     const auth = useAuth();
@@ -43,17 +42,10 @@ const Friends = () => {
 
     return (
         <div>
-            <h1 style={{marginTop: "20px"}}>Friends</h1>
-            <div>
+            <h1 style={{marginTop: "1rem", fontFamily: 'Playfair Display, serif'}}>Friends</h1>
+            <div className="friends-container">
                 {friendReturn ? friendReturn.map((friend) => (
-                    <Card className="friends-card" style={{marginLeft: '2%', marginRight: '2%', marginTop: '10px'}}>
-                        <Avatar />
-                        <Link to={`/profile/${friend.id}`} style={{ textDecoration: 'none', color: 'inherit', fontSize: '24px' }}>
-                            {friend.username
-                            ? friend.username
-                            : friend.email}
-                        </Link>
-                    </Card>
+                    <FriendsCard friend={friend} />
                 )) : "No friends yet"}
             </div>
         </div>
