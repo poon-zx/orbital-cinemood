@@ -15,6 +15,60 @@
     width: 100%;
     object-fit: contain;
     max-height: 100px;
-    margin-right: 10px;
+    margin-right: 5px;
     transition: transform 450ms;
   }
+
+  .header-textt {
+    font-size: 24px; 
+    font-weight: bold; 
+}
+
+.genre-list {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.genre-section {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: flex-start; 
+}
+
+.genre-section h3 {
+  width: 200px;
+  align-items: flex-start;
+  margin-top: 70px;  /* Adjust as necessary */
+}
+
+.movie-list {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  height:150px;
+  overflow-y: hidden;  
+}
+
+.genre-section {
+  display: flex;
+  align-items: flex-start;
+}
+
+.genre-section h3 {
+  width: 200px;
+}
+
+.movie-list {
+  width: calc(100% - 200px);
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+.movie-list::-webkit-scrollbar {
+  display: none;  
+}
+
+
+

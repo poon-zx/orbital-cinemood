@@ -1,86 +1,136 @@
-import React, { useState, useEffect } from 'react';
-import { getSupabaseInstance } from '../../supabase';
-import Cards from '../Card/card';
-import '../../pages/Profile/Watchhistory.css'
+import React, { useState, useEffect } from "react";
+import { getSupabaseInstance } from "../../supabase";
+import Cards from "../Card/card";
+import "../../pages/Profile/Watchhistory.css";
 
 const FavouriteGenreCard = ({ userId }) => {
-    const [favouriteGenre, setFavouriteGenre] = useState(null);
-    const [movies, setMovies] = useState([]);
+  const [favouriteGenre, setFavouriteGenre] = useState(null);
+  const [movies, setMovies] = useState([]);
+  const [genres, setGenres] = useState([]);
 
-    // function to return data from TMDB API
-    const fetchMovieDetails = async (movieId) => {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
-        );
-      
-        if (!response.ok) {
-          throw new Error(`Error fetching details for movie with ID ${movieId}`);
-        }
-      
-        const data = await response.json();
-      
-        return data;
-      };
-      
+  // function to return data from TMDB API
+  const fetchMovieDetails = async (movieId) => {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
+    );
 
-      useEffect(() => {
-        const fetchFavouriteGenre = async () => {
-            const { data: userData, error } = await getSupabaseInstance()
-                .from('user')
-                .select('watched')
-                .eq('id', userId)
-                .single();
-          
-            if (error) {
-                console.error('Error fetching user data:', error.message);
-                return;
-            }
-    
-            const watchedList = userData.watched;
-    
-            // Fetch all the movie details
-            const moviesDetails = await Promise.all(watchedList.map(movie => 
-                fetchMovieDetails(movie)));
-    
-            const genreCounts = {};
+    if (!response.ok) {
+      throw new Error(`Error fetching details for movie with ID ${movieId}`);
+    }
 
-            console.log(moviesDetails);
-    
-            for (let movieDetails of moviesDetails) {
-                for (let genre of movieDetails.genres) {
-                    genreCounts[genre.name] = genreCounts[genre.name] ? genreCounts[genre.name] + 1 : 1;
-                }
-            }
-    
-            const favGenre = Object.keys(genreCounts).reduce((a, b) => genreCounts[a] > genreCounts[b] ? a : b);
-    
-            setFavouriteGenre(favGenre);
-    
-            // Filter the movies that are of the favourite genre
-            const moviesOfGenre = moviesDetails.filter((movieDetails) => {
-                return movieDetails.genres.some(genre => genre.name === favGenre);
-            });
-    
-            setMovies(moviesOfGenre);
-        };
-    
-        fetchFavouriteGenre();
-    }, [userId]);
-    
+    const data = await response.json();
 
-      return (
-        <div>
-          <p>When it comes to movies, your favourite genre is {favouriteGenre}.</p>
-          <p>You watched {movies.length} shows of this genre.</p>
-          <div className="row__posters" style={{ height: movies.length > 0 ? '372px' : 'auto' }}>
-          {movies.map((movie) => (
-         <div key={movie.id} className="row__poster row__posterLarge">
-              <Cards movie={movie} />
-              </div>
-          ))}
-          </div>
-        </div>
+    return data;
+  };
+
+  useEffect(() => {
+    const fetchFavouriteGenre = async () => {
+      const { data: userData, error } = await getSupabaseInstance()
+        .from("user")
+        .select("watched")
+        .eq("id", userId)
+        .single();
+
+      if (error) {
+        console.error("Error fetching user data:", error.message);
+        return;
+      }
+
+      const watchedList = userData.watched;
+
+      // Fetch all the movie details
+      const moviesDetails = await Promise.all(
+        watchedList.map((movie) => fetchMovieDetails(movie))
       );
+
+      setMovies(moviesDetails);
+
+      const genreCounts = {};
+      let genreList = new Set();
+
+      for (let movieDetails of moviesDetails) {
+        for (let genre of movieDetails.genres) {
+          genreCounts[genre.name] = genreCounts[genre.name]
+            ? genreCounts[genre.name] + 1
+            : 1;
+          genreList.add(genre.name);
+        }
+      }
+
+      let sortedGenres = Object.keys(genreCounts).sort(
+        (a, b) => genreCounts[b] - genreCounts[a]
+      );
+
+      let top5Genres = sortedGenres.slice(0, 5);
+
+      // Check for ties at the 5th position
+      let i = 5;
+      while (
+        sortedGenres[i] &&
+        genreCounts[sortedGenres[i]] === genreCounts[top5Genres[4]]
+      ) {
+        top5Genres.push(sortedGenres[i]);
+        i++;
+      }
+
+      const maxCount = Math.max(...Object.values(genreCounts));
+      const favouriteGenres = Object.keys(genreCounts).filter(
+        (genre) => genreCounts[genre] === maxCount
+      );
+
+      console.log(favouriteGenres);
+
+      setFavouriteGenre(favouriteGenres.join(", "));
+
+      // Convert Set to Array
+      genreList = Array.from(genreList);
+      setGenres(top5Genres);
     };
 
-    export default FavouriteGenreCard;
+    fetchFavouriteGenre();
+  }, [userId]);
+
+  return (
+    <div>
+      {movies.length > 0 ? (
+        <>
+          <p className="header-textt">
+            When it comes to movies, your favourite genres{" "}
+            {favouriteGenre.split(", ").length > 1 ? "are" : "is"}{" "}
+            <span style={{ color: "blue" }}>{favouriteGenre}</span>.
+          </p>
+          <p className="header-textt">
+            Here are your watched movies from your top watched genres:
+          </p>
+          <div className="genre-list">
+            {genres.sort().map((genre) => (
+              <div className="genre-section" key={genre}>
+                <h3>{genre}</h3>
+                <div className="movie-list">
+                  {movies
+                    .filter((movieDetails) =>
+                      movieDetails.genres.some((g) => g.name === genre)
+                    )
+                    .map((movieDetails) => (
+                      <Cards
+                        key={movieDetails.id}
+                        movie={movieDetails}
+                        className="small-card"
+                      />
+                    ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      ) : (
+        <p className="header-textt">
+          {" "}
+          Watch at least 5 movies to unlock genre insights!
+        </p>
+      )}
+    </div>
+  );
+};
+
+export default FavouriteGenreCard;

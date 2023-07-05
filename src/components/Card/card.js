@@ -3,7 +3,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "./card.css";
 import { Link } from "react-router-dom";
 
-const Cards = ({ movie }) => {
+const Cards = ({ movie, className }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -13,9 +13,9 @@ const Cards = ({ movie }) => {
   }, []);
 
   return (
-    <>
+    <div>
       {isLoading ? (
-        <div className="cards" data-testid="movie-card" style={{
+        <div className={`cards ${className}`} data-testid="movie-card" style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original${movie ? movie.poster_path : ""})`,
           backgroundSize: 'cover',
           filter: 'blur(7px)'}}>
@@ -28,7 +28,7 @@ const Cards = ({ movie }) => {
           to={`/movie/${movie.id}`}
           style={{ textDecoration: "none", color: "white" }}
         >
-          <div className="cards" data-testid="movie-card-done">
+          <div className={`cards ${className}`} data-testid="movie-card-done">
             <img
               className="cards__img"
               src={`https://image.tmdb.org/t/p/original${
@@ -54,7 +54,7 @@ const Cards = ({ movie }) => {
           </div>
         </Link>
       )}
-    </>
+    </div>
   );
 };
 
