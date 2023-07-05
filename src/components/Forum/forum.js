@@ -17,6 +17,7 @@ const Forum = ({ movieId }) => {
   const auth = useAuth();
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [save, setSave] = useState(false);
+  const [buttonName, setButtonName] = useState("Show reply thread");
 
   useEffect(() => {
     fetchForumPosts();
@@ -30,7 +31,7 @@ const Forum = ({ movieId }) => {
     try {
       const { data, error } = await getSupabaseInstance()
         .from("review")
-        .select(`*, user: user_id (email, username)`)
+        .select(`*, user: user_id (email, username, avatar_url)`)
         .eq("movie_id", movieId);
 
       if (error) {
@@ -57,8 +58,10 @@ const Forum = ({ movieId }) => {
   const handleReplyButtonClick = (reviewId) => {
     if (selectedReviewId === reviewId) {
       setSelectedReviewId(null); // Hide the dropdown if the button is clicked again
+      setButtonName("Show reply thread");
     } else {
       setSelectedReviewId(reviewId);
+      setButtonName("Hide reply thread");
     }
   };
 
@@ -79,7 +82,7 @@ const Forum = ({ movieId }) => {
             .map((review) => (
               <div className="movie__card" key={review.id}>
                 <div className="profile__container">
-                  <Avatar className="movie_reviewAvatar" />
+                  {review.user.avatar_url ? <img src={review.user.avatar_url} className="movie_reviewAvatar" alt="" width="60" height="60" style={{borderRadius: "50%"}}/> : <Avatar className="movie_reviewAvatar" sx={{width: 60, height: 60}}/>}
                   <div className="movie_reviewEmail">
                     <Link to={`/profile/${review.user_id}`} style={{ textDecoration: 'none', color: 'inherit' }} onClick={scroll}>
                       {review.user.username
@@ -124,7 +127,7 @@ const Forum = ({ movieId }) => {
                       onClick={() => handleReplyButtonClick(review.id)}
                       sx={{ width: "178px", textAlign: "left" }}
                     >
-                      Show reply thread
+                        {buttonName}
                     </Button>
                   </div>
                   {selectedReviewId === review.id && (
