@@ -2,7 +2,7 @@ import React from "react";
 import { getSupabaseInstance } from "../../supabase";
 import { v4 } from "uuid";
 
-const SendFriendRequest = ({ currentUserId, friendUserId }) => {
+const SendFriendRequest = ({ currentUserId, friendUserId, afterRequestSent }) => {
   const sendRequest = async () => {
     // Check if a request has already been sent
     const { data: existingRequest, error: requestError } =
@@ -10,7 +10,8 @@ const SendFriendRequest = ({ currentUserId, friendUserId }) => {
         .from("notification")
         .select("status")
         .eq("user_id_from", currentUserId)
-        .eq("user_id_to", friendUserId);
+        .eq("user_id_to", friendUserId)
+        .eq("status", "pending");
 
     if (requestError) {
       console.error(
@@ -44,6 +45,29 @@ const SendFriendRequest = ({ currentUserId, friendUserId }) => {
       alert("Friend request has already been sent.");
       return;
     }
+
+    // check if other user sent you a friend request
+    const { data: existingRequestFromOtherUser, error: requestFromOtherUserError } =
+        await getSupabaseInstance()
+            .from("notification")
+            .select("status")
+            .eq("user_id_from", friendUserId)
+            .eq("user_id_to", currentUserId)
+            .eq("status", "pending");
+
+    if (requestFromOtherUserError) {
+        console.error(
+            "Error checking existing friend request:",
+            requestFromOtherUserError.message
+        );
+        return;
+    }
+
+    if (existingRequestFromOtherUser.length > 0 && existingRequestFromOtherUser[0].status === "pending") {
+        alert("You already have a pending friend request from this user.");
+        return;
+    }
+    
     const { data, error } = await getSupabaseInstance()
       .from("notification")
       .insert([
@@ -61,6 +85,8 @@ const SendFriendRequest = ({ currentUserId, friendUserId }) => {
     }
 
     alert("Friend request sent!");
+
+    afterRequestSent();
   };
 
   return (
