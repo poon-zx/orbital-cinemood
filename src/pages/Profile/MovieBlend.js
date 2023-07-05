@@ -9,6 +9,7 @@ const MovieBlend = () => {
   const auth = useAuth();
   const { id: urlId } = useParams(); // Extract user ID from the URL
   const [profile, setProfile] = useState([]);
+  const [own, setOwn] = useState([]);
 
   useEffect(() => {
     fetchProfile();
@@ -19,16 +20,19 @@ const MovieBlend = () => {
       const { data, error } = await getSupabaseInstance()
         .from("user")
         .select("*")
-        .eq("id", urlId);
+        .or(`id.eq.${urlId}, id.eq.${auth.user.id}`);
 
       if (error) {
         console.error("Error fetching profile:", error.message);
         return;
       }
 
-      if (data) {
-        setProfile(data[0]);
-      }
+      if (data && data.length >= 2) {
+        const profileData = data.find(item => item.id === urlId);
+        const ownData = data.find(item => item.id === auth.user.id);
+        setProfile(profileData);
+        setOwn(ownData);
+      }      
     } catch (error) {
       console.error("Error fetching profile:", error.message);
     }
@@ -50,19 +54,33 @@ const MovieBlend = () => {
           }}
         >
           <div style={{ position: "relative", display: "inline-flex" }}>
-            <Avatar
+            {own.avatar_url ? <img 
+                    src={own.avatar_url} 
+                    alt=""
+                    width="190"
+                    height="190"
+                    style={{ borderRadius: "50%", border: "6px solid #F6E0CD" }}
+                /> : <Avatar
               className="profile-pic"
-              sx={{ height: "150px", width: "150px" }}
-            />
-            <Avatar
+              sx={{ height: "190px", width: "190px" }}
+              style={{ border: "6px solid #F6E0CD" }}
+            />}
+            {profile.avatar_url ? <img 
+                    src={profile.avatar_url} 
+                    alt=""
+                    width="190"
+                    height="190"
+                    style={{ borderRadius: "50%", position: "absolute", left: "120px", border: "6px solid #F6E0CD"}}
+                /> : <Avatar
               className="profile-pic"
               sx={{
-                height: "150px",
-                width: "150px",
+                height: "190px",
+                width: "190px",
                 position: "absolute",
-                left: "90px", // Adjust this value to achieve the desired overlap
+                left: "120px", // Adjust this value to achieve the desired overlap
               }}
-            />
+              style={{ border: "6px solid #F6E0CD" }}
+            />}
           </div>
         </div>
         <p className="movie__tagline" style={{ marginTop: "20px" }}>
