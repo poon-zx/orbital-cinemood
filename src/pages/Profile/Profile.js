@@ -12,6 +12,7 @@ import Recommendations from "./Recommendations";
 import SendFriendRequest from "./SendFriendRequest";
 import { Crop, Send } from "@mui/icons-material";
 import Cropper from "../../components/Profile/Cropper";
+import RemoveFriend from "./RemoveFriend";
 
 const Profile = () => {
   const auth = useAuth();
@@ -19,6 +20,7 @@ const Profile = () => {
   const [profile, setProfile] = useState([]);
   const [editing, setEditing] = useState(false);
   const [username, setUsername] = useState("");
+  const [isFriend, setIsFriend] = useState(false);
 
   const currentUserId = auth.user.id; // Store current user's ID in a variable
   const viewingOwnProfile = urlId === currentUserId; // Check if the user is viewing their own profile
@@ -28,6 +30,33 @@ const Profile = () => {
       fetchProfile();
     }
   }, [editing, urlId]);
+
+  useEffect(() => {
+    checkFriend();
+  }, [urlId, currentUserId]);
+  
+  // if other user check if friend, return true
+  const checkFriend = async () => {
+    const { data: currentFriends, error: fetchFriendsError } =
+      await getSupabaseInstance()
+        .from("user")
+        .select("friends")
+        .eq("id", currentUserId)
+        .single();
+
+    if (fetchFriendsError) {
+      console.error("Error fetching user data:", fetchFriendsError.message);
+      return;
+    }
+
+    const { friends } = currentFriends;
+
+    if (friends.includes(urlId)) {
+      setIsFriend(true);
+    } else {
+      setIsFriend(false);
+    }
+  };
 
   const fetchProfile = async () => {
     try {
@@ -103,10 +132,19 @@ const Profile = () => {
                     <div className="card-profile-actions">
                       {!viewingOwnProfile && (
                         <>
-                          <SendFriendRequest
-                            currentUserId={currentUserId}
-                            friendUserId={urlId}
-                          />
+                          {isFriend ? (
+                            <RemoveFriend
+                              currentUserId={currentUserId}
+                              friendUserId={urlId}
+                              afterFriendRemoved={checkFriend}
+                            />
+                          ) : (
+                            <SendFriendRequest
+                              currentUserId={currentUserId}
+                              friendUserId={urlId}
+                              afterRequestSent={checkFriend}
+                            />
+                          )}
                           <Button
                             className="profile-btn"
                             component={Link}
