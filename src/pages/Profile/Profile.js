@@ -13,6 +13,7 @@ import SendFriendRequest from "./SendFriendRequest";
 import { Crop, Send } from "@mui/icons-material";
 import Cropper from "../../components/Profile/Cropper";
 import RemoveFriend from "./RemoveFriend";
+import PersonalStats from "./PersonalStats";
 
 const Profile = () => {
   const auth = useAuth();
@@ -130,7 +131,7 @@ const Profile = () => {
                     lg="4"
                   >
                     <div className="card-profile-actions">
-                      {!viewingOwnProfile && (
+                      {!viewingOwnProfile ? (
                         <>
                           {isFriend ? (
                             <RemoveFriend
@@ -158,8 +159,20 @@ const Profile = () => {
                           >
                             Movie Blend
                           </Button>
-                        </>
-                      )}
+                        </>) : (<Button
+                            className="profile-btn"
+                            component={Link}
+                            to={`/stats/${urlId}`}
+                            size="lg"
+                            style={{
+                              color: "inherit",
+                              textTransform: "none",
+                              marginTop: "-3px",
+                            }}
+                          >
+                            Personal Stats
+                          </Button>)
+                      }
                     </div>
                   </Col>
                   <Col className="order-lg-1">

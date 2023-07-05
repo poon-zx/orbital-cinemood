@@ -14,6 +14,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Box } from "@mui/system";
 import { v4 } from "uuid";
+import { Link } from "react-router-dom";
 
 const Notifications = () => {
   const auth = useAuth();
@@ -272,25 +273,39 @@ const Notifications = () => {
             <MenuItem key={notification.id} sx={{ py: 2 }}>
               {notification.status === "pending" && (
                 <Typography sx={{ mb: 1 }}>
-                  {notification.user_from.username
-                    ? notification.user_from.username
-                    : notification.user_from.email}{" "}
+                  <Link to={`/profile/${notification.user_id_from}`} style={{ textDecoration: 'underline', 
+              color: 'inherit', 
+              fontWeight: 'bold' }}>
+                    {notification.user_from.username
+                      ? notification.user_from.username
+                      : notification.user_from.email}
+                  </Link>{" "}
                   has sent you a friend request, do you accept?
                 </Typography>
               )}
               {notification.status === "acceptedConfirmation" && (
                 <Typography sx={{ mb: 1 }}>
-                  {notification.user_from.username
-                    ? notification.user_from.username
-                    : notification.user_from.email} accepted your friend
+                  Typography sx={{ mb: 1 }}>
+                  <Link to={`/profile/${notification.user_id_from}`} style={{ textDecoration: 'underline', 
+              color: 'inherit', 
+              fontWeight: 'bold' }}>
+                    {notification.user_from.username
+                      ? notification.user_from.username
+                      : notification.user_from.email}
+                  </Link>{" "}accepted your friend
                   request.
                 </Typography>
               )}
               {notification.status === "rejectedConfirmation" && (
                 <Typography sx={{ mb: 1 }}>
-                  {notification.user_from.username
-                    ? notification.user_from.username
-                    : notification.user_from.email} rejected your friend
+                  Typography sx={{ mb: 1 }}>
+                  <Link to={`/profile/${notification.user_id_from}`} style={{ textDecoration: 'underline', 
+              color: 'inherit', 
+              fontWeight: 'bold' }}>
+                    {notification.user_from.username
+                      ? notification.user_from.username
+                      : notification.user_from.email}
+                  </Link>{" "}rejected your friend
                   request.
                 </Typography>
               )}

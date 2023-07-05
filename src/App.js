@@ -18,6 +18,7 @@ import ConfirmationPage from "./pages/UpdatePassword/Confirmation";
 import MovieBlend from "./pages/Profile/MovieBlend.js";
 import { getSupabaseInstance } from "./supabase";
 import { ProfileImageProvider } from "./context/ProfileImageProvider";
+import PersonalStats from "./pages/Profile/PersonalStats";
 
 export default function App() {
   const location = useLocation();
@@ -39,7 +40,8 @@ export default function App() {
     location.pathname === "/search" ||
     location.pathname.match(/^\/profile\//) ||
     location.pathname.match(/^\/blend\//) ||
-    location.pathname === "/friends";
+    location.pathname === "/friends" || 
+    location.pathname.match(/^\/stats\//);
 
   return (
     <div className="App">
@@ -59,6 +61,7 @@ export default function App() {
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/blend/:id" element={<MovieBlend />} />
             <Route path="/friends" element={<Friends />} />
+            <Route path="/stats/:id" element={<PersonalStats />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
