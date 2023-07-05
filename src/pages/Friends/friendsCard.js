@@ -12,7 +12,7 @@ const FriendsCard = ({friend}) => {
                     width="140"
                     height="140"
                     style={{marginTop: '10px', marginBottom: '10px', borderRadius: '50%'}}
-                /> : <Avatar sx={{ width: 140, height: 140 }}/>}
+                /> : <Avatar sx={{ width: 140, height: 140, marginTop:"10px", marginBottom:"10px", marginLeft:"10px", borderRadius:"50%" }}/>}
                 <div>
                 <Link to={`/profile/${friend.id}`} style={{ textDecoration: 'none', color: 'inherit', fontSize: '20px' }}>
                     {friend.username

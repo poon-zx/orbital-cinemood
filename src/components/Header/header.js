@@ -21,6 +21,7 @@ import "./header.css"
 import SearchIcon from '@mui/icons-material/Search';
 import { useAuth } from "../../context/AuthProvider.jsx";
 import Notifications from "./notifications";
+import { ProfileImageContext } from "../../context/ProfileImageProvider";
 
 const pages = [
   { label: "Popular", path: "/movies/popular" },
@@ -35,6 +36,7 @@ function ResponsiveAppBar() {
   const [localSearchText, setLocalSearchText] = useState(""); // Add a local state for the input
   const auth = useAuth();
   const [display, setDisplay] = useState(null);
+  const { profileImageUrl, setProfileImageUrl } = useContext(ProfileImageContext);
 
   const settings = [
     {label: "Profile", path: `/profile/${auth.user.id}`},
@@ -54,12 +56,15 @@ function ResponsiveAppBar() {
       setLocalSearchText("");
     }
     prevPath.current = location.pathname;
-    fetchProfilePicture();
   }, [location.pathname]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
+  useEffect(() => {
+    fetchProfilePicture();
+  }, [profileImageUrl]);
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -95,6 +100,7 @@ function ResponsiveAppBar() {
         return null;
     }
     const pictureUrl = data.avatar_url;
+    setProfileImageUrl(pictureUrl);
     setDisplay(pictureUrl);
 };
 
@@ -164,7 +170,7 @@ function ResponsiveAppBar() {
             <Box style={{ marginLeft: "7px" }}>
               <Notifications />
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0}}>
                     {display ? <img
                     src={
                     display 
