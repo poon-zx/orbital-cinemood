@@ -93,9 +93,7 @@ const Profile = () => {
                 <Row className="justify-content-center">
                   <Col className="order-lg-2" xs="12" md="4">
                     <div className="card-profile-image">
-                      <a className="card-profile-image" href="#pablo">
-                        <Cropper/>
-                      </a>
+                      <Cropper />
                     </div>
                   </Col>
                   <Col
@@ -111,9 +109,14 @@ const Profile = () => {
                           />
                           <Button
                             className="profile-btn"
-                            component={Link} to={`/blend/${urlId}`}
+                            component={Link}
+                            to={`/blend/${urlId}`}
                             size="lg"
-                            style={{ color: 'inherit', textTransform: 'none', marginTop: '-3px' }}
+                            style={{
+                              color: "inherit",
+                              textTransform: "none",
+                              marginTop: "-3px",
+                            }}
                           >
                             Movie Blend
                           </Button>
@@ -199,7 +202,9 @@ const Profile = () => {
                   </div>
                   {viewingOwnProfile && (
                     <>
-                      <div className="box">Movies you may like (based on watch history and ratings)</div>
+                      <div className="box">
+                        Movies you may like (based on watch history and ratings)
+                      </div>
                       <div className="watch-container">
                         <Recommendations user_ids={[auth.user.id]} />
                       </div>

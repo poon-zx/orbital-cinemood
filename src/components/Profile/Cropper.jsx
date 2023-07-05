@@ -238,7 +238,7 @@ const Cropper = () => {
                 fetchProfilePicture={fetchProfilePicture}
                 />
                 <a href="/" onClick={handleInputClick}>
-                {viewingOwnProfile && <FcAddImage className="add-icon" style={{marginTop: "-20px"}}/>}
+                {viewingOwnProfile && <FcAddImage className="add-icon" style={{marginTop: "-20px", marginLeft:"10px"}}/>}
                 </a>
                 <input
                 className="pp-input"
