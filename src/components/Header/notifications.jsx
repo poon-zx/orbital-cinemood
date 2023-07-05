@@ -285,7 +285,6 @@ const Notifications = () => {
               )}
               {notification.status === "acceptedConfirmation" && (
                 <Typography sx={{ mb: 1 }}>
-                  Typography sx={{ mb: 1 }}>
                   <Link to={`/profile/${notification.user_id_from}`} style={{ textDecoration: 'underline', 
               color: 'inherit', 
               fontWeight: 'bold' }}>
@@ -298,7 +297,6 @@ const Notifications = () => {
               )}
               {notification.status === "rejectedConfirmation" && (
                 <Typography sx={{ mb: 1 }}>
-                  Typography sx={{ mb: 1 }}>
                   <Link to={`/profile/${notification.user_id_from}`} style={{ textDecoration: 'underline', 
               color: 'inherit', 
               fontWeight: 'bold' }}>

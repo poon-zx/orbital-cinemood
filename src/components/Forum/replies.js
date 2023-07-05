@@ -11,9 +11,10 @@ import { SettingsOverscanRounded } from "@mui/icons-material";
 import ReplyForm from "./replyForm.js";
 import { Link } from "react-router-dom";
 
-const Replies = ({ reviewId, deleteReply = false, movieId }) => {
+const Replies = ({ reviewId, movieId }) => {
   const [replies, setReplies] = useState([]);
   const auth = useAuth();
+  const [deleteReply, setDeleteReply] = useState(false);
 
   const scroll = () => {
     window.scrollTo(0, 0);
@@ -28,8 +29,7 @@ const Replies = ({ reviewId, deleteReply = false, movieId }) => {
       const { data, error } = await getSupabaseInstance()
         .from("reply")
         .select(
-          `*, 
-                    user:user_id (email, username, avatar_url)`
+          `*, user:user_id (email, username, avatar_url)`
         )
         .eq("review_id", reviewId);
 
@@ -59,8 +59,7 @@ const Replies = ({ reviewId, deleteReply = false, movieId }) => {
       }
 
       if (data) {
-        deleteReply = true;
-        fetchReplies();
+        setDeleteReply(!deleteReply);
       }
     } catch (error) {
       console.error("Error deleting reply:", error.message);
