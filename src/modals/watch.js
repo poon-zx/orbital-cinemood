@@ -12,6 +12,7 @@ function MyVerticallyCenteredModal(props) {
     const [error, setError] = useState("");
     const [notice, setNotice] = useState("");
     const [status, setStatus] = useState(true);
+    const [style, setStyle] = useState("")
     const auth = useAuth();
     
     useEffect(() => {
@@ -50,10 +51,13 @@ function MyVerticallyCenteredModal(props) {
 
             if (existingUser.to_watch.includes(props.movieId)) {
                 setMessage("This movie is already in your watchlist.");
+                setStyle("danger");
             } else if (existingUser.watched.includes(props.movieId)) {
                 setMessage("This movie is already in your watch history.");
+                setStyle("danger");
             } else {
                 setMessage("Watchlist has been updated successfully!");
+                setStyle("success");
                 setRemove("Remove from Watchlist");
                 setNotice("In your watchlist");
                 setStatus(true);
@@ -114,8 +118,10 @@ function MyVerticallyCenteredModal(props) {
 
             if (existingUser.watched.includes(props.movieId)) {
                 setMessage("This movie is already in your watch history.");
+                setStyle("danger");
             } else {
                 setMessage("Watch history has been updated successfully!");
+                setStyle("success");
                 setRemove("Remove from watch history");
                 setNotice("In your watch history");
                 setStatus(true);
@@ -154,6 +160,7 @@ function MyVerticallyCenteredModal(props) {
                     return;
                 }
                 setMessage("Removed from watchlist");
+                setStyle("success");
                 setNotice("Have you ever watched this movie?");
 
             } else if (existingUser.watched.includes(props.movieId)) {
@@ -170,6 +177,7 @@ function MyVerticallyCenteredModal(props) {
                     return;
                 }
                 setMessage("Removed from watch history");
+                setStyle("success");
                 setNotice("Have you ever watched this movie?");
             }
         }
@@ -241,7 +249,7 @@ function MyVerticallyCenteredModal(props) {
                 <div>
                     {status ? <Button onClick={handleRemove} className="remove-btn">{remove}</Button> : ""}
                 </div>
-                {message && <div className="text-danger">{message}</div>}
+                {message && <div className={`text-${style}`}>{message}</div>}
             </Modal.Body>
         </Modal>
     );

@@ -5,6 +5,7 @@ import { FcAddImage } from "react-icons/fc";
 import "./cropper.css";
 import { getSupabaseInstance } from "../../supabase";
 import { useAuth } from "../../context/AuthProvider.jsx";
+import { useParams } from "react-router-dom";
 
 // Styles
 const boxStyle = {
@@ -98,9 +99,10 @@ const CropperModal = ({ src, modalOpen, setModalOpen, setPreview, fetchProfilePi
       };
       
       console.log("timelag");
+      fetchProfilePicture();
       setTimeout(() => {
         fetchProfilePicture(); 
-      }, 50);      
+      }, 20);      
   
 
   return (
@@ -177,6 +179,8 @@ const Cropper = () => {
     const inputRef = useRef(null);
 
     const [display, setDisplay] = useState(null);
+    const { id: urlId } = useParams(); // Extract user ID from the URL
+    const viewingOwnProfile = urlId === auth.user.id; // Check if the user is viewing their own profile
 
     // handle Click
     const handleInputClick = (e) => {
@@ -193,7 +197,7 @@ const Cropper = () => {
         const { data, error } = await getSupabaseInstance()
             .from('user')
             .select('avatar_url')
-            .eq('id', auth.user.id)
+            .eq('id', urlId)
             .single();
         if (error) {
             console.error('Error fetching profile picture:', error);
@@ -229,7 +233,7 @@ const Cropper = () => {
                 fetchProfilePicture={fetchProfilePicture}
                 />
                 <a href="/" onClick={handleInputClick}>
-                <FcAddImage className="add-icon" style={{marginTop: "-20px"}}/>
+                {viewingOwnProfile && <FcAddImage className="add-icon" style={{marginTop: "-20px"}}/>}
                 </a>
                 <input
                 className="pp-input"
