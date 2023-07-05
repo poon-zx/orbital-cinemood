@@ -5,7 +5,6 @@ import { useAuth } from "../../context/AuthProvider.jsx";
 import { useParams } from "react-router-dom";
 import FavouriteGenreCard from "../../components/Stats/FavouriteGenre";
 
-
 const PersonalStats = () => {
   const auth = useAuth();
   const { id: urlId } = useParams(); // Extract user ID from the URL
@@ -36,12 +35,26 @@ const PersonalStats = () => {
   };
 
   return (
-    <div className="movie__list">
+    <div>
       <h2 className="list__title" style={{ marginTop: "30px" }}>
         {profile.username ? profile.username : profile.email}'s Movie Stats
       </h2>
+      <h2
+        classname="list__title"
+        style={{
+          fontSize: "2.2rem",
+          margin: "1rem",
+          fontFamily: "Playfair Display",
+          alignSelf: "flex-start",
+          marginTop: "50px",
+          textDecoration: "underline",
+          marginBottom: "-20px",
+        }}
+      >
+        Genres
+      </h2>
       <div className="container">
-        <FavouriteGenreCard userId={urlId}/>
+        <FavouriteGenreCard userId={urlId} />
       </div>
     </div>
   );
