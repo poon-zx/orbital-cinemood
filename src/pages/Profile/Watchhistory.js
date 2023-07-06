@@ -66,6 +66,7 @@ const Watchhistory = ({ user_id }) => {
         review_title: data[0].title,
         review_content: data[0].content,
       };
+      
       return updateData;
     }
 

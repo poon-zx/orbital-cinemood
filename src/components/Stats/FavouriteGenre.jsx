@@ -95,8 +95,8 @@ const FavouriteGenreCard = ({ userId }) => {
       {movies.length > 0 ? (
         <>
           <p className="header-textt">
-            When it comes to movies, your favourite genres{" "}
-            {favouriteGenre.split(", ").length > 1 ? "are" : "is"}{" "}
+            When it comes to movies, your favourite{" "}
+            {favouriteGenre.split(", ").length > 1 ? "genres are" : "genre is"}{" "}
             <span style={{ color: "blue" }}>{favouriteGenre}</span>.
           </p>
           <p className="header-textt">
@@ -126,7 +126,7 @@ const FavouriteGenreCard = ({ userId }) => {
       ) : (
         <p className="header-textt">
           {" "}
-          Watch at least 5 movies to unlock genre insights!
+          Watch at least 1 movie to unlock genre insights!
         </p>
       )}
     </div>

@@ -170,7 +170,7 @@ const Profile = () => {
                               marginTop: "-3px",
                             }}
                           >
-                            Personal Stats
+                            CineStats
                           </Button>)
                       }
                     </div>
