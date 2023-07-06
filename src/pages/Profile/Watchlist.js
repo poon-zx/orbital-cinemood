@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import CardsUser from "../../components/Card/cardUser";
+import Cards from "../../components/Card/card";
 import { getSupabaseInstance } from "../../supabase";
 import "./Watchhistory.css";
 
@@ -78,7 +78,7 @@ const Watchlist = ({ user_id }) => {
         ? watchlist.map((movie) => (
             <div key={movie.id} className="row__poster row__posterLarge">
               {" "}
-              <CardsUser movie={movie} />{" "}
+              <Cards movie={movie} />{" "}
             </div>
           ))
         : "Watchlist is empty"}
