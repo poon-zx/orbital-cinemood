@@ -4,6 +4,7 @@ import { getSupabaseInstance } from "../../supabase";
 import { useAuth } from "../../context/AuthProvider.jsx";
 import { useParams } from "react-router-dom";
 import FavouriteGenreCard from "../../components/Stats/FavouriteGenre";
+import YourRating from "../../components/Stats/YourRatings";
 
 const PersonalStats = () => {
   const auth = useAuth();
@@ -37,7 +38,7 @@ const PersonalStats = () => {
   return (
     <div>
       <h2 className="list__title" style={{ marginTop: "30px" }}>
-        {profile.username ? profile.username : profile.email}'s Movie Stats
+        {profile.username ? profile.username : profile.email}'s CineStats
       </h2>
       <h2
         classname="list__title"
@@ -55,6 +56,23 @@ const PersonalStats = () => {
       </h2>
       <div className="container">
         <FavouriteGenreCard userId={urlId} />
+      </div>
+      <h2
+        classname="list__title"
+        style={{
+          fontSize: "2.2rem",
+          margin: "1rem",
+          fontFamily: "Playfair Display",
+          alignSelf: "flex-start",
+          marginTop: "50px",
+          textDecoration: "underline",
+          marginBottom: "-20px",
+        }}
+      >
+        Ratings
+      </h2>
+      <div className="container">
+        <YourRating userId={urlId} />
       </div>
     </div>
   );

@@ -18,6 +18,8 @@
     margin-top: 30px;
     border-radius: 50%;
     border: 3px solid black;
+    position: relative;
+    z-index: 0;
 }
 
 .img-preview{

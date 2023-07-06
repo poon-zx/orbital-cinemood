@@ -111,7 +111,7 @@ const CropperModal = ({ src, modalOpen, setModalOpen, setPreview, fetchProfilePi
   
 
   return (
-    <Modal sx={modalStyle} open={modalOpen}>
+    <Modal sx={{...modalStyle, zIndex: 1, position: "relative"}} open={modalOpen}>
       <Box sx={boxStyle}>
         <AvatarEditor
           ref={cropRef}
@@ -230,6 +230,7 @@ const Cropper = () => {
                 className="img-preview"
             /> : <Avatar sx={{ width: 180, height: 180 }} />}
             </div>
+            <div style={{position: "relative", zIndex: 1}}>
             <CropperModal
                 modalOpen={modalOpen}
                 src={src}
@@ -247,6 +248,7 @@ const Cropper = () => {
                 ref={inputRef}
                 onChange={handleImgChange}
             />
+            </div>
         </main>
         </>
     );
