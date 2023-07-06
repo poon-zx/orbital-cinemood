@@ -32,7 +32,8 @@ const Forum = ({ movieId }) => {
       const { data, error } = await getSupabaseInstance()
         .from("review")
         .select(`*, user: user_id (email, username, avatar_url)`)
-        .eq("movie_id", movieId);
+        .eq("movie_id", movieId)
+        .order("created_at", { ascending: false });
 
       if (error) {
         console.error("Error fetching forum posts:", error.message);

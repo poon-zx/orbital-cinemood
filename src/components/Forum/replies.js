@@ -31,7 +31,8 @@ const Replies = ({ reviewId, movieId }) => {
         .select(
           `*, user:user_id (email, username, avatar_url)`
         )
-        .eq("review_id", reviewId);
+        .eq("review_id", reviewId)
+        .order("created_at", { ascending: true });
 
       if (error) {
         console.error("Error fetching replies:", error.message);
@@ -43,7 +44,6 @@ const Replies = ({ reviewId, movieId }) => {
       }
       if (data.length === 0) {
         setReplies([]);
-        console.log("reply is null")
       }
     } catch (error) {
       console.error("Error fetching replies:", error.message);

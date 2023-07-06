@@ -11,7 +11,37 @@ function MyVerticallyCenteredModal(props) {
     const [content, setContent] = useState("");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+    const [reviewExisted, setReviewExisted] = useState({});
+
     const auth = useAuth();
+
+    useEffect(() => {
+        // Fetch existing review data when the modal is opened
+        const fetchExistingReview = async () => {
+            const { data: existingReviewData, error: existingReviewError } =
+                await getSupabaseInstance()
+                    .from('review')
+                    .select('*')
+                    .eq('user_id', auth.user.id)
+                    .eq('movie_id', props.movieId);
+
+            if (existingReviewError) {
+                console.log(existingReviewError);
+                return;
+            }
+
+            if (existingReviewData.length > 0) {
+                const existingReview = existingReviewData[0];
+                setTitle(existingReview.title);
+                setContent(existingReview.content);
+                setReviewExisted(existingReview);
+            }
+        };
+
+        if (props.show) {
+            fetchExistingReview();
+        }
+    }, [props.show, auth.user.id, props.movieId]);
 
     const addReview = async (e) => {
         e.preventDefault();
@@ -21,28 +51,15 @@ function MyVerticallyCenteredModal(props) {
             return;
         }
 
-        const { data: existingReviewData, error: existingReviewError } =
-            await getSupabaseInstance()
-                .from('review')
-                .select('*')
-                .eq('user_id', auth.user.id)
-                .eq('movie_id', props.movieId);
-
-        if (existingReviewError) {
-            console.log(existingReviewError);
-            return;
-        }
-
-        if (existingReviewData.length > 0) {
+        if (reviewExisted.id) {
             // Update existing review
-            const existingReview = existingReviewData[0];
             const { data: updateData, error: updateError } = await getSupabaseInstance()
                 .from('review')
                 .update({
                     title: title,
                     content: content
                 })
-                .eq('id', existingReview.id);
+                .eq('id', reviewExisted.id);
 
             if (updateError) {
                 console.log(updateError);
