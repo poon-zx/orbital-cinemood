@@ -61,13 +61,13 @@ const FavouriteGenreCard = ({ userId }) => {
         (a, b) => genreCounts[b] - genreCounts[a]
       );
 
-      let top5Genres = sortedGenres.slice(0, 5);
+      let top5Genres = sortedGenres.slice(0, 4);
 
       // Check for ties at the 5th position
-      let i = 5;
+      let i = 4;
       while (
         sortedGenres[i] &&
-        genreCounts[sortedGenres[i]] === genreCounts[top5Genres[4]]
+        genreCounts[sortedGenres[i]] === genreCounts[top5Genres[3]]
       ) {
         top5Genres.push(sortedGenres[i]);
         i++;

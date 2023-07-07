@@ -86,12 +86,12 @@ def give_recommendations():
         for i in range(times_watched[0], len(cosine_scores)):
             cosine_scores[i] *= times_watched[0]
     cosine_scores = sum(cosine_scores)
-    top_results = torch.topk(cosine_scores, k=20)
+    top_results = torch.topk(cosine_scores, k=30)
     top_indices = top_results[1][0]
     top_scores = top_results[0][0]
 
     results = []
-    for i in range(20):
+    for i in range(30):
         results.append({
             'movie': dataset['Movie Name'][top_indices[i].item()],
             'score': float(top_scores[i].item()),
