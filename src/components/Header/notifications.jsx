@@ -59,9 +59,13 @@ const Notifications = () => {
 
     const { friends } = userData;
 
+    console.log(friends);
+
     const updatedFriends = friends.includes(fromUserId)
       ? friends
       : [...friends, fromUserId];
+
+      console.log(updatedFriends);
 
     const { error: updateUserError } = await getSupabaseInstance()
       .from("user")

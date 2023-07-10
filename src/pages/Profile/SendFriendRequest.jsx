@@ -40,6 +40,8 @@ const SendFriendRequest = ({ currentUserId, friendUserId, afterRequestSent }) =>
         return;
     }
 
+    console.log(friends);
+
     // If a request already exists and it's still pending, do not send a new one
     if (existingRequest.length > 0 && existingRequest[0].status === "pending") {
       alert("Friend request has already been sent.");
@@ -67,7 +69,7 @@ const SendFriendRequest = ({ currentUserId, friendUserId, afterRequestSent }) =>
         alert("You already have a pending friend request from this user.");
         return;
     }
-    
+
     const { data, error } = await getSupabaseInstance()
       .from("notification")
       .insert([

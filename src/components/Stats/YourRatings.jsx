@@ -98,7 +98,8 @@ const YourRating = ({ userId }) => {
           <div>
             {topRatedMovies.length === lowestRatedMovies.length &&
             topRatedMovies.every(
-              (value, index) => value === lowestRatedMovies[index]
+              (value, index) =>
+                value.id === [...lowestRatedMovies].reverse()[index].id
             ) ? (
               <p className="header-textt">
                 (It appears that you have the same rating for all movies..)
@@ -138,8 +139,9 @@ const YourRating = ({ userId }) => {
             <div style={{ width: "50%", padding: "10px" }}>
               <p className="header-textt">Who's Correct?</p>
               <p>
-                You gave this movie {leastAgreedMovie.rating} {leastAgreedMovie.rating === 1 ? "star" : "stars"}, but the
-                TMDB vote average was {leastAgreedMovie.vote_average}.
+                You gave this movie {leastAgreedMovie.rating}{" "}
+                {leastAgreedMovie.rating === 1 ? "star" : "stars"}, but the TMDB
+                vote average was {leastAgreedMovie.vote_average}.
               </p>
               <CardsUser key={leastAgreedMovie.id} movie={leastAgreedMovie} />
             </div>
