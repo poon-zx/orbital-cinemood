@@ -47,7 +47,9 @@ const RemoveFriend = ({ currentUserId, friendUserId, afterFriendRemoved }) => {
         return;
     }
 
-    const friendsFriendList = friendFriends[0]?.friends || [];
+    console.log(friendFriends);
+
+    const friendsFriendList = friendFriends.friends;
 
     const updatedFriendFriends = friendsFriendList.filter(friend => friend !== currentUserId);
 
