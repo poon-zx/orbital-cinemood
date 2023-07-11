@@ -89,3 +89,18 @@
     background-color: #E6816B;
     transform: translateY(-1px);
 }
+
+.search-btn {
+    border-radius: 17px;
+    background-color: #E19C8D;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    width: 100px;
+    margin-left: 10px;
+    height: 38px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.search-btn:hover {
+    background-color: #E6816B;
+    transform: translateY(-1px);
+}

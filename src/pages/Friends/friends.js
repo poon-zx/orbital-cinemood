@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthProvider.jsx";
 import { getSupabaseInstance } from "../../supabase.js";
 import FriendsCard from "./friendsCard.js";
+import SearchFriends from "../../modals/searchFriends";
 
 const Friends = () => {
     const auth = useAuth();
@@ -42,14 +43,20 @@ const Friends = () => {
 
     return (
         <div>
-            <h1 style={{marginTop: "1rem", fontFamily: 'Playfair Display, serif'}}>Friends</h1>
-            <div className="friends-container">
-                {friendReturn ? friendReturn.map((friend) => (
-                    <FriendsCard friend={friend} />
-                )) : "No friends yet"}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <h1 style={{ marginTop: "1rem", fontFamily: 'Playfair Display, serif', marginRight: "1rem" }}>Friends</h1>
+                <SearchFriends />
             </div>
-        </div>
+            <div className="friends-container">
+                { friendReturn.length > 0 ? (
+                    friendReturn.map((friend) => <FriendsCard friend={friend} key={friend.id} />
+                )) : (
+                    <p>No friends yet</p>
+                )}
+            </div>
+            </div>
     );
+      
 }
 
 export default Friends
