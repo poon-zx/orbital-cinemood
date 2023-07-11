@@ -9,7 +9,7 @@ import YourRating from "../../components/Stats/YourRatings";
 const PersonalStats = () => {
   const auth = useAuth();
   const { id: urlId } = useParams(); // Extract user ID from the URL
-  const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState({});
 
   useEffect(() => {
     fetchProfile();
@@ -27,6 +27,8 @@ const PersonalStats = () => {
         return;
       }
 
+      console.log(data);
+
       if (data) {
         setProfile(data[0]);
       }
@@ -38,7 +40,7 @@ const PersonalStats = () => {
   return (
     <div>
       <h2 className="list__title" style={{ marginTop: "30px" }}>
-        {profile.username ? profile.username : profile.email}'s CineStats
+      {(profile.username || profile.email) ? `${profile.username || profile.email}'s CineStats` : 'Loading...'}
       </h2>
       <h2
         classname="list__title"

@@ -20,13 +20,18 @@ const YourRating = ({ userId }) => {
     const { data, error } = await getSupabaseInstance()
       .from("review")
       .select("*")
-      .eq("user_id", userId)
-      .eq("movie_id", movieId);
+      .eq("movie_id", movieId)
+      .eq("user_id", userId);
+
+      console.log(data);
+      console.log(data[0].rating);
 
     if (error) {
       console.error("Error fetching review:", error.message);
       return movieData;
     }
+
+
 
     if (data && data.length > 0) {
       const updatedData = {
@@ -53,6 +58,8 @@ const YourRating = ({ userId }) => {
         return;
       }
 
+      console.log(data);
+
       // filter out entries with null ratings
       const ratedData = data.filter((item) => item.rating !== null);
 
@@ -70,6 +77,7 @@ const YourRating = ({ userId }) => {
 
       // Sort movies based on user rating
       movieDetails.sort((a, b) => b.rating - a.rating);
+      console.log(movieDetails);
       setTopRatedMovies(movieDetails.slice(0, 3));
       setLowestRatedMovies(movieDetails.slice(-3).reverse());
 
@@ -83,10 +91,9 @@ const YourRating = ({ userId }) => {
   }, [userId]);
 
   const averageRating =
-    topRatedMovies
-      .concat(lowestRatedMovies)
+    movies
       .reduce((total, movie) => total + movie.rating, 0) /
-    (topRatedMovies.length + lowestRatedMovies.length);
+    (movies.length);
 
   return (
     <div>
