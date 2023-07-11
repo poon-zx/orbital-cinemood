@@ -31,12 +31,16 @@ const FavouriteGenreCard = ({ userId }) => {
         .eq("id", userId)
         .single();
 
+        console.log(userData);
+
       if (error) {
         console.error("Error fetching user data:", error.message);
         return;
       }
 
       const watchedList = userData.watched;
+
+      console.log(userData.watched);
 
       // Fetch all the movie details
       const moviesDetails = await Promise.all(
