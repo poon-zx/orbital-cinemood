@@ -17,7 +17,6 @@ const Forum = ({ movieId }) => {
   const auth = useAuth();
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [save, setSave] = useState(false);
-  const [buttonName, setButtonName] = useState("Show reply thread");
 
   useEffect(() => {
     fetchForumPosts();
@@ -59,10 +58,8 @@ const Forum = ({ movieId }) => {
   const handleReplyButtonClick = (reviewId) => {
     if (selectedReviewId === reviewId) {
       setSelectedReviewId(null); // Hide the dropdown if the button is clicked again
-      setButtonName("Show reply thread");
     } else {
       setSelectedReviewId(reviewId);
-      setButtonName("Hide reply thread");
     }
   };
 
@@ -123,12 +120,12 @@ const Forum = ({ movieId }) => {
                   </CardText>
                   <div className="reply-button-container">
                     <Button
-                      className="reply-button"
-                      variant="text"
-                      onClick={() => handleReplyButtonClick(review.id)}
-                      sx={{ width: "178px", textAlign: "left" }}
+                        className="reply-button"
+                        variant="text"
+                        onClick={() => handleReplyButtonClick(review.id)}
+                        sx={{ width: "178px", textAlign: "left" }}
                     >
-                        {buttonName}
+                        {selectedReviewId === review.id ? "Hide reply thread" : "Show reply thread"}
                     </Button>
                   </div>
                   {selectedReviewId === review.id && (
