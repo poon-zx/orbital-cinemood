@@ -59,22 +59,14 @@ describe("PersonalStats", () => {
                       return {
                         eq: (param3, param4) => {
                           return Promise.resolve({
-                            data: [
-                              [
-                                
-                              ],
-                            ],
+                            data: [[]],
                             error: null,
                           });
                         },
                       };
                     } else if (param1 === "user_id") {
                       return Promise.resolve({
-                        data: [
-                          [
-                            
-                          ],
-                        ],
+                        data: [[]],
                         error: null,
                       });
                     }
@@ -142,22 +134,14 @@ describe("PersonalStats", () => {
                       return {
                         eq: (param3, param4) => {
                           return Promise.resolve({
-                            data: [
-                              [
-                                
-                              ],
-                            ],
+                            data: [[]],
                             error: null,
                           });
                         },
                       };
                     } else if (param1 === "user_id") {
                       return Promise.resolve({
-                        data: [
-                          [
-                            
-                          ],
-                        ],
+                        data: [[]],
                         error: null,
                       });
                     }
@@ -181,8 +165,12 @@ describe("PersonalStats", () => {
     // Use waitFor to handle async operations
     await waitFor(
       () => {
-        expect(getByText("Watch at least 1 movie to unlock genre insights!")).toBeInTheDocument();
-        expect(getByText("Rate at least 1 movie to unlock rating insights!")).toBeInTheDocument();
+        expect(
+          getByText("Watch at least 1 movie to unlock genre insights!")
+        ).toBeInTheDocument();
+        expect(
+          getByText("Rate at least 1 movie to unlock rating insights!")
+        ).toBeInTheDocument();
       },
       { timeout: 5000 }
     );
@@ -225,22 +213,14 @@ describe("PersonalStats", () => {
                       return {
                         eq: (param3, param4) => {
                           return Promise.resolve({
-                            data: [
-                              [
-                                
-                              ],
-                            ],
+                            data: [[]],
                             error: null,
                           });
                         },
                       };
                     } else if (param1 === "user_id") {
                       return Promise.resolve({
-                        data: [
-                          [
-                            
-                          ],
-                        ],
+                        data: [[]],
                         error: null,
                       });
                     }
@@ -261,12 +241,12 @@ describe("PersonalStats", () => {
       </MemoryRouter>
     );
     await waitFor(
-        () => {
-          const movieCards = screen.queryAllByTestId("movie-card-done");
-          expect(movieCards.length).toBeGreaterThan(0);
-        },
-        { timeout: 5000 }
-      );      
+      () => {
+        const movieCards = screen.queryAllByTestId("movie-card-done");
+        expect(movieCards.length).toBeGreaterThan(0);
+      },
+      { timeout: 5000 }
+    );
   });
 
   it("should show ratings section accurately", async () => {
@@ -306,17 +286,15 @@ describe("PersonalStats", () => {
                         eq: (param3, param4) => {
                           return Promise.resolve({
                             data: [
-                              
-                                {
-                                  content: "Test review",
-                                  created_at: "test",
-                                  id: "1",
-                                  movie_id: "569094",
-                                  rating: 8,
-                                  title: "Test movie",
-                                  user_id: "1",
-                                },
-                              
+                              {
+                                content: "Test review",
+                                created_at: "test",
+                                id: "1",
+                                movie_id: "569094",
+                                rating: 8,
+                                title: "Test movie",
+                                user_id: "1",
+                              },
                             ],
                             error: null,
                           });
@@ -361,7 +339,11 @@ describe("PersonalStats", () => {
     await waitFor(
       () => {
         expect(getByText("Your average rating is 8.00 ⭐")).toBeInTheDocument();
-        expect(getByText(/You gave this movie 8 stars, and the TMDB vote average was /)).toBeInTheDocument();
+        expect(
+          getByText(
+            /You gave this movie 8 stars, and the TMDB vote average was /
+          )
+        ).toBeInTheDocument();
       },
       { timeout: 5000 }
     );
