@@ -18,9 +18,8 @@ function MyVerticallyCenteredModal(props) {
 
     useEffect(() => {
         getData(props.movieId);
-        window.scrollTo(0, 0);
         fetchRating();
-    }, []);
+    }, [props.show, auth.user.id, props.movieId]);
 
     const getData = (id) => {
         fetch(
@@ -35,7 +34,8 @@ function MyVerticallyCenteredModal(props) {
             const { data, error } = await getSupabaseInstance()
                 .from("review")
                 .select("*")
-                .eq("movie_id", props.movieId);
+                .eq("movie_id", props.movieId)
+                .eq("user_id", auth.user.id);
 
             if (error) {
                 console.error("Error fetching rating", error.message);
@@ -44,7 +44,9 @@ function MyVerticallyCenteredModal(props) {
 
             if (data && data.length > 0) {
                 const existingValue = data[0].rating;
+                console.log("troubleshooting"+existingValue);
                 setDisplay(existingValue);
+                setValue(existingValue);
                 existingValue ? setHaveRating(true) : setHaveRating(false);
             }
         } catch (error) {
@@ -143,12 +145,12 @@ function MyVerticallyCenteredModal(props) {
                 setMessage("Rating updated successfully!");
             }
         }
+        setValue("");
         setMessage("Rating updated successfully!");
         setHaveRating(false);
         setTimeout(() => {
             setMessage("");
         }, 700); 
-        setValue("");
     }
 
     return (
@@ -165,7 +167,7 @@ function MyVerticallyCenteredModal(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body >
-                <div className="text-center">{value ? value + "/10" : (display ? display + "/10" : "")}</div>
+            <div className="text-center">{value + "/10"}</div>
                 <Box style={{
                     display: "flex",
                     justifyContent: "center"}}
@@ -175,11 +177,11 @@ function MyVerticallyCenteredModal(props) {
                 >
                     <Rating
                         name="simple-controlled"
-                        max = {10}
+                        max={10}
                         value={value}
                         size="large"
                         onChange={(event, newValue) => {
-                        setValue(newValue);
+                            setValue(newValue);
                         }}
                         onHoverChange={(event, newHoverValue) => {
                             setValue(newHoverValue);

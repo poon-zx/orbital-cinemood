@@ -105,13 +105,10 @@ const CropperModal = ({ src, modalOpen, setModalOpen, setPreview, fetchProfilePi
       
       console.log("timelag");
       fetchProfilePicture();
-      setTimeout(() => {
-        fetchProfilePicture(); 
-      }, 20);      
   
 
   return (
-    <Modal sx={{...modalStyle, zIndex: 1, position: "relative"}} open={modalOpen}>
+    <Modal sx={{...modalStyle, zIndex: 1, position: "fixed"}} open={modalOpen}>
       <Box sx={boxStyle}>
         <AvatarEditor
           ref={cropRef}
@@ -196,6 +193,7 @@ const Cropper = () => {
     const handleImgChange = (e) => {
         setSrc(e.target.files[0]);
         setModalOpen(true);
+        e.target.value = null;
     };
 
     const fetchProfilePicture = async () => {
