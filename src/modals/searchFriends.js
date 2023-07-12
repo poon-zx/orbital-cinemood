@@ -5,16 +5,22 @@ import { getSupabaseInstance } from '../supabase.js';
 import { Card, IconButton } from "@mui/material"
 import GroupAddTwoToneIcon from '@mui/icons-material/GroupAddTwoTone';
 import './modals.css';
-import FriendsCard from '../pages/Friends/friendsCard.js';
+import SearchCard from '../components/Friends/searchCard.js';
 import { useAuth } from "../context/AuthProvider.jsx";
 
 function MyVerticallyCenteredModal(props) {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [searchPerformed, setSearchPerformed] = useState(false);
+    const [message, setMessage] = useState("");
     const auth = useAuth();
 
     const handleSearch = async () => {
+        if (searchQuery.trim() === "") {
+            setMessage("Search query cannot be empty");
+            return;
+        }
+        setMessage("");
         const { data, error } = await getSupabaseInstance()
             .from("user")
             .select("*")
@@ -42,6 +48,7 @@ function MyVerticallyCenteredModal(props) {
     useEffect(() => {
         setSearchQuery("");
         setSearchPerformed(false);
+        setMessage("");
     }, [props.show]);
 
     return (
@@ -66,9 +73,10 @@ function MyVerticallyCenteredModal(props) {
                     onKeyPress={handleKeyPress}
                 />
                 <button className="search-btn" onClick={handleSearch}>Search</button>
+                {message && <p style={{ color: 'red' }}>{message}</p>}
                 <div>
                     {searchPerformed && searchResults.length > 0 ? (
-                        searchResults.map((friend) => <FriendsCard friend={friend} key={friend.id} />)
+                        searchResults.map((friend) => <SearchCard friend={friend} key={friend.id} />)
                     ) : null}
                     {searchPerformed && searchResults.length === 0 ? (
                         "No search results found"
