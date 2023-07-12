@@ -35,6 +35,9 @@ function MyVerticallyCenteredModal(props) {
                 setTitle(existingReview.title);
                 setContent(existingReview.content);
                 setReviewExisted(existingReview);
+                props.onReviewExists(true);
+            } else {
+                props.onReviewExists(false);
             }
         };
 
@@ -114,7 +117,7 @@ function MyVerticallyCenteredModal(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Write a Review!
+                    {reviewExisted.id ? 'Edit Review' : 'Write a Review'}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -157,17 +160,19 @@ function MyVerticallyCenteredModal(props) {
 
 function WriteReview({ movieId }) {
     const [modalShow, setModalShow] = useState(false);
+    const [reviewExists, setReviewExists] = useState(false);
 
     return (
         <>
             <button className="review-btn" onClick={() => setModalShow(true)}>
-                Write a Review
+                {reviewExists ? 'Edit Review' : 'Write Review'}
             </button>
 
             <MyVerticallyCenteredModal
                 movieId={movieId}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
+                onReviewExists={setReviewExists}
             />
         </>
     );

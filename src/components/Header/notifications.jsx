@@ -14,12 +14,13 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Box } from "@mui/system";
 import { v4 } from "uuid";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Notifications = () => {
   const auth = useAuth();
   const [notifications, setNotifications] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
+  const location = useLocation();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -65,7 +66,7 @@ const Notifications = () => {
       ? friends
       : [...friends, fromUserId];
 
-      console.log(updatedFriends);
+    console.log(updatedFriends);
 
     const { error: updateUserError } = await getSupabaseInstance()
       .from("user")
@@ -216,6 +217,9 @@ const Notifications = () => {
 
   useEffect(() => {
     const fetchNotifications = async () => {
+      // Fetch notifications based on the current location or any relevant URL parameters
+      // Update the necessary logic based on your specific requirements
+
       const { data, error } = await getSupabaseInstance()
         .from("notification")
         .select(
@@ -225,8 +229,8 @@ const Notifications = () => {
         .in("status", [
           "pending",
           "acceptedConfirmation",
-          "rejectedConfirmation"
-        ]); // Assuming 'pending' notifications are the ones unread
+          "rejectedConfirmation",
+        ]);
 
       if (error) {
         console.error("Error fetching notifications:", error.message);
@@ -238,10 +242,12 @@ const Notifications = () => {
       if (data) {
         setNotifications(data);
       }
+
+      console.log("fetching notifications");
     };
 
     fetchNotifications();
-  }, [auth.user.id]);
+  }, [auth.user.id, location]);
 
   return (
     <>
@@ -277,9 +283,14 @@ const Notifications = () => {
             <MenuItem key={notification.id} sx={{ py: 2 }}>
               {notification.status === "pending" && (
                 <Typography sx={{ mb: 1 }}>
-                  <Link to={`/profile/${notification.user_id_from}`} style={{ textDecoration: 'underline', 
-              color: 'inherit', 
-              fontWeight: 'bold' }}>
+                  <Link
+                    to={`/profile/${notification.user_id_from}`}
+                    style={{
+                      textDecoration: "underline",
+                      color: "inherit",
+                      fontWeight: "bold",
+                    }}
+                  >
                     {notification.user_from.username
                       ? notification.user_from.username
                       : notification.user_from.email}
@@ -289,26 +300,36 @@ const Notifications = () => {
               )}
               {notification.status === "acceptedConfirmation" && (
                 <Typography sx={{ mb: 1 }}>
-                  <Link to={`/profile/${notification.user_id_from}`} style={{ textDecoration: 'underline', 
-              color: 'inherit', 
-              fontWeight: 'bold' }}>
+                  <Link
+                    to={`/profile/${notification.user_id_from}`}
+                    style={{
+                      textDecoration: "underline",
+                      color: "inherit",
+                      fontWeight: "bold",
+                    }}
+                  >
                     {notification.user_from.username
                       ? notification.user_from.username
                       : notification.user_from.email}
-                  </Link>{" "}accepted your friend
-                  request.
+                  </Link>{" "}
+                  accepted your friend request.
                 </Typography>
               )}
               {notification.status === "rejectedConfirmation" && (
                 <Typography sx={{ mb: 1 }}>
-                  <Link to={`/profile/${notification.user_id_from}`} style={{ textDecoration: 'underline', 
-              color: 'inherit', 
-              fontWeight: 'bold' }}>
+                  <Link
+                    to={`/profile/${notification.user_id_from}`}
+                    style={{
+                      textDecoration: "underline",
+                      color: "inherit",
+                      fontWeight: "bold",
+                    }}
+                  >
                     {notification.user_from.username
                       ? notification.user_from.username
                       : notification.user_from.email}
-                  </Link>{" "}rejected your friend
-                  request.
+                  </Link>{" "}
+                  rejected your friend request.
                 </Typography>
               )}
               {notification.status === "acceptedConfirmation" && (
@@ -321,7 +342,7 @@ const Notifications = () => {
                     );
                   }}
                   sx={{
-                    marginTop:"-6px",
+                    marginTop: "-6px",
                     color: "black",
                   }}
                 >
@@ -338,7 +359,7 @@ const Notifications = () => {
                     );
                   }}
                   sx={{
-                    marginTop:"-6px",
+                    marginTop: "-6px",
                     color: "black",
                   }}
                 >
