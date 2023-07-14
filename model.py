@@ -71,15 +71,15 @@ def find_similarity():
 
 def give_recommendations():
     item = request.get_json()
-    nice = item['input']
-    times_watched = nice.pop()
-    embeddings1 = model.encode(nice[0][0], convert_to_tensor=True)
+    input = item['input']
+    times_watched = input.pop()
+    embeddings1 = model.encode(input[0][0], convert_to_tensor=True)
     cosine_scores = [0 for _ in range(embeddings1.shape[0])]
-    cosine_scores[0] = util.pytorch_cos_sim(embeddings1, tensors_recco) * scores[nice[0][1] - 1]
-    if len(nice) > 1:
-        for i in range(1, len(nice)):
-            embeddings1 = model.encode(nice[i][0], convert_to_tensor=True)
-            cosine_scores[i] = util.pytorch_cos_sim(embeddings1, tensors_recco) * scores[nice[i][1] - 1]
+    cosine_scores[0] = util.pytorch_cos_sim(embeddings1, tensors_recco) * scores[input[0][1] - 1]
+    if len(input) > 1:
+        for i in range(1, len(input)):
+            embeddings1 = model.encode(input[i][0], convert_to_tensor=True)
+            cosine_scores[i] = util.pytorch_cos_sim(embeddings1, tensors_recco) * scores[input[i][1] - 1]
     if len(times_watched) > 1:
         for i in range(times_watched[0]):
             cosine_scores[i] *= times_watched[1]

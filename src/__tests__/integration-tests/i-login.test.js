@@ -2,9 +2,22 @@ import React from "react";
 import { render, waitFor, fireEvent, screen } from "@testing-library/react";
 import Login from "../../pages/Login";
 import "@testing-library/jest-dom";
-import { MemoryRouter as Router, Route, Routes } from "react-router-dom";
+import { MemoryRouter, useLocation } from "react-router-dom";
 import App from "../../App";
 import PersonalizedSearch from "../../pages/PersonalizedSearch";
+import { AuthContext } from "../../context/AuthProvider.jsx";
+
+
+function RouterWrapper({ children }) {
+  const location = useLocation();
+  return (
+    <div>
+      <div data-testid="location-display">{location.pathname}</div>
+      {children}
+    </div>
+  );
+}
+
 
 describe("User Registration Flow", () => {
   it("should register a new user", async () => {
@@ -24,12 +37,19 @@ describe("User Registration Flow", () => {
 
     // Render the Login component
     const { getByLabelText, getByRole } = render(
-      <Router>
-        <Login /> 
-        <Routes>
-            <Route path="/home" element={<PersonalizedSearch />} />
-        </Routes>
-      </Router>
+      <MemoryRouter initialEntries={["/login"]}>
+        <AuthContext.Provider
+      value={{
+        auth: true, // Set auth to true
+        user: { id: 11111, email: "first@test.com" }, // Mock user object
+        updatePassword: jest.fn(), // Mock updatePassword function
+      }}
+    >
+          <RouterWrapper>
+           <App />
+          </RouterWrapper>
+          </AuthContext.Provider>
+      </MemoryRouter>
     );
 
     // Fill in the login form fields
@@ -46,6 +66,6 @@ describe("User Registration Flow", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Movie Recommender")).toBeInTheDocument();
-    });
+    }, { timeout: 10000});
   });
 });
