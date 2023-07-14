@@ -38,6 +38,9 @@ function MyVerticallyCenteredModal(props) {
                 props.onReviewExists(true);
             } else {
                 props.onReviewExists(false);
+                setReviewExisted({});
+                setTitle('');
+                setContent('');
             }
         };
 
@@ -161,7 +164,7 @@ function MyVerticallyCenteredModal(props) {
 function WriteReview({ movieId }) {
     const [modalShow, setModalShow] = useState(false);
     const [reviewExists, setReviewExists] = useState(false);
-
+    
     return (
         <>
             <button className="review-btn" onClick={() => setModalShow(true)}>

@@ -101,7 +101,7 @@ const Forum = ({ movieId }) => {
                     {review.title}
                   </CardTitle>
                   <CardText className="movie__reviewRating">
-                    Rating: {review.rating}/10
+                    {review.rating ? "Rating: " + review.rating + "/10" : ""}
                   </CardText>
                   <CardText className="movie__reviewContent">
                     {review.content}

@@ -5,6 +5,7 @@ import { getSupabaseInstance } from '../supabase.js';
 import { v4 } from 'uuid';
 import './modals.css';
 import { useAuth } from '../context/AuthProvider.jsx';
+import AddIcon from '@mui/icons-material/Add';
 
 function MyVerticallyCenteredModal(props) {
     const [message, setMessage] = useState("");
@@ -261,7 +262,7 @@ function Watch({ movieId }) {
     return (
         <>
             <button className="add-btn" onClick={() => setModalShow(true)}>
-                Add this movie
+                Add this movie<AddIcon style={{marginTop:"-2.7px", marginLeft:"3.5px"}}/>
             </button>
 
             <MyVerticallyCenteredModal
