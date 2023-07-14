@@ -6,7 +6,7 @@ import { v4 } from 'uuid';
 import './modals.css';
 import { useAuth } from '../context/AuthProvider.jsx';
 
-function MyVerticallyCenteredModal(props) {
+function WriteReview(props) {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [message, setMessage] = useState("");
@@ -38,6 +38,9 @@ function MyVerticallyCenteredModal(props) {
                 props.onReviewExists(true);
             } else {
                 props.onReviewExists(false);
+                setReviewExisted({});
+                setTitle('');
+                setContent('');
             }
         };
 
@@ -158,24 +161,5 @@ function MyVerticallyCenteredModal(props) {
     );
 }
 
-function WriteReview({ movieId }) {
-    const [modalShow, setModalShow] = useState(false);
-    const [reviewExists, setReviewExists] = useState(false);
-
-    return (
-        <>
-            <button className="review-btn" onClick={() => setModalShow(true)}>
-                {reviewExists ? 'Edit Review' : 'Write Review'}
-            </button>
-
-            <MyVerticallyCenteredModal
-                movieId={movieId}
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-                onReviewExists={setReviewExists}
-            />
-        </>
-    );
-}
 
 export default WriteReview;
