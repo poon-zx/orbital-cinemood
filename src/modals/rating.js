@@ -167,7 +167,7 @@ function MyVerticallyCenteredModal(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body >
-            <div className="text-center">{value + "/10"}</div>
+            <div className="text-center">{value !== null ? value + "/10" : "/10"}</div>
                 <Box style={{
                     display: "flex",
                     justifyContent: "center"}}

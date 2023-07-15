@@ -17,7 +17,7 @@ const Forum = ({ movieId }) => {
   const auth = useAuth();
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [modalShow, setModalShow] = useState(false);
-  const [reviewExists, setReviewExists] = useState(false); // Added state for review existence
+  const [reviewExists, setReviewExists] = useState({}); // Added state for review existence
 
   useEffect(() => {
     fetchForumPosts();
@@ -51,10 +51,9 @@ const Forum = ({ movieId }) => {
     }
   };
     const checkReviewExistence = async () => {
-        try {
         const { data, error } = await getSupabaseInstance()
             .from("review")
-            .select("id")
+            .select("*")
             .eq("movie_id", movieId)
             .eq("user_id", auth.user.id);
 
@@ -64,12 +63,10 @@ const Forum = ({ movieId }) => {
         }
 
         if (data && data.length > 0) {
-            setReviewExists(true);
+            setReviewExists(data[0]);
+            console.log(data+"blabla")
         } else {
-            setReviewExists(false);
-        }
-        } catch (error) {
-        console.error("Error checking review existence:", error.message);
+            setReviewExists({});
         }
     };
 
@@ -87,7 +84,7 @@ const Forum = ({ movieId }) => {
         <div className="movie__buttons">
             <Rating movieId={movieId} />
             <button className="review-btn" onClick={() => setModalShow(true)}>
-                    {reviewExists ? 'Edit Review' : 'Write Review'}<EditIcon style={{marginLeft: '3px', marginTop: '-1.5px'}} sx={{width:'18px', height:'18px'}}/>
+                    {reviewExists.title ? 'Edit Review' : 'Write Review'}<EditIcon style={{marginLeft: '3px', marginTop: '-1.5px'}} sx={{width:'18px', height:'18px'}}/>
             </button>
 
             <WriteReview
