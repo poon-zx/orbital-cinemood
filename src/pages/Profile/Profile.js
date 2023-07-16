@@ -24,7 +24,10 @@ const Profile = () => {
   const [isFriend, setIsFriend] = useState(false);
 
   const currentUserId = auth.user.id; // Store current user's ID in a variable
-  const viewingOwnProfile = urlId === currentUserId; // Check if the user is viewing their own profile
+  console.log(currentUserId);
+  console.log(urlId);
+  const viewingOwnProfile = String(urlId) === String(currentUserId); // Check if the user is viewing their own profile
+  console.log(viewingOwnProfile);
 
   useEffect(() => {
     if (!editing) {
@@ -148,6 +151,7 @@ const Profile = () => {
                           )}
                           <Button
                             className="profile-btn"
+                            data-testid="blend-btn"
                             component={Link}
                             to={`/blend/${urlId}`}
                             size="lg"
@@ -161,6 +165,7 @@ const Profile = () => {
                           </Button>
                         </>) : (<Button
                             className="profile-btn"
+                            data-testid="cine-stats-btn"
                             component={Link}
                             to={`/stats/${urlId}`}
                             size="lg"

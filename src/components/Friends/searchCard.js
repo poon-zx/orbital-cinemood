@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Card, Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
 import "./searchCard.css";
 import { useAuth } from "../../context/AuthProvider.jsx";
 import { getSupabaseInstance } from "../../supabase";
-import { Done as DoneIcon } from '@mui/icons-material';
+import { Done as DoneIcon } from "@mui/icons-material";
 
 const SearchCard = ({ friend }) => {
   const auth = useAuth();
@@ -33,27 +33,52 @@ const SearchCard = ({ friend }) => {
   return (
     <Link
       to={`/profile/${friend.id}`}
-      style={{ textDecoration: 'none', color: 'inherit', fontSize: '24px' }}
+      style={{ textDecoration: "none", color: "inherit", fontSize: "24px" }}
     >
-            <Card className="search-card" style={{ borderRadius: '10px', display: 'flex', alignItems: 'center', marginTop: '10px' }}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-            {friend.avatar_url ? (
+      <Card
+        className="search-card"
+        data-testid="search-card"
+        style={{
+          borderRadius: "10px",
+          display: "flex",
+          alignItems: "center",
+          marginTop: "10px",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {friend.avatar_url ? (
             <img
-                src={friend.avatar_url}
-                alt=""
-                width="80"
-                height="80"
-                style={{ marginTop: '10px', marginBottom: '10px', marginLeft: '10px', borderRadius: '50%' }}
+              src={friend.avatar_url}
+              alt=""
+              width="80"
+              height="80"
+              style={{
+                marginTop: "10px",
+                marginBottom: "10px",
+                marginLeft: "10px",
+                borderRadius: "50%",
+              }}
             />
-            ) : (
+          ) : (
             <Avatar
-                sx={{ width: 80, height: 80, marginTop: "10px", marginBottom: "10px", marginLeft: "10px", borderRadius: "50%" }}
+              sx={{
+                width: 80,
+                height: 80,
+                marginTop: "10px",
+                marginBottom: "10px",
+                marginLeft: "10px",
+                borderRadius: "50%",
+              }}
             />
-            )}
-            <div style={{ marginLeft: '10px' }}>
+          )}
+          <div style={{ marginLeft: "10px" }}>
             <Link
-                to={`/profile/${friend.id}`}
-                style={{ textDecoration: 'none', color: 'inherit', fontSize: '20px' }}
+              to={`/profile/${friend.id}`}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                fontSize: "20px",
+              }}
             >
                 <div style={{alignItems: 'left', justifyContent: 'left', display:'flex'}}>
                 {friend.username ? friend.username : friend.email}
@@ -62,17 +87,28 @@ const SearchCard = ({ friend }) => {
                 {friend.username ? friend.email : ""}
                 </div>
             </Link>
-            </div>
+          </div>
         </div>
-        <div style={{ marginLeft: 'auto', marginTop:'5px' }}>
-            {isFriend && (
-                <span style={{ display: 'flex', alignItems: 'center', backgroundColor: 'gray', color: 'white', fontSize: '18px', padding: '4px 8px', borderRadius: '4px', marginRight: '12px' }}>
-                <DoneIcon style={{ marginRight: '4px' }} />
-                Friends
-                </span>
-            )}
+        <div style={{ marginLeft: "auto", marginTop: "5px" }}>
+          {isFriend && (
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                backgroundColor: "gray",
+                color: "white",
+                fontSize: "18px",
+                padding: "4px 8px",
+                borderRadius: "4px",
+                marginRight: "12px",
+              }}
+            >
+              <DoneIcon style={{ marginRight: "4px" }} />
+              Friends
+            </span>
+          )}
         </div>
-        </Card>
+      </Card>
     </Link>
   );
 };
