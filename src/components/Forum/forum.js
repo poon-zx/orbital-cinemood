@@ -17,7 +17,7 @@ const Forum = ({ movieId }) => {
   const auth = useAuth();
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [modalShow, setModalShow] = useState(false);
-  const [reviewExists, setReviewExists] = useState({}); // Added state for review existence
+  const [reviewExists, setReviewExists] = useState(false); // Added state for review existence
 
   useEffect(() => {
     fetchForumPosts();
@@ -62,11 +62,10 @@ const Forum = ({ movieId }) => {
             return;
         }
 
-        if (data && data.length > 0) {
-            setReviewExists(data[0]);
-            console.log(data+"blabla")
+        if (data && data.length > 0 && data[0].title) {
+            setReviewExists(true);
         } else {
-            setReviewExists({});
+            setReviewExists(false);
         }
     };
 
@@ -84,7 +83,7 @@ const Forum = ({ movieId }) => {
         <div className="movie__buttons">
             <Rating movieId={movieId} />
             <button className="review-btn" onClick={() => setModalShow(true)}>
-                    {reviewExists.title ? 'Edit Review' : 'Write Review'}<EditIcon style={{marginLeft: '3px', marginTop: '-1.5px'}} sx={{width:'18px', height:'18px'}}/>
+                    {reviewExists ? 'Edit Review' : 'Write Review'}<EditIcon style={{marginLeft: '3px', marginTop: '-1.5px'}} sx={{width:'18px', height:'18px'}}/>
             </button>
 
             <WriteReview
