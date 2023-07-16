@@ -76,7 +76,6 @@ const PersonalizedSearch = () => {
               `https://api.themoviedb.org/3/search/movie?query=${result.movie}&api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
             )
           );
-          console.log(similarityResults.results);
 
           const movieResponses = await Promise.all(moviePromises);
           const movieResults = await Promise.all(
@@ -145,7 +144,7 @@ const PersonalizedSearch = () => {
       </p>
       <p
         className="movie__tagline"
-        style={{ textAlign: "center", width: "100%"}}
+        style={{ textAlign: "center", width: "100%" }}
       >
         Here are some sample prompts:
         <br />
@@ -184,6 +183,7 @@ const PersonalizedSearch = () => {
             />
             <IconButton
               className="search--button"
+              data-testid="search-button"
               type="submit"
               style={{ width: "50px", height: "50px" }}
             >

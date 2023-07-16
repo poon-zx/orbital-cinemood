@@ -23,15 +23,13 @@ const YourRating = ({ userId }) => {
       .eq("movie_id", movieId)
       .eq("user_id", userId);
 
-      console.log(data);
-      console.log(data[0].rating);
+    console.log(data);
+    console.log(data[0].rating);
 
     if (error) {
       console.error("Error fetching review:", error.message);
       return movieData;
     }
-
-
 
     if (data && data.length > 0) {
       const updatedData = {
@@ -91,9 +89,7 @@ const YourRating = ({ userId }) => {
   }, [userId]);
 
   const averageRating =
-    movies
-      .reduce((total, movie) => total + movie.rating, 0) /
-    (movies.length);
+    movies.reduce((total, movie) => total + movie.rating, 0) / movies.length;
 
   return (
     <div>
@@ -106,7 +102,7 @@ const YourRating = ({ userId }) => {
             {topRatedMovies.length === lowestRatedMovies.length &&
             topRatedMovies.every(
               (value, index) =>
-                value.id === [...lowestRatedMovies].reverse()[index].id
+                value.rating === [...lowestRatedMovies].reverse()[index].rating
             ) ? (
               <p className="header-textt">
                 (It appears that you have the same rating for all movies..)

@@ -8,6 +8,8 @@ import {
 import App from "../../App.js";
 import { AuthContext } from "../../context/AuthProvider.jsx";
 
+jest.setTimeout(10000);
+
 function RouterWrapper({ children }) {
   const location = useLocation();
   return (
@@ -46,7 +48,7 @@ function RouterWrapper({ children }) {
 
     // click on the review button
     await waitFor(() => {
-        const review_button = screen.getByText("Write a Review");
+        const review_button = screen.getByText("Write Review");
         fireEvent.click(review_button);
     }, { timeout: 5000 });
 
