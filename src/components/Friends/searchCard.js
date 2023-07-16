@@ -55,7 +55,12 @@ const SearchCard = ({ friend }) => {
                 to={`/profile/${friend.id}`}
                 style={{ textDecoration: 'none', color: 'inherit', fontSize: '20px' }}
             >
+                <div style={{alignItems: 'left', justifyContent: 'left', display:'flex'}}>
                 {friend.username ? friend.username : friend.email}
+                </div>
+                <div style={{fontSize: '15px'}}>
+                {friend.username ? friend.email : ""}
+                </div>
             </Link>
             </div>
         </div>
