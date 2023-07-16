@@ -80,7 +80,12 @@ const SearchCard = ({ friend }) => {
                 fontSize: "20px",
               }}
             >
-              {friend.username ? friend.username : friend.email}
+                <div style={{alignItems: 'left', justifyContent: 'left', display:'flex'}}>
+                {friend.username ? friend.username : friend.email}
+                </div>
+                <div style={{fontSize: '15px'}}>
+                {friend.username ? friend.email : ""}
+                </div>
             </Link>
           </div>
         </div>
