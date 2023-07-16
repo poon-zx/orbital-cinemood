@@ -16,16 +16,16 @@ function MyVerticallyCenteredModal(props) {
   const auth = useAuth();
 
   const handleSearch = async () => {
-    if (searchQuery.trim() === "") {
-      setMessage("Search query cannot be empty");
-      return;
-    }
-    setMessage("");
-    const { data, error } = await getSupabaseInstance()
-      .from("user")
-      .select("*")
-      .ilike("username", `%${searchQuery}%`)
-      .neq("id", auth.user.id);
+      if (searchQuery.trim() === "") {
+          setMessage("Search query cannot be empty");
+          return;
+      }
+      setMessage("");
+      const { data, error } = await getSupabaseInstance()
+          .from("user")
+          .select("*")
+          .or(`username.ilike.%${searchQuery}%,email.ilike.%${searchQuery}%`)
+          .neq("id", auth.user.id);
 
     if (error) {
       console.error("Error searching friends:", error.message);

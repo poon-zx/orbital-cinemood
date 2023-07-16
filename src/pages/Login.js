@@ -113,6 +113,7 @@ function Login() {
               },
             }}
             providers={[]}
+            view="sign_in"
           />
         </Box>
       </Container>
