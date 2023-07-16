@@ -24,7 +24,7 @@ function MyVerticallyCenteredModal(props) {
         const { data, error } = await getSupabaseInstance()
             .from("user")
             .select("*")
-            .ilike("username", `%${searchQuery}%`)
+            .or(`username.ilike.%${searchQuery}%,email.ilike.%${searchQuery}%`)
             .neq("id", auth.user.id);
 
         if (error) {
