@@ -63,7 +63,8 @@ function WriteReview(props) {
                 .from('review')
                 .update({
                     title: title,
-                    content: content
+                    content: content,
+                    created_at: new Date().toISOString()
                 })
                 .eq('id', reviewExisted.id);
 
@@ -120,7 +121,7 @@ function WriteReview(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    {reviewExisted.id ? 'Edit Review' : 'Write a Review'}
+                    {reviewExisted.title ? 'Edit Review' : 'Write a Review'}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>

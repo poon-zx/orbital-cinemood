@@ -51,10 +51,9 @@ const Forum = ({ movieId }) => {
     }
   };
     const checkReviewExistence = async () => {
-        try {
         const { data, error } = await getSupabaseInstance()
             .from("review")
-            .select("id")
+            .select("*")
             .eq("movie_id", movieId)
             .eq("user_id", auth.user.id);
 
@@ -63,13 +62,10 @@ const Forum = ({ movieId }) => {
             return;
         }
 
-        if (data && data.length > 0) {
+        if (data && data.length > 0 && data[0].title) {
             setReviewExists(true);
         } else {
             setReviewExists(false);
-        }
-        } catch (error) {
-        console.error("Error checking review existence:", error.message);
         }
     };
 
