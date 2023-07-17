@@ -1,0 +1,24 @@
+runtime: python39
+instance_class: F4_1G
+entrypoint: gunicorn -b :$PORT model:app
+
+automatic_scaling:
+  target_cpu_utilization: 0.65
+  min_instances: 1
+  max_instances: 20
+
+network: 
+  instance_tag: allow-traffic
+  forwarded_ports:
+    - 8080/tcp
+
+env_variables:
+  REACT_APP_SUPABASE_URL: "https://ccecaffoxnxnahwfcpcy.supabase.co"
+  REACT_APP_SUPABASE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjZWNhZmZveG54bmFod2ZjcGN5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODQ1NjY1MTAsImV4cCI6MjAwMDE0MjUxMH0.-W7IPp668Pp4uT5ZwzAawRU7fJYj20_6MXGOm06VDgA"
+  REACT_APP_TMDB_API_KEY: "0d3e5f1c5b02f2f9d8de3dad573c9847"
+
+handlers:
+- url: /static
+  static_dir: build/static
+- url: /.*
+  script: auto
