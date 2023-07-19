@@ -120,11 +120,11 @@ function WriteReview(props) {
             centered
         >
             <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
+                <Modal.Title id="contained-modal-title-vcenter" style={{fontFamily: 'Be Vietnam Pro, sans-serif'}}>
                     {reviewExisted.title ? 'Edit Review' : 'Write a Review'}
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body >
                 <form>
                     <div className="form-group">
                         <label>Headline</label>

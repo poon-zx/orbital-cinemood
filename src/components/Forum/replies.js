@@ -130,18 +130,18 @@ const Replies = ({ reviewId, movieId }) => {
                     </Link>
                   </span>
                   <span className="reply__date">
+                    &#8729;{" "}
                     {new Date(reply.created_at).toLocaleString("en-US", {
                       year: "numeric",
                       month: "2-digit",
                       day: "2-digit",
                       hour: "2-digit",
                       minute: "2-digit",
-                      second: "2-digit",
                       hour12: true,
                     })}
                   </span>
                 </span>
-                <span className="delete-icon-button">
+                <span className="delete-icon-button" >
                   {reply.user_id === auth.user.id ? (
                     <IconButton
                       className="delete-icon-button"
