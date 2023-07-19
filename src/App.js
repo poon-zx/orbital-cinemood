@@ -19,6 +19,7 @@ import MovieBlend from "./pages/Profile/MovieBlend.js";
 import { getSupabaseInstance } from "./supabase";
 import { ProfileImageProvider } from "./context/ProfileImageProvider";
 import PersonalStats from "./pages/Profile/PersonalStats";
+import Landing from "./pages/Landing/Landing.js"
 
 export default function App() {
   const location = useLocation();
@@ -50,6 +51,7 @@ export default function App() {
       <div className="content-container">
         {showHeader && <Header />}
         <Routes>
+          <Route path="/landing" element={<Landing />} /> 
           <Route path="/login" element={<Login />} />
           <Route path ="/" element={<PasswordReset />} />
           <Route path="/confirm-signup" element={<ConfirmationPage />} />

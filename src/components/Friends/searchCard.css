@@ -1,4 +1,4 @@
-.friends-container {
+.search-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -6,7 +6,7 @@
     margin-right: 4%;
   }
 
-  .friends-card {
+  .search-card {
     margin-left: 5px;
     margin-right: 10px;
     margin-top: 15px;
@@ -17,10 +17,10 @@
     font-family: 'Be Vietnam Pro', sans-serif;
   }
 
-  .friends-card:hover {
+  .search-card:hover {
     background-color: #ececec;
   }
 
-  .friends-card.card {
+  .search-card.card {
     background: none;
   }
