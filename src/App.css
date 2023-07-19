@@ -56,3 +56,14 @@ button {
     display: flex;
     flex-direction: column;
 }
+
+.appheader {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .custom-modal {
+    position: relative;
+    z-index: 2;
+  }
+  

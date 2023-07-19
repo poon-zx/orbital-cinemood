@@ -104,3 +104,10 @@
     background-color: #E6816B;
     transform: translateY(-1px);
 }
+
+.custom-modal .modal-body {
+    max-height: calc(100vh - 280px); 
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  

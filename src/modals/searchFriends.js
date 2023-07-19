@@ -57,6 +57,7 @@ function MyVerticallyCenteredModal(props) {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      className="custom-modal"
     >
       <Modal.Header closeButton>
         <Modal.Title className="ms-auto">Search All Users</Modal.Title>
