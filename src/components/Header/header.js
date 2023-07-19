@@ -41,7 +41,7 @@ function ResponsiveAppBar() {
   const settings = [
     {label: "Profile", path: `/profile/${auth.user.id}`},
     {label: "Friends", path: "/friends"},
-    {label: "Logout", path: "/login"},
+    {label: "Logout", path: "/landing"},
 ];
 
   // Clear search bar when navigating to another page
