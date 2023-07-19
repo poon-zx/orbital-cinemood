@@ -80,7 +80,7 @@ function ResponsiveAppBar() {
 
   const handleLogOutClick = async () => {
     await getSupabaseInstance().auth.signOut();
-    navigate("/login"); // Redirect to the login page
+    navigate("/landing"); // Redirect to the login page
   };
 
   const handleSearch = (e) => {

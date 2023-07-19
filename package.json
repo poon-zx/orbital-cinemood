@@ -32,6 +32,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.11.2",
     "react-scripts": "^5.0.1",
+    "react-simple-typewriter": "^5.0.1",
     "react-slick": "^0.29.0",
     "reactstrap": "^9.1.10",
     "slick-carousel": "^1.8.1",
