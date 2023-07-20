@@ -29,7 +29,11 @@ function MyVerticallyCenteredModal(props) {
             const existingReview = existingReviewData[0];
             const { data: updateData, error: updateError } = await getSupabaseInstance()
                 .from('review')
-                .delete()
+                .update({
+                    title: null,
+                    content: null,
+                    created_at: null
+                })
                 .eq('id', existingReview.id);
         
             if (updateError) {
