@@ -47,14 +47,14 @@ const Friends = () => {
                 <h1 style={{ marginTop: "1rem", fontFamily: 'Playfair Display, serif', marginRight: "1rem" }}>Friends</h1>
                 <SearchFriends />
             </div>
-            <div className="friends-container">
+            <div className="friends-container" style={{ display: "flex", justifyContent: friendReturn.length > 0 ? "flex-start" : "center" }}>
                 { friendReturn.length > 0 ? (
                     friendReturn.map((friend) => <FriendsCard friend={friend} key={friend.id} />
                 )) : (
-                    <p>No friends yet</p>
+                   <p style={{ textAlign: "center", fontFamily: 'Be Vietnam Pro, sans-serif', fontSize: '17px', marginTop:'10px' }}>No friends yet</p>
                 )}
             </div>
-            </div>
+        </div>
     );
       
 }

@@ -49,7 +49,7 @@ export default function App() {
       <ProfileImageProvider>
       <SearchProvider>
       <div className="content-container">
-        {showHeader && <Header />}
+        {showHeader && <Header className="appheader"/>}
         <Routes>
           <Route path="/landing" element={<Landing />} /> 
           <Route path="/login" element={<Login />} />
