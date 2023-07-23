@@ -102,7 +102,7 @@ const YourRating = ({ userId }) => {
             {topRatedMovies.length === lowestRatedMovies.length &&
             topRatedMovies.every(
               (value, index) =>
-                value.rating === [...lowestRatedMovies].reverse()[index].rating
+                value.rating === [...lowestRatedMovies][index].rating
             ) ? (
               <p className="header-textt">
                 (It appears that you have the same rating for all movies..)
