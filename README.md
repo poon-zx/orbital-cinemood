@@ -8,9 +8,9 @@ Inspired by the website GoodReads, we decided to create a similar website for mo
 To learn more about this web app, refer to the linked README below which has around 100 pages on our nine features, testing processes and software engineering practices.
 
 ### Links
-README: https://docs.google.com/document/d/1V6cs7h_6-y0vSYa_sfgOS-H5zNESau0jQevDGPsMLUw/edit?usp=sharing
-Video: https://youtu.be/u80TqGn6L2M
-Website: tinyurl.com/orbital-cinemood (if web app not found, check with poonzhexuan@gmail.com to enable web app)
+README: https://docs.google.com/document/d/1V6cs7h_6-y0vSYa_sfgOS-H5zNESau0jQevDGPsMLUw/edit?usp=sharing  
+Video: https://youtu.be/u80TqGn6L2M  
+Website: tinyurl.com/orbital-cinemood (if web app not found, check with poonzhexuan@gmail.com to enable web app)  
 
 ### Poster
 ![MS3 Poster (2)](https://github.com/poon-zx/orbital-cinemood/assets/94552176/4d945a74-a5f0-4687-a034-b6ad4ad44571)
