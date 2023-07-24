@@ -1,28 +1,16 @@
 # cineMOOD
 
-### Motivation 
-Have you ever had a hard time deciding what movies to watch on streaming services? With an overwhelming number of options available, it’s common to spend hours scrolling through the movie section without finding anything that suits your tastes and end up rewatching your favourite movies. While some streaming services offer movie recommendations based on genres, these suggestions are often impersonal and fail to take into account our unique preferences and mood. Moreover, their suggested movies are limited to the movies available on their platform, further restricting our options. 
+### About
+cineMOOD is a web platform that uses machine learning to recommend movies to users based on text input as well as their previously watched movies and reviews. 
 
-But what if we could use our watch history and current mood to find the perfect movie for our next viewing experience? 
+Inspired by the website GoodReads, we decided to create a similar website for movies instead. Apart from the movie recommender feature above, our website allows users to browse for movies and add them to their watchlist and watch history. Reviews can also be written under movies to facilitate discussions.
 
-### Aim 
-We hope to help users decide on what movies to watch by creating a web platform that uses machine learning to recommend movies to users based on text input as well as their previously watched movies and reviews.
+To learn more about this web app, refer to the linked README below which has around 100 pages on our nine features, testing processes and software engineering practices.
 
-### User Stories
-As a user who is looking for movies to watch, I can simply input the type of movie I am interested in and the website would fetch movie recommendations
+### Links
+README: https://docs.google.com/document/d/1V6cs7h_6-y0vSYa_sfgOS-H5zNESau0jQevDGPsMLUw/edit?usp=sharing
+Video: https://youtu.be/u80TqGn6L2M
+Website: tinyurl.com/orbital-cinemood (if web app not found, check with poonzhexuan@gmail.com to enable web app)
 
-As a user who is looking for movies to watch, I can sort and filter recommended movies based on a range of metrics, including user ratings, as well as their favourite actresses and actors
-
-As a user looking for a specific movie, I can type the movie name and obtain details on the movie and look at user reviews
-
-As a movie enthusiast, I can record past movies I have watched as well as my ratings/ review of the movie on my profile
-
-As a movie enthusiast,  I can view discussion forums under each movie and post my thoughts about it 
-
-As a user who has recorded movies watched and written reviews in their profile, I can obtain personalised recommendations based on watch history and personal reviews 
-
-### Core Features
-1. Movie Search Engine (NLP and Recommendation Engine)
-2. Movie Catalog 
-3. Forum and Reviews
-4. Personalized Recommendations
+### Poster
+![MS3 Poster (2)](https://github.com/poon-zx/orbital-cinemood/assets/94552176/4d945a74-a5f0-4687-a034-b6ad4ad44571)
