@@ -13,4 +13,4 @@ Video: https://youtu.be/u80TqGn6L2M
 Website: tinyurl.com/orbital-cinemood (if web app not found, check with poonzhexuan@gmail.com to enable web app)  
 
 ### Poster
-![MS3 Poster (2)](https://github.com/poon-zx/orbital-cinemood/assets/94552176/4d945a74-a5f0-4687-a034-b6ad4ad44571)
+[MS3 Poster.pdf](https://github.com/poon-zx/orbital-cinemood/files/12428139/MS3.Poster.pdf)
